@@ -1,0 +1,24 @@
+<TBSUnit>
+	<name>Footsoldier</name>
+	<type>INFANTRY</type>
+
+	<level>1</level>
+	<xp>0</xp>
+
+	<health>4</health>
+	<move>6</move>
+	<vision>2</vision>
+	
+	<physattack>2</attack>
+	<rangattack>2</rangattack>
+	<magattack>2</magattack>
+	
+	<defence>3</defence>
+	<resistance>1</resistance>
+
+	<abilities>
+		<ability>Melee Strike</ability>
+		<ability>Guard</ability>
+		<ability>Infantry</ability>
+	</abilities>
+</TBSUnit>
