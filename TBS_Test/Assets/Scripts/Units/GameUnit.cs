@@ -30,6 +30,7 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	public float fMovement;
 	public float fVision;
 
+	public float fAttack;
 	public float fPhysAttack;
 	public float fRangAttack;
 	public float fMagiAttack;
@@ -52,7 +53,8 @@ public class GameUnit : MonoBehaviour, ISelectable {
 		fHealth = 50.0f;
 		fMovement = 6.0f;
 		fVision = 2.0f;
-		
+
+		fAttack = 4.0f;
 		fPhysAttack = 4.0f;
 		fRangAttack = 4.0f;
 		fMagiAttack = 4.0f;
