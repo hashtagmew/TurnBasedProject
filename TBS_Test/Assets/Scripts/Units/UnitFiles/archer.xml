@@ -12,5 +12,7 @@
 
 	<abilities>
 		<ability strength="12">Archery</ability>
+		<ability>Archer</ability>
+		<ability>Human</ability>
 	</abilities>
 </TBSUnit>

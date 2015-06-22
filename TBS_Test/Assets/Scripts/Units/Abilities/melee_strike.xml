@@ -1,0 +1,17 @@
+<TBSAbility>
+	<name>Melee Strike</name>
+	<type>ACTIVE</type>
+	<strength>1</strength>
+
+	<onactivation>
+		<effect range="1">Target Other</effect>
+	</onactivation>
+	
+	<onresolution>
+		<effect strength="12" element="physical">Damage Target</effect>
+	</onresolution>
+	
+	<onpassive>
+		<effect strength="2">Bonus Armour</effect>
+	</onpassive>
+</TBSAbility>

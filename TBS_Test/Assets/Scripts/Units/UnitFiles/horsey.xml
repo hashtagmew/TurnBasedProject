@@ -1,0 +1,19 @@
+<TBSUnit>
+	<name>Horsey</name>
+
+	<level>1</level>
+	<xp>0</xp>
+	<health>50</health>
+	<move>6</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability strength="10">Melee Strike</ability>
+		<ability strength="25">Fire Resistance</ability>
+		<ability>Cavalry</ability>
+		<ability>Human</ability>
+	</abilities>
+</TBSUnit>

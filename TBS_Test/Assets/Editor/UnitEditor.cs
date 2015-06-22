@@ -12,13 +12,14 @@ using UnityEngine.UI;
 
 using System.Text;
 
-public class UnitCreator : EditorWindow {
+public class UnitEditor : EditorWindow {
 
 	static private GUIStyle s_guiStyleDisabled;
 	static private GUIStyle s_guiStyleAlert;
 	
 	static private Vector2 s_vScrollPos;
 	static private Vector2 s_vAbilityScrollPos;
+	static private bool s_bShowAbilities = false;
 
 	static private Dictionary<string, bool> s_dAbilityToggles;
 	static private Dictionary<string, float> s_dAbilityPower;
@@ -28,7 +29,7 @@ public class UnitCreator : EditorWindow {
 
 	//Unit bits
 	static private string s_sName = "Noname";
-	static private UNIT_TYPE s_iType = UNIT_TYPE.NONE;
+	//static private UNIT_TYPE s_iType = UNIT_TYPE.NONE;
 	
 	static private int s_iLevel = 1;
 	static private float s_fXP = 0.0f;
@@ -54,7 +55,7 @@ public class UnitCreator : EditorWindow {
 
 	//Window
 	public static void Init() {
-		UnitCreator window = (UnitCreator)EditorWindow.GetWindow(typeof(UnitCreator));
+		UnitEditor window = (UnitEditor)EditorWindow.GetWindow(typeof(UnitEditor));
 
 		s_xmlDoc = new XDocument();
 
@@ -168,57 +169,62 @@ public class UnitCreator : EditorWindow {
 		//=========== GUI START	Abilities
 		GUILayout.BeginVertical("box");
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Abilities", EditorStyles.boldLabel);
-		if (GUILayout.Button("Refresh")) {
+		//GUILayout.Label("Abilities", EditorStyles.boldLabel);
+		s_bShowAbilities = EditorGUILayout.Foldout(s_bShowAbilities, "Abilities");
+
+		if (GUILayout.Button ("Refresh")) {
 			ReloadAbilities();
 		}
 		GUILayout.EndHorizontal();
+		
+		if (s_bShowAbilities) {
 
-		s_vAbilityScrollPos = GUILayout.BeginScrollView(s_vAbilityScrollPos);
-		if (s_dAbilityToggles == null) {
-			ReloadAbilities();
-		}
 
-		if (s_dAbilityToggles != null && s_dAbilityToggles.Count != 0) {
-			foreach (KeyValuePair<string, Ability> abilpair in AbilityBox.s_dAbilityLookup) {
-				//Category breaks
-				if (abilpair.Key == "Melee Strike") {
-					GUILayout.Space(5.0f);
-					GUILayout.Label("Activated");
-				}
-
-				if (abilpair.Key == "Guard") {
-					GUILayout.Space(5.0f);
-					GUILayout.Label("Passive");
-				}
-
-				if (abilpair.Key == "Infantry") {
-					GUILayout.Space(5.0f);
-					GUILayout.Label("Types");
-				}
-
-				if (abilpair.Key == "Human") {
-					GUILayout.Space(5.0f);
-					GUILayout.Label("Races");
-				}
-
-				//Draw ability checks
-				GUILayout.BeginHorizontal();
-				s_dAbilityToggles[abilpair.Key] = GUILayout.Toggle(s_dAbilityToggles[abilpair.Key], abilpair.Key);
-				if (abilpair.Value.iType == ABILITY_TYPE.ACTIVE) {
-					s_dAbilityPower[abilpair.Key] = GUILayout.HorizontalSlider(s_dAbilityPower[abilpair.Key], 1.0f, 100.0f, GUILayout.Width(150.0f));
-					s_dAbilityPower[abilpair.Key] = EditorGUILayout.FloatField(s_dAbilityPower[abilpair.Key], GUILayout.Width(30.0f));
-				}
-				else if (abilpair.Value.iType == ABILITY_TYPE.PASSIVE) {
-					if (abilpair.Value.fIntensity > 0) {
-						s_dAbilityPower[abilpair.Key] = GUILayout.HorizontalSlider(s_dAbilityPower[abilpair.Key], 1.0f, 100.0f, GUILayout.Width(150.0f));
-						s_dAbilityPower[abilpair.Key] = EditorGUILayout.FloatField(s_dAbilityPower[abilpair.Key], GUILayout.Width(30.0f));
-					}
-				}
-				GUILayout.EndHorizontal();
+			s_vAbilityScrollPos = GUILayout.BeginScrollView (s_vAbilityScrollPos);
+			if (s_dAbilityToggles == null) {
+				ReloadAbilities ();
 			}
+
+			if (s_dAbilityToggles != null && s_dAbilityToggles.Count != 0) {
+				foreach (KeyValuePair<string, Ability> abilpair in AbilityBox.s_dAbilityLookup) {
+					//Category breaks
+					if (abilpair.Key == "Melee Strike") {
+						GUILayout.Space (5.0f);
+						GUILayout.Label ("Activated");
+					}
+
+					if (abilpair.Key == "Guard") {
+						GUILayout.Space (5.0f);
+						GUILayout.Label ("Passive");
+					}
+
+					if (abilpair.Key == "Infantry") {
+						GUILayout.Space (5.0f);
+						GUILayout.Label ("Types");
+					}
+
+					if (abilpair.Key == "Human") {
+						GUILayout.Space (5.0f);
+						GUILayout.Label ("Races");
+					}
+
+					//Draw ability checks
+					GUILayout.BeginHorizontal ();
+					s_dAbilityToggles [abilpair.Key] = GUILayout.Toggle (s_dAbilityToggles [abilpair.Key], abilpair.Key);
+					if (abilpair.Value.iType == ABILITY_TYPE.ACTIVE) {
+						s_dAbilityPower [abilpair.Key] = GUILayout.HorizontalSlider (s_dAbilityPower [abilpair.Key], 1.0f, 100.0f, GUILayout.Width (150.0f));
+						s_dAbilityPower [abilpair.Key] = EditorGUILayout.FloatField (s_dAbilityPower [abilpair.Key], GUILayout.Width (30.0f));
+					} else if (abilpair.Value.iType == ABILITY_TYPE.PASSIVE) {
+						if (abilpair.Value.fIntensity > 0) {
+							s_dAbilityPower [abilpair.Key] = GUILayout.HorizontalSlider (s_dAbilityPower [abilpair.Key], 1.0f, 100.0f, GUILayout.Width (150.0f));
+							s_dAbilityPower [abilpair.Key] = EditorGUILayout.FloatField (s_dAbilityPower [abilpair.Key], GUILayout.Width (30.0f));
+						}
+					}
+					GUILayout.EndHorizontal ();
+				}
+			}
+			GUILayout.EndScrollView ();
 		}
-		GUILayout.EndScrollView();
 		GUILayout.EndVertical();
 		//=========== GUI END	Abilities
 		
