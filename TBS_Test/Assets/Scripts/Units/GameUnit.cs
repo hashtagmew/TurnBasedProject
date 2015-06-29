@@ -2,19 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum UNIT_TYPE {
-	NONE = 0,
-	INFANTRY,
-	ARCHER,
-	PIKEMAN,
-	CAVALRY,
-	SUPPORT,
-	IRREGULAR,
-	MAGICALBEING,
-	MONSTER,
-	ANIMAL
-}
-
 public class GameUnit : MonoBehaviour, ISelectable {
 
 	public Vector2 vGridPosition;

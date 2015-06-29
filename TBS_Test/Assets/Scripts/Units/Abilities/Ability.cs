@@ -1,13 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum ABILITY_TYPE {
-	NONE = 0,
-	ACTIVE,
-	PASSIVE,
-	UNIT_TYPE,
-	RACE
-}
+
 
 public class Ability {
 
