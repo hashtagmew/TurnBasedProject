@@ -1,11 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum EFFECT_TYPE {
-	NONE = 0,
-	ACTIVATABLE,
-	PASSIVE
-}
+
 
 public class Effect {
 
