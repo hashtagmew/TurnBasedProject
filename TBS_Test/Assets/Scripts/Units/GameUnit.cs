@@ -7,13 +7,14 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	public Vector2 vGridPosition;
 
 	public string sName;
-	public UNIT_TYPE iType = UNIT_TYPE.NONE;
 
 	public int iLevel;
 	public float fXP;
 	public float fXPtoNext;
+	public float fAP;
 
 	public float fHealth;
+	public float fMana;
 	public float fMovement;
 	public float fVision;
 
@@ -31,7 +32,6 @@ public class GameUnit : MonoBehaviour, ISelectable {
 		vGridPosition = Vector2.zero;
 		
 		sName = "Noname";
-		iType = UNIT_TYPE.NONE;
 		
 		iLevel = 1;
 		fXP = 0.0f;

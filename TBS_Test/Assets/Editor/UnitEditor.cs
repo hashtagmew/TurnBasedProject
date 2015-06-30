@@ -29,13 +29,19 @@ public class UnitEditor : EditorWindow {
 
 	//Unit bits
 	static private string s_sName = "Noname";
-	//static private UNIT_TYPE s_iType = UNIT_TYPE.NONE;
+	static private string s_sDescription = "A unit that does things.";
+	//TODO: Build costs?
 	
 	static private int s_iLevel = 1;
-	static private float s_fXP = 0.0f;
+	//static private float s_fXP = 0.0f;
 	//fXPtoNext = 100.0f;
+	static private float s_fAP = 3.0f;
 	
 	static private float s_fHealth = 50.0f;
+	static private float s_fMaxHealth = 50.0f;
+	static private float s_fMana = 0.0f;
+	static private float s_fMaxMana = 0.0f;
+
 	static private float s_fMovement = 6.0f;
 	static private float s_fVision = 2.0f;
 
@@ -103,34 +109,61 @@ public class UnitEditor : EditorWindow {
 		
 		//=========== GUI BEGIN Stats
 		//Name
-		GUILayout.BeginHorizontal("box");
+		GUILayout.BeginVertical("box");
+
+		GUILayout.BeginHorizontal();
 		GUI.SetNextControlName("Top");
 		GUILayout.Label("Name", EditorStyles.boldLabel);
 		s_sName = GUILayout.TextField(s_sName, 28, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
-		//Race
-
-		//Level
-		GUILayout.BeginVertical("box");
+		//Description
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Level", EditorStyles.boldLabel);
+		GUILayout.Label("Description", EditorStyles.boldLabel);
+		s_sDescription = GUILayout.TextArea(s_sDescription, 255, GUILayout.Width(200), GUILayout.Height(60));
+		GUILayout.EndHorizontal();
+
+		GUILayout.Space(15);
+
+		//Tier
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Tier", EditorStyles.boldLabel);
 		s_iLevel = EditorGUILayout.IntField(s_iLevel, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
-		//XP
+		//AP
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("XP", EditorStyles.boldLabel);
-		s_fXP = EditorGUILayout.FloatField(s_fXP, GUILayout.Width(200));
+		GUILayout.Label("AP", EditorStyles.boldLabel);
+		s_fAP = EditorGUILayout.FloatField(s_fAP, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
+
 		GUILayout.EndVertical();
 
 		//HP
 		GUILayout.BeginVertical("box");
+
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Health", EditorStyles.boldLabel);
 		s_fHealth = EditorGUILayout.FloatField(s_fHealth, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Max Health", EditorStyles.boldLabel);
+		s_fMaxHealth = EditorGUILayout.FloatField(s_fMaxHealth, GUILayout.Width(200));
+		GUILayout.EndHorizontal();
+
+		//Mana
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Mana", EditorStyles.boldLabel);
+		s_fMana = EditorGUILayout.FloatField(s_fMana, GUILayout.Width(200));
+		GUILayout.EndHorizontal();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Max Mana", EditorStyles.boldLabel);
+		s_fMaxMana = EditorGUILayout.FloatField(s_fMaxMana, GUILayout.Width(200));
+		GUILayout.EndHorizontal();
+
+		GUILayout.Space(15);
 
 		//Movement
 		GUILayout.BeginHorizontal();
@@ -143,6 +176,7 @@ public class UnitEditor : EditorWindow {
 		GUILayout.Label("Vision", EditorStyles.boldLabel);
 		s_fVision = EditorGUILayout.FloatField(s_fVision, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
+
 		GUILayout.EndVertical();
 
 		//Attack
@@ -242,14 +276,26 @@ public class UnitEditor : EditorWindow {
 				if (xlayer1.Name == "name") {
 					s_sName = xlayer1.Value;
 				}
+				else if (xlayer1.Name == "description") {
+					s_sDescription = xlayer1.Value;
+				}
 				else if (xlayer1.Name == "level") {
 					s_iLevel = int.Parse(xlayer1.Value);
 				}
-				else if (xlayer1.Name == "xp") {
-					s_fXP = float.Parse(xlayer1.Value);
+				else if (xlayer1.Name == "ap") {
+					s_fAP = float.Parse(xlayer1.Value);
 				}
 				else if (xlayer1.Name == "health") {
 					s_fHealth = float.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "maxhealth") {
+					s_fMaxHealth = float.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "mana") {
+					s_fMana = float.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "maxmana") {
+					s_fMaxMana = float.Parse(xlayer1.Value);
 				}
 				else if (xlayer1.Name == "move") {
 					s_fMovement = float.Parse(xlayer1.Value);
@@ -305,6 +351,13 @@ public class UnitEditor : EditorWindow {
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
+		//Description
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("description");
+		writer.WriteValue(s_sDescription);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
 		writer.WriteWhitespace("\n");
 
 		//Level
@@ -314,10 +367,10 @@ public class UnitEditor : EditorWindow {
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
-		//XP
+		//AP
 		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("xp");
-		writer.WriteValue(s_fXP);
+		writer.WriteStartElement("ap");
+		writer.WriteValue(s_fAP);
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
@@ -325,6 +378,25 @@ public class UnitEditor : EditorWindow {
 		writer.WriteWhitespace("\t");
 		writer.WriteStartElement("health");
 		writer.WriteValue(s_fHealth);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("maxhealth");
+		writer.WriteValue(s_fMaxHealth);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Mana
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("mana");
+		writer.WriteValue(s_fMana);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("maxmana");
+		writer.WriteValue(s_fMaxMana);
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
