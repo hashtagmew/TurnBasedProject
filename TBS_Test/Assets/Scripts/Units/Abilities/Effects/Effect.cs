@@ -13,7 +13,7 @@ public class Effect {
 		//
 	}
 
-	public Effect(string name, EFFECT_TYPE type, bool adjustable = false) {
+	public Effect(string name, EFFECT_TYPE type, bool adjustable) {
 		sName = name;
 		iType = type;
 		bAdjustable = adjustable;

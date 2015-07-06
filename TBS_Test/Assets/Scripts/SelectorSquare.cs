@@ -7,11 +7,11 @@ public class SelectorSquare : MonoBehaviour {
 	public GameMap mapmng;
 	public List<RaycastHit2D> l_rayhits;
 	
-	void Start () {
+	void Start() {
 		l_rayhits = new List<RaycastHit2D>();
 	}
 
-	void Update () {
+	void Update() {
 		//Move
 		if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
 			this.transform.position = this.transform.position + new Vector3(-mapmng.fTileSize, 0, 0);
