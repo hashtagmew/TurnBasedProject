@@ -53,21 +53,14 @@ public class UnitEditor : EditorWindow {
 	static private float s_fResistance = 2.0f;
 	static private float s_fDefence = 3.0f;
 
-	//Menu items
-	[MenuItem("Window/Unit Editor %&u")]
-	private static void NewMenuOption() {
-		Init(); 
-	}
-
 	//Window
-	public static void Init() {
+	[MenuItem("Window/Unit Editor %&u")]
+	static void Init() {
 		UnitEditor window = (UnitEditor)EditorWindow.GetWindow(typeof(UnitEditor));
 
 		s_xmlDoc = new XDocument();
 
 		ReloadAbilities();
-
-		//s_curunit = new GameUnit();
 		
 		s_guiStyleDisabled = new GUIStyle();
 		s_guiStyleDisabled.normal.textColor = Color.grey;

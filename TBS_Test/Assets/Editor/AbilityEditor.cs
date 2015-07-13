@@ -41,13 +41,8 @@ public class AbilityEditor : EditorWindow {
 	static private string s_sName = "Goggles";
 	static private ABILITY_TYPE s_iType = ABILITY_TYPE.NONE;
 
-	//Menu items
-	[MenuItem("Window/Ability Editor %&a")]
-	private static void NewMenuOption() {
-		Init(); 
-	}
-
 	//Window
+	[MenuItem("Window/Ability Editor %&a")]
 	public static void Init() {
 		AbilityEditor window = (AbilityEditor)EditorWindow.GetWindow(typeof(AbilityEditor));
 		

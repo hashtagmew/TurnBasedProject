@@ -25,7 +25,7 @@ public class GameMap : MonoBehaviour {
 			List<MapTile> row = new List<MapTile>();
 			for (int j = 0; j < iMapVertSize; j++) {
 				MapTile tile = ((GameObject)Instantiate(TilePrefab, 
-				                                        new Vector3(i * fTileSize, j * -fTileSize, 0),
+				                                        new Vector3(i * fTileSize, 0, j * -fTileSize),
 				                                         Quaternion.identity)).GetComponent<MapTile>();
 				tile.vGridPosition = new Vector2(i, j);
 				tile.gameObject.name = "Tile (" + i.ToString("D2") + ", " + j.ToString("D2") + ")";
