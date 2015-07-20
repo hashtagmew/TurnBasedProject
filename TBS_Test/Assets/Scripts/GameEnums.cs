@@ -30,3 +30,11 @@ public enum EFFECT_TYPE {
 	RESOLUTION,
 	PASSIVE
 }
+
+public enum TERRAIN_TYPE {
+	NONE = 0,
+	PLAINS,
+	WASTELAND,
+	DESERT,
+	QUAGMIRE,
+}
