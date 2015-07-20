@@ -10,6 +10,7 @@ public class TileCursor : MonoBehaviour {
 	public RaycastHit rayHit;
 	
 	private Vector3 vTempPos;
+	public MapTile mapTile;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +36,8 @@ public class TileCursor : MonoBehaviour {
 				this.transform.position = vTempPos;
 
 				Debug.DrawLine(ray.GetPoint(0), rayHit.point);
+
+				mapTile = rayHit.collider.gameObject.GetComponent<MapTile>();
 			}
 		}
 
