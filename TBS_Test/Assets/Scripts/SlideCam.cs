@@ -9,6 +9,9 @@ public class SlideCam : MonoBehaviour {
 	float fMoveSpeed = 0.15f;
 	float fZoomSpeed = 0.1f;
 
+	public float fMinScale = 0.8f;
+	public float fMaxScale = 5.0f;
+
 	// Use this for initialization
 	void Start() {
 		camMain = this.GetComponent<Camera>();
@@ -36,10 +39,10 @@ public class SlideCam : MonoBehaviour {
 
 		//Zoom
 		if (Input.mouseScrollDelta.y > 0) {
-			camMain.orthographicSize += -fZoomSpeed;
+			camMain.orthographicSize = Mathf.Clamp(camMain.orthographicSize - fZoomSpeed, fMinScale, fMaxScale);
 		}
 		else if (Input.mouseScrollDelta.y < 0) {
-			camMain.orthographicSize += fZoomSpeed;
+			camMain.orthographicSize = Mathf.Clamp(camMain.orthographicSize + fZoomSpeed, fMinScale, fMaxScale);
 		}
 
 		this.transform.position = vTempMove;

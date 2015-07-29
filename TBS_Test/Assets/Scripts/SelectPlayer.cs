@@ -10,30 +10,23 @@ public class SelectPlayer : MonoBehaviour {
 	public MapTile tileGoal;
 
 	bool bUnitSelected;
-	// Use this for initialization
-	void Start () {
+
+	void Start() {
 		vTarget = transform.position;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetMouseButtonDown(0))
-		{
 
-			Debug.Log("Mouse is down");
-			//vTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			//vTarget.z = transform.position.z;
+	void Update() {
+		if (Input.GetMouseButtonDown(0)) {
 			if (Cursor.mapTile != null) {
 				vTarget = Cursor.mapTile.gameObject.transform.position;
-				vTarget = new Vector3(vTarget.x, 0.1f, vTarget.z);
+				vTarget = new Vector3(vTarget.x, 0.15f, vTarget.z);
 			}
 		}
 		transform.position = Vector3.MoveTowards(transform.position, vTarget, fSpeed * Time.deltaTime);
 	}
 
-	void OnClick(){
-
+	void OnClick() {
 		bUnitSelected = true;
-		Debug.Log ("Selected");
+		Debug.Log("Selected " + this.name);
 	}
 }

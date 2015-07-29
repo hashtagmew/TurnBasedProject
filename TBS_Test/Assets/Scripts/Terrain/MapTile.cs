@@ -17,14 +17,6 @@ public class MapTile : MonoBehaviour {
 		
 	}
 
-	void OnMouseEnter() {
-		//
-	}
-
-	void OnMouseExit() {
-		//
-	}
-
 	public void Terraform(TERRAIN_TYPE changeto) {
 		//
 	}
