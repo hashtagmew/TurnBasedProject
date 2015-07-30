@@ -11,6 +11,9 @@ public class SelectPlayer : MonoBehaviour {
 
 	bool bUnitSelected;
 
+	private float fTempX;
+	private float fTempZ;
+
 	void Start() {
 		vTarget = transform.position;
 	}
@@ -22,11 +25,40 @@ public class SelectPlayer : MonoBehaviour {
 				vTarget = new Vector3(vTarget.x, 0.15f, vTarget.z);
 			}
 		}
-		transform.position = Vector3.MoveTowards(transform.position, vTarget, fSpeed * Time.deltaTime);
+
+		fTempX = this.transform.position.x;
+		fTempZ = this.transform.position.z;
+
+		if (!FloatApproximation(fTempX, vTarget.x, 0.1f)) {
+			if (fTempX < vTarget.x) {
+				fTempX += fSpeed * Time.deltaTime;
+			}
+			else if (fTempX > vTarget.x) {
+				fTempX -= fSpeed * Time.deltaTime;
+			}
+		}
+		else {
+			if (!FloatApproximation(fTempZ, vTarget.z, 0.1f)) {
+				if (fTempZ < vTarget.z) {
+					fTempZ += fSpeed * Time.deltaTime;
+				}
+				else if (fTempZ > vTarget.z) {
+					fTempZ -= fSpeed * Time.deltaTime;
+				}
+			}
+		}
+
+		this.transform.position = new Vector3(fTempX, this.transform.position.y, fTempZ);
+
+		//transform.position = Vector3.MoveTowards(transform.position, vTarget, fSpeed * Time.deltaTime);
 	}
 
 	void OnClick() {
 		bUnitSelected = true;
 		Debug.Log("Selected " + this.name);
+	}
+
+	private bool FloatApproximation(float a, float b, float tolerance) {
+		return (Mathf.Abs(a - b) < tolerance);
 	}
 }

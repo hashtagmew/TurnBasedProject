@@ -32,7 +32,7 @@ public class Debug_ParticleSpawner : MonoBehaviour {
 		if (goDummy.transform.childCount > 0) {
 			txtList.text = "";
 			for (int i = 0; i < goDummy.transform.childCount; i++) {
-				txtList.text += goDummy.transform.GetChild(i).name + "\n";
+				txtList.text += goDummy.transform.GetChild(i).name.Substring(0, goDummy.transform.GetChild(i).name.Length - 7) + "\n";
 			}
 		}
 		else {
@@ -60,6 +60,7 @@ public class Debug_ParticleSpawner : MonoBehaviour {
 		if (d_particles.ContainsKey(particle)) {
 			GameObject newgo = (GameObject)GameObject.Instantiate(d_particles[particle]);
 			newgo.transform.SetParent(goDummy.transform);
+			newgo.transform.localPosition = Vector3.zero;
 		}
 		else {
 			Debug.Log("Can't find particle system named \"" + particle + "\"");
@@ -74,6 +75,12 @@ public class Debug_ParticleSpawner : MonoBehaviour {
 		}
 		else {
 			Debug.Log("Can't find particle system named \"" + particle + "\"");
+		}
+	}
+
+	public void ClearAllParticles() {
+		for (int i = goDummy.transform.childCount - 1; i > -1; i--) {
+			GameObject.Destroy(goDummy.transform.GetChild(i).gameObject);
 		}
 	}
 }
