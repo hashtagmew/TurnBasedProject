@@ -12,7 +12,7 @@ public class Debug_ParticleSpawner : MonoBehaviour {
 	public Text txtCounter;
 	public Text txtList;
 
-	public SlideCam camMain;
+	public Camera_PC camMain;
 
 	// Use this for initialization
 	void Start () {

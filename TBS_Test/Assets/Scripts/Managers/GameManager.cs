@@ -30,7 +30,15 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		else {
-			Debug.Log("No tile!");
+			//Debug.Log("No tile!");
 		}
+
+		if (Input.GetKeyDown(KeyCode.F12)) {
+			ChangeScene("particle-effect-tester");
+		}
+	}
+
+	public void ChangeScene(string scene) {
+		Application.LoadLevel(scene);
 	}
 }

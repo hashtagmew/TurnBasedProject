@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CameraPinchToZoom : MonoBehaviour {
 
 	public float fZoomSpeed = 0.1f;
-	public Camera cam;
+	private Camera camMain;
 
 	public float fMinScale = 0.8f;
 	public float fMaxScale = 5.0f;
@@ -19,9 +20,11 @@ public class CameraPinchToZoom : MonoBehaviour {
 
 	private float fTouchSpeed0;
 	private float fTouchSpeed1;
+
+	public Text txtDebug;
 	
 	void Start() {
-	
+		camMain = this.GetComponent<Camera>();
 	}
 
 	void Update() {
@@ -34,12 +37,30 @@ public class CameraPinchToZoom : MonoBehaviour {
 			fTouchSpeed1 = Input.GetTouch(1).deltaPosition.magnitude / Input.GetTouch(1).deltaTime;
 
 			if ((fTouchDelta + fVariance <= 1) && (fTouchSpeed0 > fMinPinchSpeed) && (fTouchSpeed1 > fMinPinchSpeed)) {
-				cam.orthographicSize = Mathf.Clamp(cam.orthographicSize + fZoomSpeed, fMinScale, fMaxScale);
+				camMain.orthographicSize = Mathf.Clamp(camMain.orthographicSize + fZoomSpeed, fMinScale, fMaxScale);
 			}
 			
 			if ((fTouchDelta + fVariance > 1) && (fTouchSpeed0 > fMinPinchSpeed) && (fTouchSpeed1 > fMinPinchSpeed)) {
-				cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - fZoomSpeed, fMinScale, fMaxScale);
+				camMain.orthographicSize = Mathf.Clamp(camMain.orthographicSize - fZoomSpeed, fMinScale, fMaxScale);
 			}
 		}
+
+		if (Input.touchCount > 0) {
+			txtDebug.text = "TD0: " + (Input.GetTouch(0).position.magnitude - Input.GetTouch(0).deltaPosition.magnitude).ToString();
+		}
+
+//		if (Input.touchCount == 2 && Input.GetTouch(0).phase == TouchPhase.Stationary && Input.GetTouch(1).phase == TouchPhase.Stationary) {
+//			vCurDistance = Input.GetTouch(0).position - Input.GetTouch(1).position;
+//		}
+//
+//		if (Input.touchCount == 2) {
+//			if (Input.GetTouch(0).position.magnitude - Input.GetTouch(0).deltaPosition.magnitude < 0) {
+//				cam.orthographicSize = Mathf.Clamp(cam.orthographicSize + fZoomSpeed, fMinScale, fMaxScale);
+//			}
+//
+//			if (Input.GetTouch(0).position.magnitude - Input.GetTouch(0).deltaPosition.magnitude > 0) {
+//				cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - fZoomSpeed, fMinScale, fMaxScale);
+//			}
+//		}
 	}
 }

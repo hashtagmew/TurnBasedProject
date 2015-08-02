@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-[Flags]
+[System.Flags]
 public enum ABILITY_ELEMENT {
 	NONE = 0x0,
 	KINETIC = 0x1,
@@ -13,7 +12,8 @@ public enum ABILITY_ELEMENT {
 	LIGHT = 0x32,
 	DARK = 0x64,
 	ELECTRIC = 0x128,
-	ICE = 0x256
+	ICE = 0x256,
+	MAGIC = 0x512
 }
 
 public enum ABILITY_TYPE {

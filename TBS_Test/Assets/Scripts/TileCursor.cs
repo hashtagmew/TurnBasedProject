@@ -22,10 +22,7 @@ public class TileCursor : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-
-
-			//if (Physics.Raycast(ray.GetPoint(0), Vector3.down, out rayHit, Mathf.Infinity, LayerMask.NameToLayer("Terrain"))) {
-			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity)) {//, LayerMask.NameToLayer("Terrain"))) {
+			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))) {
 				vTempPos = rayHit.point;
 				//vTempPos.x = (int)vTempPos.x;
 				vTempPos.x = rayHit.collider.gameObject.transform.position.x;
@@ -48,5 +45,17 @@ public class TileCursor : MonoBehaviour {
 		//iYGridPos = (int)vTempPos.z;
 
 		//this.transform.position = new Vector3(iXGridPos, 0, iYGridPos);
+	}
+
+	public void TerraformSelection(TERRAIN_TYPE newtype) {
+		if (mapTile != null) {
+			mapTile.Terraform(newtype);
+		}
+	}
+
+	public void TerraformSelection(int newtype) {
+		if (mapTile != null) {
+			mapTile.Terraform((TERRAIN_TYPE)newtype);
+		}
 	}
 }

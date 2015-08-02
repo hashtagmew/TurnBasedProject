@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 public class MapTile : MonoBehaviour {
 
@@ -12,6 +11,9 @@ public class MapTile : MonoBehaviour {
 	public string sDisplayName;
 
 	public MeshRenderer meshrenAppearance;
+	public GameObject goGrid;
+
+	public bool bGridEnabled = false;
 
 	void Start () {
 		l_tfFeatures = new List<TerrainFeature>();
@@ -22,7 +24,9 @@ public class MapTile : MonoBehaviour {
 	}
 
 	void Update () {
-		
+		if (goGrid) {
+			goGrid.SetActive(bGridEnabled);
+		}
 	}
 
 	public void Terraform(TERRAIN_TYPE changeto) {
