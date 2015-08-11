@@ -19,7 +19,7 @@ public class Camera_PC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		if (Application.isMobilePlatform) {
+		if (!Application.isMobilePlatform) {
 			vTempMove = this.transform.position;
 			vTempTurn = this.transform.rotation.eulerAngles;
 

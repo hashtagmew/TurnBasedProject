@@ -15,15 +15,17 @@ public class MapTile : MonoBehaviour {
 
 	public bool bGridEnabled = false;
 
-	void Start () {
+	void OnEnable() {
+		meshrenAppearance = this.GetComponent<MeshRenderer>();
+	}
+
+	void Start() {
 		l_tfFeatures = new List<TerrainFeature>();
 
 		meshrenAppearance = this.GetComponent<MeshRenderer>();
-
-		Terraform(TERRAIN_TYPE.PLAINS);
 	}
 
-	void Update () {
+	void Update() {
 		if (goGrid) {
 			goGrid.SetActive(bGridEnabled);
 		}
@@ -40,6 +42,21 @@ public class MapTile : MonoBehaviour {
 		}
 		else if (iType == TERRAIN_TYPE.RIVER) {
 			meshrenAppearance.material = Resources.Load("Terrain/water") as Material;
+		}
+		else if (iType == TERRAIN_TYPE.WASTELAND) {
+			meshrenAppearance.material = Resources.Load("Terrain/wasteland") as Material;
+		}
+		else if (iType == TERRAIN_TYPE.DESERT) {
+			meshrenAppearance.material = Resources.Load("Terrain/desert") as Material;
+		}
+		else if (iType == TERRAIN_TYPE.QUAGMIRE) {
+			meshrenAppearance.material = Resources.Load("Terrain/swamp") as Material;
+		}
+		else if (iType == TERRAIN_TYPE.BIOMASS) {
+			meshrenAppearance.material = Resources.Load("Terrain/flesh") as Material;
+		}
+		else if (iType == TERRAIN_TYPE.PAVEMENT) {
+			meshrenAppearance.material = Resources.Load("Terrain/tiles") as Material;
 		}
 		else {
 			meshrenAppearance.material = Resources.Load("Terrain/none") as Material;

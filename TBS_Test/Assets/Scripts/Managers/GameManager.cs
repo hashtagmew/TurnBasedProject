@@ -4,10 +4,11 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public TileCursor mapcursor;
+	public SelectionManager mngSelect;
 
 	// Use this for initialization
 	void Start () {
-	
+		mngSelect = this.GetComponent<SelectionManager>();
 	}
 	
 	// Update is called once per frame

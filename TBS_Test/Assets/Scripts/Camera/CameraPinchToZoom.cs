@@ -20,8 +20,6 @@ public class CameraPinchToZoom : MonoBehaviour {
 
 	private float fTouchSpeed0;
 	private float fTouchSpeed1;
-
-	public Text txtDebug;
 	
 	void Start() {
 		camMain = this.GetComponent<Camera>();
@@ -43,10 +41,6 @@ public class CameraPinchToZoom : MonoBehaviour {
 			if ((fTouchDelta + fVariance > 1) && (fTouchSpeed0 > fMinPinchSpeed) && (fTouchSpeed1 > fMinPinchSpeed)) {
 				camMain.orthographicSize = Mathf.Clamp(camMain.orthographicSize - fZoomSpeed, fMinScale, fMaxScale);
 			}
-		}
-
-		if (Input.touchCount > 0) {
-			txtDebug.text = "TD0: " + (Input.GetTouch(0).position.magnitude - Input.GetTouch(0).deltaPosition.magnitude).ToString();
 		}
 
 //		if (Input.touchCount == 2 && Input.GetTouch(0).phase == TouchPhase.Stationary && Input.GetTouch(1).phase == TouchPhase.Stationary) {
