@@ -14,8 +14,10 @@ using System.Text;
 
 public class TilePicker : EditorWindow {
 
+	static private MapEditor s_maped;
+
 	static private Vector2 s_vScrollPos;
-	static private MapEditorLogic maped;
+	static private MapEditorLogic s_maplogic;
 
 	static public TERRAIN_TYPE s_iLastSelection = TERRAIN_TYPE.BIOMASS;
 	static public TERRAIN_TYPE s_iSelection = TERRAIN_TYPE.NONE;
@@ -26,18 +28,53 @@ public class TilePicker : EditorWindow {
 	static public int iColumns;
 	static public int iRows;
 
+	static public Light goLight;
+	static public Color colLight = Color.white;
+	static public Vector3 vLightPos = new Vector3(10, 6, -4);
+	static public float fLightRange = 50.0f;
+	static public float fLightIntensity = 1;
+
 	//Window
 	[MenuItem("Map Edit/Tile Picker")]
 	static void Init() {
 		TilePicker window = (TilePicker)EditorWindow.GetWindow(typeof(TilePicker));
+
+		if (GameObject.FindGameObjectWithTag("MapLight") != null) {
+			goLight = GameObject.FindGameObjectWithTag("MapLight").GetComponent<Light>();
+		}
 		
 		window.Show();
+	}
+
+	void Update() {
+		if (Application.loadedLevelName == "map-editor") {
+			//Find editor
+			if (s_maped == null) {
+				if (GameObject.FindGameObjectWithTag("GameMap") != null) {
+					s_maped = GameObject.FindGameObjectWithTag("GameMap").GetComponent<MapEditor>();
+					if (s_maped != null) {
+						Repaint();
+						Debug.Log("Found map!");
+					}
+				}
+			}
+
+			//Find Editor Logic
+			if (s_maplogic == null) {
+				if (GetMapEditorLogic() != null) {
+					s_maplogic = GetMapEditorLogic();
+					Repaint();
+					Debug.Log("Found map logic!");
+				}
+			}
+		}
 	}
 
 	public void OnGUI() {
 		s_vScrollPos = GUILayout.BeginScrollView(s_vScrollPos);
 
-		//
+
+
 		GUILayout.BeginVertical("box");
 		GUILayout.BeginHorizontal();
 
@@ -61,11 +98,15 @@ public class TilePicker : EditorWindow {
 		GUILayout.EndHorizontal();
 
 		if (GUILayout.Button("Clear All")) {
-			GetMapEditorLogic().ClearAll();
+			if (s_maplogic != null) {
+				s_maplogic.ClearAll();
+			}
 		}
 
 		if (GUILayout.Button("Erase All")) {
-			GetMapEditorLogic().EraseAll();
+			if (s_maplogic != null) {
+				s_maplogic.EraseAll();
+			}
 		}
 		GUILayout.EndVertical();
 
@@ -73,8 +114,8 @@ public class TilePicker : EditorWindow {
 		GUILayout.BeginVertical("box");
 		GUILayout.BeginHorizontal();
 
-		if (GetMapEditorLogic() != null && GetMapEditorLogic().GetMapEditor() != null) {
-			GUILayout.Label("Current size: " + GetMapEditorLogic().GetMapEditor().iColumns.ToString() + " - " + GetMapEditorLogic().GetMapEditor().iRows.ToString());
+		if (s_maped != null) {
+			GUILayout.Label("Current size: " + s_maped.iColumns.ToString() + " - " + s_maped.iRows.ToString());
 		}
 		GUILayout.EndHorizontal();
 
@@ -92,6 +133,47 @@ public class TilePicker : EditorWindow {
 				GetMapEditorLogic().Resize(iRows, iColumns);
 				GUI.FocusControl("Top");
 			}
+		}
+
+		GUILayout.EndVertical();
+
+		GUILayout.BeginVertical("box");
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Light");
+		if (GUILayout.Button("Reload")) {
+			goLight = FindMapLight();
+			if (goLight != null) {
+				ReloadLightSettings();
+			}
+		}
+		GUILayout.EndHorizontal();
+		if (goLight != null) {
+			colLight = EditorGUILayout.ColorField("Color", colLight);
+			vLightPos = EditorGUILayout.Vector3Field("Position", vLightPos);
+			fLightRange = EditorGUILayout.FloatField("Range", fLightRange);
+			fLightRange = Mathf.Clamp(fLightRange, 0.0f, 1000.0f);
+			fLightIntensity = EditorGUILayout.FloatField("Intensity", fLightIntensity);
+			fLightIntensity = Mathf.Clamp(fLightIntensity, 0.0f, 8.0f);
+
+			if (GUILayout.Button("Center on map")) {
+				vLightPos = new Vector3(0 + (float)s_maped.iRows / 2.0f, 
+				                        0 + (float)s_maped.iColumns / 2.0f, 
+				                        vLightPos.z);
+			}
+			GUILayout.BeginHorizontal();
+			if (GUILayout.Button("Make Changes")) {
+				goLight.color = colLight;
+				goLight.transform.position = vLightPos;
+				goLight.range = fLightRange;
+				goLight.intensity = fLightIntensity;
+			}
+			if (GUILayout.Button("Cancel Changes")) {
+				ReloadLightSettings();
+			}
+			GUILayout.EndHorizontal();
+		}
+		else {
+			GUILayout.Label("Please tag a light(s) with \"MapLight\" then press Reload");
 		}
 
 		GUILayout.EndVertical();
@@ -134,10 +216,29 @@ public class TilePicker : EditorWindow {
 		else if (s_iSelection == TERRAIN_TYPE.PAVEMENT) {
 			s_texTile = ((Material)Resources.Load("Terrain/tiles")).GetTexture(0);
 		}
+		else if (s_iSelection == TERRAIN_TYPE.LAVA) {
+			s_texTile = ((Material)Resources.Load("Terrain/lava")).GetTexture(0);
+		}
 		else {
 			s_texTile = ((Material)Resources.Load("Terrain/none")).GetTexture(0);
 		}
 
 		s_iLastSelection = s_iSelection;
+	}
+
+	Light FindMapLight() {
+		if (GameObject.FindGameObjectWithTag("MapLight") != null) {
+			return GameObject.FindGameObjectWithTag("MapLight").GetComponent<Light>();
+		}
+		else {
+			return null;
+		}
+	}
+
+	void ReloadLightSettings() {
+		colLight = goLight.color;
+		vLightPos = goLight.transform.position;
+		fLightRange = goLight.range;
+		fLightIntensity = goLight.intensity;
 	}
 }

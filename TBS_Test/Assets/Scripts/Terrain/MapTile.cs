@@ -58,6 +58,9 @@ public class MapTile : MonoBehaviour {
 		else if (iType == TERRAIN_TYPE.PAVEMENT) {
 			meshrenAppearance.material = Resources.Load("Terrain/tiles") as Material;
 		}
+		else if (iType == TERRAIN_TYPE.LAVA) {
+			meshrenAppearance.material = Resources.Load("Terrain/lava") as Material;
+		}
 		else {
 			meshrenAppearance.material = Resources.Load("Terrain/none") as Material;
 		}

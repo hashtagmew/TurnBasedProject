@@ -12,9 +12,17 @@ public class Camera_PC : MonoBehaviour {
 	public float fMinScale = 0.8f;
 	public float fMaxScale = 5.0f;
 
+	public bool bDebugText = false;
+
 	// Use this for initialization
 	void Start() {
 		camMain = this.GetComponent<Camera>();
+	}
+
+	void OnGUI() {
+		if (bDebugText) {
+			GUI.Label(new Rect(10, 10, 200, 50), "Zoom: " + (200 - (int)((camMain.orthographicSize / 5.0) * 100)).ToString() + "%");
+		}
 	}
 	
 	// Update is called once per frame

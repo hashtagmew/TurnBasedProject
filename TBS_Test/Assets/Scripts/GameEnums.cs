@@ -40,7 +40,8 @@ public enum TERRAIN_TYPE {
 	DUST_BOWL,
 	RIVER,
 	BIOMASS,
-	PAVEMENT
+	PAVEMENT,
+	LAVA
 }
 
 public enum UNIT_FACTION {
