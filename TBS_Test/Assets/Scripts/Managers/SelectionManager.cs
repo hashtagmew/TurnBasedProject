@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
+using UnityEngine.UI;
+
 public class SelectionManager : MonoBehaviour {
 
 	public UNIT_FACTION iPlayerTeam;
@@ -10,13 +12,13 @@ public class SelectionManager : MonoBehaviour {
 	public Ray ray;
 	public RaycastHit rayHit;
 
-	// Use this for initialization
-	void Start () {
+	public Text txtUnitName;
+	
+	void Start() {
 		guSelection = null;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	void Update() {
 		if (Input.GetMouseButton(0) && guSelection == null && !EventSystem.current.IsPointerOverGameObject()) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			
@@ -55,6 +57,13 @@ public class SelectionManager : MonoBehaviour {
 				guSelection.MoveTo(vTempPos);
 				Debug.Log(vTempPos.ToString());
 			}
+		}
+
+		if (guSelection != null) {
+			txtUnitName.text = guSelection.sName;
+		}
+		else {
+			txtUnitName.text = "None";
 		}
 	}
 

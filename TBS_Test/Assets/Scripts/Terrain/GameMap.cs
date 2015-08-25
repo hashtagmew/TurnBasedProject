@@ -36,6 +36,17 @@ public class GameMap : MonoBehaviour {
 				tile.gameObject.name = "Tile (" + i.ToString("D2") + ", " + j.ToString("D2") + ")";
 				tile.transform.parent = this.gameObject.transform;
 				row.Add(tile);
+
+				int rnd = Random.Range(0, 11);
+				if (rnd <= 6) {
+					tile.Terraform(TERRAIN_TYPE.PLAINS);
+				}
+				else if (rnd <= 9) {
+					tile.Terraform(TERRAIN_TYPE.DUST_BOWL);
+				}
+				else {
+					tile.Terraform(TERRAIN_TYPE.PAVEMENT);
+				}
 			}
 
 			map.Add(row);

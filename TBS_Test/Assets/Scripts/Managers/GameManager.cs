@@ -5,10 +5,12 @@ public class GameManager : MonoBehaviour {
 
 	public TileCursor mapcursor;
 	public SelectionManager mngSelect;
+	public UIManager mngUI;
 
 	// Use this for initialization
 	void Start () {
 		mngSelect = this.GetComponent<SelectionManager>();
+		mngUI = this.GetComponent<UIManager>();
 	}
 	
 	// Update is called once per frame
@@ -36,6 +38,20 @@ public class GameManager : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.F12)) {
 			ChangeScene("particle-effect-tester");
+		}
+
+		if (mngSelect.guSelection != null) {
+			mngUI.bUnitShow = true;
+		}
+		else {
+			mngUI.bUnitShow = false;
+		}
+
+		if (mapcursor.mapTile != null) {
+			mngUI.bTerrainShow = true;
+		}
+		else {
+			mngUI.bTerrainShow = false;
 		}
 	}
 
