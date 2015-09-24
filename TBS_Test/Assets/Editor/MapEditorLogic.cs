@@ -69,6 +69,7 @@ public class MapEditorLogic : Editor {
 		goTileCheck.transform.localScale = new Vector3(mapedTarget.fTileWidth, mapedTarget.fTileHeight, 0.1f);
 		goTileCheck.transform.parent = mapedTarget.transform;
         goTileCheck.name = string.Format("Tile_{0}_{1}", vTilePos.x, vTilePos.y);
+		goTileCheck.GetComponent<MapTile>().vGridPosition = new Vector2(vTilePos.x, vTilePos.y);
 
 		goTileCheck.GetComponent<MapTile>().Terraform(TilePicker.s_iSelection);
     }
