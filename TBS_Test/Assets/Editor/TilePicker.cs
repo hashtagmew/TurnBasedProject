@@ -25,6 +25,10 @@ public class TilePicker : EditorWindow {
 
 	static public Texture s_texTile;
 
+	static private XDocument s_xmlDoc;
+	static private string s_sLastFile;
+	static private string s_sName;
+
 	static public int iColumns;
 	static public int iRows;
 
@@ -96,6 +100,8 @@ public class TilePicker : EditorWindow {
 		GUILayout.Label("Tools");
 		s_iTool = (MAPED_TOOL)EditorGUILayout.EnumPopup(s_iTool);
 		GUILayout.EndHorizontal();
+
+		s_sName = EditorGUILayout.TextField("Map name:", s_sName);
 
 		if (GUILayout.Button("Clear All")) {
 			if (s_maplogic != null) {
@@ -178,6 +184,26 @@ public class TilePicker : EditorWindow {
 
 		GUILayout.EndVertical();
 
+		GUILayout.BeginVertical();
+		if (GUILayout.Button("Save Map")) {
+			if (s_sName != "") {
+				s_sLastFile = EditorUtility.SaveFilePanel("Save map", "/Resources/Maps/", s_sName.ToLower(), "xml");
+				if (s_sLastFile.Length != 0) {
+					GUI.FocusControl("Top");
+					SaveMapToXML(s_sLastFile);
+				}
+			}
+		}
+
+		if (GUILayout.Button("Load Map")) {
+			s_sLastFile = EditorUtility.OpenFilePanel("Load map", "/Resources/Maps/", "xml");
+			if (s_sLastFile.Length != 0) {
+				GUI.FocusControl("Top");
+				LoadMap(s_sLastFile);
+			}
+		}
+		GUILayout.EndVertical();
+
 		GUILayout.EndScrollView();
 	}
 
@@ -240,5 +266,128 @@ public class TilePicker : EditorWindow {
 		vLightPos = goLight.transform.position;
 		fLightRange = goLight.range;
 		fLightIntensity = goLight.intensity;
+	}
+
+	void SaveMapToXML(string path) {
+		XmlWriterSettings xsettings = new XmlWriterSettings();
+		xsettings.Encoding = Encoding.ASCII;
+		xsettings.OmitXmlDeclaration = true;
+		
+		XmlWriter writer = XmlWriter.Create(s_sLastFile, xsettings);
+		
+		//Document open
+		writer.WriteStartDocument();
+		writer.WriteStartElement("thernion_map");
+		writer.WriteWhitespace("\n");
+		
+		//Name
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("name");
+		writer.WriteValue(s_sName);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		//Light
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("light");
+		writer.WriteValue(s_sName);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Size
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("mapsizex");
+		writer.WriteValue(s_maped.iRows);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		writer.WriteWhitespace("\t");
+
+		writer.WriteStartElement("mapsizey");
+		writer.WriteValue(s_maped.iColumns);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Tiles
+		MapTile temptile = null;
+
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("tiles");
+		writer.WriteWhitespace("\n");
+		for (int i = 0; i < s_maped.transform.childCount; i++) {
+			temptile = (MapTile)s_maped.transform.GetChild(i).GetComponent<MapTile>();
+
+			writer.WriteWhitespace("\t\t");
+			writer.WriteStartElement("tile");
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("type");
+			writer.WriteValue((int)temptile.iType);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("xpos");
+			writer.WriteValue(temptile.vGridPosition.x);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("ypos");
+			writer.WriteValue(temptile.vGridPosition.y);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t");
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		//Document end
+		writer.WriteWhitespace("\n");
+		writer.WriteEndElement();
+		writer.WriteEndDocument();
+		
+		writer.Close();
+
+	}
+
+	void LoadMap(string path) {
+		s_xmlDoc = XDocument.Load(path);
+		
+		foreach (XElement xroot in s_xmlDoc.Elements()) {
+			foreach (XElement xlayer1_properties in xroot.Elements()) {
+				if (xlayer1_properties.Name == "name") {
+					s_sName = xlayer1_properties.Value;
+				}
+				else if (xlayer1_properties.Name == "mapsizex") {
+					s_maped.iRows = int.Parse(xlayer1_properties.Value);
+				}
+				else if (xlayer1_properties.Name == "mapsizey") {
+					s_maped.iColumns = int.Parse(xlayer1_properties.Value);
+				}
+				
+				if (xlayer1_properties.Name == "tiles") {
+					foreach (XElement xlayer2_tiles in xlayer1_properties.Elements()) {
+						foreach (XElement xlayer3_tiledata in xlayer2_tiles.Elements()) {
+							GameObject TempTile = GameObject.Instantiate(s_maped.goProtoTile);
+							TempTile.transform.SetParent(s_maped.transform);
+							if (xlayer3_tiledata.Name == "type") {
+								TempTile.GetComponent<MapTile>().iType = (TERRAIN_TYPE)int.Parse(xlayer3_tiledata.Value);
+							}
+							else if (xlayer3_tiledata.Name == "xpos") {
+								TempTile.GetComponent<MapTile>().vGridPosition = new Vector2(int.Parse(xlayer3_tiledata.Value), TempTile.GetComponent<MapTile>().vGridPosition.y);
+							}
+							else if (xlayer3_tiledata.Name == "ypos") {
+								TempTile.GetComponent<MapTile>().vGridPosition = new Vector2(TempTile.GetComponent<MapTile>().vGridPosition.x, int.Parse(xlayer3_tiledata.Value));
+							}
+							TempTile.transform.position = new Vector3(TempTile.GetComponent<MapTile>().vGridPosition.x, TempTile.GetComponent<MapTile>().vGridPosition.y, 0);
+						}
+					}
+				}
+			}
+		}
 	}
 }
