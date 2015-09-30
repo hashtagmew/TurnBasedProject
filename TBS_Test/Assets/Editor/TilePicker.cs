@@ -27,7 +27,7 @@ public class TilePicker : EditorWindow {
 
 	static private XDocument s_xmlDoc;
 	static private string s_sLastFile;
-	static private string s_sName;
+	static private string s_sName = "";
 
 	static public int iColumns;
 	static public int iRows;
@@ -186,20 +186,25 @@ public class TilePicker : EditorWindow {
 
 		GUILayout.BeginVertical();
 		if (GUILayout.Button("Save Map")) {
-			if (s_sName != "") {
+			if (s_sName.Length > 2) {
 				s_sLastFile = EditorUtility.SaveFilePanel("Save map", "/Resources/Maps/", s_sName.ToLower(), "xml");
 				if (s_sLastFile.Length != 0) {
 					GUI.FocusControl("Top");
 					SaveMapToXML(s_sLastFile);
 				}
 			}
+			else {
+				EditorUtility.DisplayDialog("Nope", "Please make sure you have a map name!", "OK");
+			}
 		}
 
 		if (GUILayout.Button("Load Map")) {
-			s_sLastFile = EditorUtility.OpenFilePanel("Load map", "/Resources/Maps/", "xml");
-			if (s_sLastFile.Length != 0) {
-				GUI.FocusControl("Top");
-				LoadMap(s_sLastFile);
+			if (EditorUtility.DisplayDialog("Are you sure?", "Loading a new map will cause you to lose any unsaved changes.", "Continue", "Cancel")) {
+				s_sLastFile = EditorUtility.OpenFilePanel("Load map", "/Resources/Maps/", "xml");
+				if (s_sLastFile.Length != 0) {
+					GUI.FocusControl("Top");
+					LoadMap(s_sLastFile);
+				}
 			}
 		}
 		GUILayout.EndVertical();
@@ -343,7 +348,6 @@ public class TilePicker : EditorWindow {
 			writer.WriteWhitespace("\n");
 		}
 		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
 		
 		//Document end
 		writer.WriteWhitespace("\n");
@@ -356,6 +360,15 @@ public class TilePicker : EditorWindow {
 
 	void LoadMap(string path) {
 		s_xmlDoc = XDocument.Load(path);
+
+		int tempcols = 0;
+		int temprows = 0;
+
+		if (s_maped == null) {
+			Debug.Log("NO MAPED");
+		}
+
+		s_maplogic.EraseAll();
 		
 		foreach (XElement xroot in s_xmlDoc.Elements()) {
 			foreach (XElement xlayer1_properties in xroot.Elements()) {
@@ -363,19 +376,21 @@ public class TilePicker : EditorWindow {
 					s_sName = xlayer1_properties.Value;
 				}
 				else if (xlayer1_properties.Name == "mapsizex") {
-					s_maped.iRows = int.Parse(xlayer1_properties.Value);
+					temprows = int.Parse(xlayer1_properties.Value);
 				}
 				else if (xlayer1_properties.Name == "mapsizey") {
-					s_maped.iColumns = int.Parse(xlayer1_properties.Value);
+					tempcols = int.Parse(xlayer1_properties.Value);
 				}
 				
 				if (xlayer1_properties.Name == "tiles") {
+					GetMapEditorLogic().Resize(temprows, tempcols);
 					foreach (XElement xlayer2_tiles in xlayer1_properties.Elements()) {
+						GameObject TempTile = GameObject.Instantiate(s_maped.goProtoTile);
+						TempTile.transform.SetParent(s_maped.transform);
+
 						foreach (XElement xlayer3_tiledata in xlayer2_tiles.Elements()) {
-							GameObject TempTile = GameObject.Instantiate(s_maped.goProtoTile);
-							TempTile.transform.SetParent(s_maped.transform);
 							if (xlayer3_tiledata.Name == "type") {
-								TempTile.GetComponent<MapTile>().iType = (TERRAIN_TYPE)int.Parse(xlayer3_tiledata.Value);
+								TempTile.GetComponent<MapTile>().Terraform((TERRAIN_TYPE)int.Parse(xlayer3_tiledata.Value));
 							}
 							else if (xlayer3_tiledata.Name == "xpos") {
 								TempTile.GetComponent<MapTile>().vGridPosition = new Vector2(int.Parse(xlayer3_tiledata.Value), TempTile.GetComponent<MapTile>().vGridPosition.y);
@@ -383,11 +398,16 @@ public class TilePicker : EditorWindow {
 							else if (xlayer3_tiledata.Name == "ypos") {
 								TempTile.GetComponent<MapTile>().vGridPosition = new Vector2(TempTile.GetComponent<MapTile>().vGridPosition.x, int.Parse(xlayer3_tiledata.Value));
 							}
-							TempTile.transform.position = new Vector3(TempTile.GetComponent<MapTile>().vGridPosition.x, TempTile.GetComponent<MapTile>().vGridPosition.y, 0);
 						}
+
+						TempTile.name = string.Format("Tile_{0}_{1}", TempTile.GetComponent<MapTile>().vGridPosition.x, TempTile.GetComponent<MapTile>().vGridPosition.y);
+						TempTile.transform.localPosition = new Vector3(TempTile.GetComponent<MapTile>().vGridPosition.x + 0.5f, TempTile.GetComponent<MapTile>().vGridPosition.y + 0.5f, 0);
+						TempTile.transform.localRotation = Quaternion.identity;
+						TempTile.transform.localScale = new Vector3(1, 1, 0.1f);
 					}
 				}
 			}
 		}
+		Repaint();
 	}
 }
