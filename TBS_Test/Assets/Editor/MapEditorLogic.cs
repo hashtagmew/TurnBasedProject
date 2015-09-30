@@ -10,6 +10,9 @@ public class MapEditorLogic : Editor {
 	private MapEditor mapedTarget;
 	private Vector2 vTilePos;
 	private GameObject goTileCheck;
+	public bool bShowTips = true;
+	public int iCapturedTile = 0;
+	public int iLastCapturedTile = 0;
 	
     private void OnSceneGUI() {
 		Event current = Event.current;
@@ -19,27 +22,36 @@ public class MapEditorLogic : Editor {
         }
 		
         RecalculateCursor();
-		
+
         if (this.IsMouseOnLayer()) {
             if (current.type == EventType.MouseDown || current.type == EventType.MouseDrag) {
-				//Erase
-                if (current.button == 1) {
+				//Erase (mid mouse)
+                if (current.button == 2 && !current.shift) {
                     Erase();
                     current.Use();
                 }
-				//Draw
-                else if (current.button == 0) {
-                    Draw();
+				//Draw (left mouse)
+				else if (current.button == 0 && !current.shift) {
+					Draw();
                     current.Use();
                 }
-            }
-        }
+				//Copy (right mouse)
+				else if (current.button == 1 && !current.shift) {
+					PickupTile();
+					current.Use();
+				}
+			}
+		}
 		
-        Handles.BeginGUI();
-        GUI.Label(new Rect(10, Screen.height - 90, 150, 100), "Left Click: Draw");
-        GUI.Label(new Rect(10, Screen.height - 105, 150, 100), "Right Click: Erase");
-		GUI.Label(new Rect(10, Screen.height - 120, 300, 100), "See Tile Picker tab to choose tiles");
-        Handles.EndGUI();
+		if (bShowTips) {
+	        Handles.BeginGUI();
+	        GUI.Label(new Rect(10, Screen.height - 150, 150, 100), "Left Click: Draw");
+	        GUI.Label(new Rect(10, Screen.height - 135, 150, 100), "Right Click: Copy Terrain");
+			GUI.Label(new Rect(10, Screen.height - 120, 300, 100), "Shift + Right Click: Copy Features");
+			GUI.Label(new Rect(10, Screen.height - 105, 300, 100), "Middle Click: Erase Terrain");
+			GUI.Label(new Rect(10, Screen.height - 90, 300, 100), "Shift + Middle Click: Erase Features");
+	        Handles.EndGUI();
+		}
     }
 	
     private void OnEnable() {
@@ -86,8 +98,24 @@ public class MapEditorLogic : Editor {
 			UnityEngine.Object.DestroyImmediate(goTemp);
         }
     }
+
+	private void PickupTile() {
+		if (mapedTarget == null) {
+			mapedTarget = (MapEditor)this.target;
+		}
+		
+		Vector2 vTilePos = GetTilePosition();
+		GameObject goTemp = GameObject.Find(string.Format("Tile_{0}_{1}", vTilePos.x, vTilePos.y));
+
+		if (goTemp != null) {
+			iLastCapturedTile = (int)goTemp.GetComponent<MapTile>().iType;
+		}
+		else {
+			Debug.Log("Couldn't pickup tile at " + vTilePos.ToString());
+		}
+	}
 	
-    private Vector2 GetTilePosition() {
+	private Vector2 GetTilePosition() {
 		if (mapedTarget == null) {
 			mapedTarget = (MapEditor)this.target;
 		}

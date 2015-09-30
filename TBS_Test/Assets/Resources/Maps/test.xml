@@ -1,6 +1,17 @@
 <thernion_map>
-	<name>Test</name>
-	<light>Test</light>
+	<name>test</name>
+	<description></description>
+	<lights>
+		<light>
+			<type>1</type>
+			<color>00FF00FF</color>
+			<positionx>5</positionx>
+			<positiony>3.5</positiony>
+			<positionz>-4</positionz>
+			<range>50</range>
+			<intensity>1</intensity>
+		</light>
+	</lights>
 	<mapsizex>10</mapsizex>
 	<mapsizey>7</mapsizey>
 	<tiles>

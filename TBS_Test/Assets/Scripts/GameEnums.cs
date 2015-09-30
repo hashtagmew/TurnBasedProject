@@ -44,6 +44,16 @@ public enum TERRAIN_TYPE {
 	LAVA
 }
 
+public enum FEATURE_TYPE {
+	NONE = 0,
+	TREE,
+	FOREST,
+	CRATER,
+	MOUNTAIN,
+	HILL,
+	BRIDGE
+}
+
 public enum UNIT_FACTION {
 	NONE = 0,
 	INDEPENDENT,

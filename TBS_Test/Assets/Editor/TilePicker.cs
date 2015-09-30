@@ -10,8 +10,10 @@ using System.Linq;
 
 using UnityEngine.UI;
 
+using System;
 using System.Text;
 
+[ExecuteInEditMode]
 public class TilePicker : EditorWindow {
 
 	static private MapEditor s_maped;
@@ -21,18 +23,26 @@ public class TilePicker : EditorWindow {
 
 	static public TERRAIN_TYPE s_iLastSelection = TERRAIN_TYPE.BIOMASS;
 	static public TERRAIN_TYPE s_iSelection = TERRAIN_TYPE.NONE;
+
+	static public FEATURE_TYPE s_iLastFeatureSelection = FEATURE_TYPE.TREE;
+	static public FEATURE_TYPE s_iFeatureSelection = FEATURE_TYPE.NONE;
+
 	static public MAPED_TOOL s_iTool;
 
 	static public Texture s_texTile;
 
 	static private XDocument s_xmlDoc;
 	static private string s_sLastFile;
+
+	static private bool s_bPaintMode = true;
+
 	static private string s_sName = "";
+	static private string s_sDescription = "";
 
 	static public int iColumns;
 	static public int iRows;
-
-	static public Light goLight;
+	
+	static public List<Light> s_a_goLight;
 	static public Color colLight = Color.white;
 	static public Vector3 vLightPos = new Vector3(10, 6, -4);
 	static public float fLightRange = 50.0f;
@@ -44,14 +54,22 @@ public class TilePicker : EditorWindow {
 		TilePicker window = (TilePicker)EditorWindow.GetWindow(typeof(TilePicker));
 
 		if (GameObject.FindGameObjectWithTag("MapLight") != null) {
-			goLight = GameObject.FindGameObjectWithTag("MapLight").GetComponent<Light>();
+			s_a_goLight = new List<Light>();
+
+			GameObject[] goObjs = GameObject.FindGameObjectsWithTag("MapLight");
+
+			s_a_goLight.Clear();
+
+			foreach (GameObject obj in goObjs) {
+				s_a_goLight.Add(obj.GetComponent<Light>());
+			}
 		}
 		
 		window.Show();
 	}
 
 	void Update() {
-		if (Application.loadedLevelName == "map-editor") {
+		if (EditorApplication.currentScene.Contains("map-editor")) {
 			//Find editor
 			if (s_maped == null) {
 				if (GameObject.FindGameObjectWithTag("GameMap") != null) {
@@ -71,28 +89,65 @@ public class TilePicker : EditorWindow {
 					Debug.Log("Found map logic!");
 				}
 			}
+
+			//Check for a "picked up" tile
+			if (s_maplogic != null) {
+				if (s_maplogic.iLastCapturedTile != s_maplogic.iCapturedTile) {
+					s_iLastSelection = (TERRAIN_TYPE)s_maplogic.iLastCapturedTile;
+					s_iSelection = s_iLastSelection;
+					s_maplogic.iCapturedTile = s_maplogic.iLastCapturedTile;
+
+					LoadTileTexture();
+					Repaint();
+				}
+			}
+			else {
+				//Debug.Log("nolog");
+			}
 		}
 	}
-
+	
 	public void OnGUI() {
 		s_vScrollPos = GUILayout.BeginScrollView(s_vScrollPos);
 
-
-
 		GUILayout.BeginVertical("box");
-		GUILayout.BeginHorizontal();
 
-		GUI.SetNextControlName("Top");
-		GUILayout.Label("Tile");
-		s_iSelection = (TERRAIN_TYPE)EditorGUILayout.EnumPopup(s_iSelection);
+		GUILayout.BeginHorizontal();
+		s_bPaintMode = EditorGUILayout.ToggleLeft("", s_bPaintMode);
+		if (s_bPaintMode) {
+			GUILayout.Label("Paint Terrain");
+		}
+		else {
+			GUILayout.Label("Paint Features");
+		}
 		GUILayout.EndHorizontal();
 
-		if (s_iLastSelection != s_iSelection) {
-			LoadTileTexture();
-		}
-		GUILayout.Label(s_texTile, GUILayout.Width(100), GUILayout.Height(100));
-		GUILayout.EndVertical();
+		//Painting terrain tiles
+		if (s_bPaintMode) {
+			GUILayout.BeginHorizontal();
 
+			GUI.SetNextControlName("Top");
+			GUILayout.Label("Tile");
+			s_iSelection = (TERRAIN_TYPE)EditorGUILayout.EnumPopup(s_iSelection);
+
+			GUILayout.EndHorizontal();
+
+			if (s_iLastSelection != s_iSelection) {
+				LoadTileTexture();
+			}
+			GUILayout.Label(s_texTile, GUILayout.Width(100), GUILayout.Height(100));
+		}
+		//Painting terrain features
+		else {
+			GUILayout.BeginHorizontal();
+			
+			GUI.SetNextControlName("Top");
+			GUILayout.Label("Feature");
+			s_iFeatureSelection = (FEATURE_TYPE)EditorGUILayout.EnumPopup(s_iFeatureSelection);
+
+			GUILayout.EndHorizontal();
+		}
+		GUILayout.EndVertical();
 
 		GUILayout.BeginVertical("box");
 		GUILayout.BeginHorizontal();
@@ -101,7 +156,9 @@ public class TilePicker : EditorWindow {
 		s_iTool = (MAPED_TOOL)EditorGUILayout.EnumPopup(s_iTool);
 		GUILayout.EndHorizontal();
 
-		s_sName = EditorGUILayout.TextField("Map name:", s_sName);
+		if (GUILayout.Button("Toggle Tips")) {
+			s_maplogic.bShowTips = !s_maplogic.bShowTips;
+		}
 
 		if (GUILayout.Button("Clear All")) {
 			if (s_maplogic != null) {
@@ -118,6 +175,11 @@ public class TilePicker : EditorWindow {
 
 
 		GUILayout.BeginVertical("box");
+		GUILayout.Label("Map Properties");
+		s_sName = EditorGUILayout.TextField("Map name:", s_sName);
+		GUILayout.Label("Map description:");
+		s_sDescription = EditorGUILayout.TextArea(s_sDescription, GUILayout.Height(50));
+
 		GUILayout.BeginHorizontal();
 
 		if (s_maped != null) {
@@ -127,9 +189,9 @@ public class TilePicker : EditorWindow {
 
 
 		GUILayout.BeginHorizontal();
-		iColumns = EditorGUILayout.IntField("C", iColumns);
+		iColumns = EditorGUILayout.IntField("Columns", iColumns);
 		iColumns = Mathf.Clamp(iColumns, 5, 100);
-		iRows = EditorGUILayout.IntField("R", iRows);
+		iRows = EditorGUILayout.IntField("Rows", iRows);
 		iRows = Mathf.Clamp(iRows, 5, 100);
 		GUILayout.EndHorizontal();
 
@@ -147,13 +209,13 @@ public class TilePicker : EditorWindow {
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Light");
 		if (GUILayout.Button("Reload")) {
-			goLight = FindMapLight();
-			if (goLight != null) {
+			FindMapLights();
+			if (s_a_goLight.Count > 0) {
 				ReloadLightSettings();
 			}
 		}
 		GUILayout.EndHorizontal();
-		if (goLight != null) {
+		if (s_a_goLight != null && s_a_goLight.Count > 0) {
 			colLight = EditorGUILayout.ColorField("Color", colLight);
 			vLightPos = EditorGUILayout.Vector3Field("Position", vLightPos);
 			fLightRange = EditorGUILayout.FloatField("Range", fLightRange);
@@ -168,10 +230,10 @@ public class TilePicker : EditorWindow {
 			}
 			GUILayout.BeginHorizontal();
 			if (GUILayout.Button("Make Changes")) {
-				goLight.color = colLight;
-				goLight.transform.position = vLightPos;
-				goLight.range = fLightRange;
-				goLight.intensity = fLightIntensity;
+				s_a_goLight.ElementAt(0).color = colLight;
+				s_a_goLight.ElementAt(0).transform.position = vLightPos;
+				s_a_goLight.ElementAt(0).range = fLightRange;
+				s_a_goLight.ElementAt(0).intensity = fLightIntensity;
 			}
 			if (GUILayout.Button("Cancel Changes")) {
 				ReloadLightSettings();
@@ -257,20 +319,28 @@ public class TilePicker : EditorWindow {
 		s_iLastSelection = s_iSelection;
 	}
 
-	Light FindMapLight() {
+	void FindMapLights() {
 		if (GameObject.FindGameObjectWithTag("MapLight") != null) {
-			return GameObject.FindGameObjectWithTag("MapLight").GetComponent<Light>();
+			s_a_goLight = new List<Light>();
+
+			GameObject[] goObjs = GameObject.FindGameObjectsWithTag("MapLight");
+			
+			s_a_goLight.Clear();
+			
+			foreach (GameObject obj in goObjs) {
+				s_a_goLight.Add(obj.GetComponent<Light>());
+			}
 		}
 		else {
-			return null;
+			s_a_goLight.Clear();
 		}
 	}
 
 	void ReloadLightSettings() {
-		colLight = goLight.color;
-		vLightPos = goLight.transform.position;
-		fLightRange = goLight.range;
-		fLightIntensity = goLight.intensity;
+		colLight = s_a_goLight.ElementAt(0).color;
+		vLightPos = s_a_goLight.ElementAt(0).transform.position;
+		fLightRange = s_a_goLight.ElementAt(0).range;
+		fLightIntensity = s_a_goLight.ElementAt(0).intensity;
 	}
 
 	void SaveMapToXML(string path) {
@@ -291,11 +361,72 @@ public class TilePicker : EditorWindow {
 		writer.WriteValue(s_sName);
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
-		
-		//Light
+
+		//Desc
 		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("light");
-		writer.WriteValue(s_sName);
+		writer.WriteStartElement("description");
+		writer.WriteValue(s_sDescription);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		//Lights
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("lights");
+		writer.WriteWhitespace("\n");
+
+		foreach (Light bulb in s_a_goLight) {
+			writer.WriteWhitespace("\t\t");
+			writer.WriteStartElement("light");
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("type");
+			writer.WriteValue((int)bulb.type);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("color");
+			writer.WriteValue(bulb.color.ToHexStringRGBA());
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("positionx");
+			writer.WriteValue(bulb.gameObject.transform.position.x);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("positiony");
+			writer.WriteValue(bulb.gameObject.transform.position.y);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("positionz");
+			writer.WriteValue(bulb.gameObject.transform.position.z);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("range");
+			writer.WriteValue(bulb.range);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("intensity");
+			writer.WriteValue(bulb.intensity);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t");
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+		}
+
+		writer.WriteWhitespace("\t");
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
@@ -374,6 +505,9 @@ public class TilePicker : EditorWindow {
 			foreach (XElement xlayer1_properties in xroot.Elements()) {
 				if (xlayer1_properties.Name == "name") {
 					s_sName = xlayer1_properties.Value;
+				}
+				else if (xlayer1_properties.Name == "description") {
+					s_sDescription = xlayer1_properties.Value;
 				}
 				else if (xlayer1_properties.Name == "mapsizex") {
 					temprows = int.Parse(xlayer1_properties.Value);
