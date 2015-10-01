@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SetGrid : MonoBehaviour {
 
-    public int X = 1;
-    public int Y = 1;
+    public float X = 1;
+    public float Y = 1;
 
     void Start()
     {
