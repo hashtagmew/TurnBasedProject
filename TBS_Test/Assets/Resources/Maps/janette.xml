@@ -1,6 +1,17 @@
 <thernion_map>
 	<name>Janette</name>
-	<light>Janette</light>
+	<description></description>
+	<lights>
+		<light>
+			<type>1</type>
+			<color>FFFFFFFF</color>
+			<positionx>12.5</positionx>
+			<positiony>12.5</positiony>
+			<positionz>-3.28</positionz>
+			<range>100</range>
+			<intensity>1</intensity>
+		</light>
+	</lights>
 	<mapsizex>25</mapsizex>
 	<mapsizey>25</mapsizey>
 	<tiles>
@@ -3061,11 +3072,6 @@
 		</tile>
 		<tile>
 			<type>1</type>
-			<xpos>0</xpos>
-			<ypos>0</ypos>
-		</tile>
-		<tile>
-			<type>1</type>
 			<xpos>3</xpos>
 			<ypos>21</ypos>
 		</tile>
@@ -3128,6 +3134,11 @@
 			<type>1</type>
 			<xpos>5</xpos>
 			<ypos>20</ypos>
+		</tile>
+		<tile>
+			<type>1</type>
+			<xpos>5</xpos>
+			<ypos>21</ypos>
 		</tile>
 </tiles>
 </thernion_map>
