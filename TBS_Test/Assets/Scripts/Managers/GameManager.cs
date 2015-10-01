@@ -3,6 +3,9 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public GameObject Pathfinding;
+	public float Count;
+
 	public TileCursor mapcursor;
 	public SelectionManager mngSelect;
 	public UIManager mngUI;
@@ -11,10 +14,19 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		mngSelect = this.GetComponent<SelectionManager>();
 		mngUI = this.GetComponent<UIManager>();
+		Count = 0;
+		Pathfinding.SetActive (false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		Count += Time.deltaTime;
+		if (Count <= 1f) 
+		{
+			Pathfinding.SetActive(true);
+		}
+
 		if (mapcursor.mapTile != null) {
 			if (Input.GetKeyDown(KeyCode.F1)) {
 				mapcursor.mapTile.Terraform(TERRAIN_TYPE.NONE);
