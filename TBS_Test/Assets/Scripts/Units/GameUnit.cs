@@ -66,38 +66,38 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	
 	// Update is called once per frame
 	void Update () {
-		if (bMoving) {
-			float fTempX = this.transform.position.x;
-			float fTempZ = this.transform.position.z;
-			
-			if (!FloatApproximation(fTempX, vMoveTarget.x, 0.025f)) {
-				if (fTempX < vMoveTarget.x) {
-					fTempX += fSpeed * Time.deltaTime;
-				}
-				else if (fTempX > vMoveTarget.x) {
-					fTempX -= fSpeed * Time.deltaTime;
-				}
-			}
-			else if (!FloatApproximation(fTempZ, vMoveTarget.z, 0.025f)) {
-				if (fTempZ < vMoveTarget.z) {
-					fTempZ += fSpeed * Time.deltaTime;
-				}
-				else if (fTempZ > vMoveTarget.z) {
-					fTempZ -= fSpeed * Time.deltaTime;
-				}
-			}
-			else {
-				bMoving = false;
-//				Vector3 vTemp = this.transform.position;
-//				vTemp.x = Mathf.Round(vTemp.x);
-//				vTemp.z = Mathf.Round(vTemp.z);
-				this.transform.position = vMoveTarget;
-			}
-
-			if (bMoving) {
-				this.transform.position = new Vector3(fTempX, this.transform.position.y, fTempZ);
-			}
-		}
+//		if (bMoving) {
+//			float fTempX = this.transform.position.x;
+//			float fTempZ = this.transform.position.z;
+//			
+//			if (!FloatApproximation(fTempX, vMoveTarget.x, 0.025f)) {
+//				if (fTempX < vMoveTarget.x) {
+//					fTempX += fSpeed * Time.deltaTime;
+//				}
+//				else if (fTempX > vMoveTarget.x) {
+//					fTempX -= fSpeed * Time.deltaTime;
+//				}
+//			}
+//			else if (!FloatApproximation(fTempZ, vMoveTarget.z, 0.025f)) {
+//				if (fTempZ < vMoveTarget.z) {
+//					fTempZ += fSpeed * Time.deltaTime;
+//				}
+//				else if (fTempZ > vMoveTarget.z) {
+//					fTempZ -= fSpeed * Time.deltaTime;
+//				}
+//			}
+//			else {
+//				bMoving = false;
+////				Vector3 vTemp = this.transform.position;
+////				vTemp.x = Mathf.Round(vTemp.x);
+////				vTemp.z = Mathf.Round(vTemp.z);
+//				this.transform.position = vMoveTarget;
+//			}
+//
+//			if (bMoving) {
+//				this.transform.position = new Vector3(fTempX, this.transform.position.y, fTempZ);
+//			}
+		//}
 	}
 
 	public virtual void OnSelected() {
