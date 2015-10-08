@@ -3,6 +3,8 @@
 public class MapEditor : MonoBehaviour {
 
 	public GameObject goProtoTile;
+	public GameObject goProtoFeature;
+	public GameObject goProtoLight;
 	
     public int iRows;
     public int iColumns;

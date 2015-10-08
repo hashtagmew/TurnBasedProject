@@ -89,6 +89,18 @@ public class TilePicker : EditorWindow {
 					Debug.Log("Found map logic!");
 				}
 			}
+			else {
+				if (s_maplogic.bPaintMode != s_bPaintMode) {
+					s_maplogic.bPaintMode = s_bPaintMode;
+
+					if (s_bPaintMode) {
+						Debug.Log("Changed paint mode: TERRAIN.");
+					}
+					else {
+						Debug.Log("Changed paint mode: FEATURES.");
+					}
+				}
+			}
 
 			//Check for a "picked up" tile
 			if (s_maplogic != null) {
@@ -158,12 +170,6 @@ public class TilePicker : EditorWindow {
 
 		if (GUILayout.Button("Toggle Tips")) {
 			s_maplogic.bShowTips = !s_maplogic.bShowTips;
-		}
-
-		if (GUILayout.Button("Clear All")) {
-			if (s_maplogic != null) {
-				s_maplogic.ClearAll();
-			}
 		}
 
 		if (GUILayout.Button("Erase All")) {
@@ -374,6 +380,10 @@ public class TilePicker : EditorWindow {
 		writer.WriteStartElement("lights");
 		writer.WriteWhitespace("\n");
 
+		if (s_a_goLight == null || s_a_goLight.Count < 1) {
+			EditorUtility.DisplayDialog("Error", "Error saving map: please ensure a light is loaded in the TileEditor!\nThe map has not been saved.", "OK");
+		}
+
 		foreach (Light bulb in s_a_goLight) {
 			writer.WriteWhitespace("\t\t");
 			writer.WriteStartElement("light");
@@ -474,6 +484,16 @@ public class TilePicker : EditorWindow {
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
 
+			if (temptile.l_tfFeatures.Count > 0) {
+				foreach (TerrainFeature tf in temptile.l_tfFeatures) {
+					writer.WriteWhitespace("\t\t\t");
+					writer.WriteStartElement("feature");
+					writer.WriteAttributeString("type", ((int)tf.iType).ToString());
+					writer.WriteEndElement();
+					writer.WriteWhitespace("\n");
+				}
+			}
+
 			writer.WriteWhitespace("\t\t");
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
@@ -500,6 +520,13 @@ public class TilePicker : EditorWindow {
 		}
 
 		s_maplogic.EraseAll();
+		//Clear all the old scene lights
+		GameObject[] lighting = GameObject.FindGameObjectsWithTag("MapLight");
+		if (lighting != null && lighting.Count() > 0) {
+			for (int lighti = lighting.Count() - 1; lighti > -1; lighti--) {
+				GameObject.DestroyImmediate(lighting[lighti]);
+			}
+		}
 		
 		foreach (XElement xroot in s_xmlDoc.Elements()) {
 			foreach (XElement xlayer1_properties in xroot.Elements()) {
@@ -514,6 +541,40 @@ public class TilePicker : EditorWindow {
 				}
 				else if (xlayer1_properties.Name == "mapsizey") {
 					tempcols = int.Parse(xlayer1_properties.Value);
+				}
+
+				if (xlayer1_properties.Name == "lights") {
+					foreach (XElement xlayer2_tiles in xlayer1_properties.Elements()) {
+						GameObject TempLightObj = GameObject.Instantiate(s_maped.goProtoLight);
+						Light TempLight = TempLightObj.GetComponent<Light>();
+						TempLight.tag = "MapLight";
+
+						foreach (XElement xlayer3_tiledata in xlayer2_tiles.Elements()) {
+							if (xlayer3_tiledata.Name == "type") {
+								TempLight.type = (LightType)int.Parse(xlayer3_tiledata.Value);
+							}
+							else if (xlayer3_tiledata.Name == "positionx") {
+								TempLight.transform.position = new Vector3(float.Parse(xlayer3_tiledata.Value), TempLight.transform.position.y, TempLight.transform.position.z);
+							}
+							else if (xlayer3_tiledata.Name == "positiony") {
+								TempLight.transform.position = new Vector3(TempLight.transform.position.x, float.Parse(xlayer3_tiledata.Value), TempLight.transform.position.z);
+							}
+							else if (xlayer3_tiledata.Name == "positionz") {
+								TempLight.transform.position = new Vector3(TempLight.transform.position.x, TempLight.transform.position.y, float.Parse(xlayer3_tiledata.Value));
+							}
+							else if (xlayer3_tiledata.Name == "range") {
+								TempLight.range = float.Parse(xlayer3_tiledata.Value);
+							}
+							else if (xlayer3_tiledata.Name == "intensity") {
+								TempLight.intensity = float.Parse(xlayer3_tiledata.Value);
+							}
+							else if (xlayer3_tiledata.Name == "color") {
+								Color TempColor = Color.black;
+								Color.TryParseHexString(xlayer3_tiledata.Value, out TempColor);
+								TempLight.color = TempColor;
+							}
+						}
+					}
 				}
 				
 				if (xlayer1_properties.Name == "tiles") {
@@ -532,6 +593,16 @@ public class TilePicker : EditorWindow {
 							else if (xlayer3_tiledata.Name == "ypos") {
 								TempTile.GetComponent<MapTile>().vGridPosition = new Vector2(TempTile.GetComponent<MapTile>().vGridPosition.x, int.Parse(xlayer3_tiledata.Value));
 							}
+							else if (xlayer3_tiledata.Name == "feature") {
+								GameObject tempobj = GameObject.Instantiate(s_maped.goProtoFeature);
+								TempTile.GetComponent<MapTile>().l_tfFeatures.Add(tempobj.GetComponent<TerrainFeature>());
+
+								tempobj.transform.SetParent(TempTile.transform);
+								tempobj.transform.localRotation = TempTile.transform.localRotation;
+								int value = int.Parse(xlayer3_tiledata.Attribute("type").Value);
+								tempobj.GetComponent<TerrainFeature>().Terraform((FEATURE_TYPE)value);
+								tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
+							}
 						}
 
 						TempTile.name = string.Format("Tile_{0}_{1}", TempTile.GetComponent<MapTile>().vGridPosition.x, TempTile.GetComponent<MapTile>().vGridPosition.y);
@@ -542,6 +613,7 @@ public class TilePicker : EditorWindow {
 				}
 			}
 		}
+
 		Repaint();
 	}
 }

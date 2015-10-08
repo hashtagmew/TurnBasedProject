@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEditor;
 
+using System.Collections.Generic;
+
 using System;
 
 [CustomEditor(typeof(MapEditor))]
@@ -13,6 +15,9 @@ public class MapEditorLogic : Editor {
 	public bool bShowTips = true;
 	public int iCapturedTile = 0;
 	public int iLastCapturedTile = 0;
+	public List<TerrainFeature> l_tfCaptured;
+
+	public bool bPaintMode = true;
 	
     private void OnSceneGUI() {
 		Event current = Event.current;
@@ -46,10 +51,10 @@ public class MapEditorLogic : Editor {
 		if (bShowTips) {
 	        Handles.BeginGUI();
 	        GUI.Label(new Rect(10, Screen.height - 150, 150, 100), "Left Click: Draw");
-	        GUI.Label(new Rect(10, Screen.height - 135, 150, 100), "Right Click: Copy Terrain");
-			GUI.Label(new Rect(10, Screen.height - 120, 300, 100), "Shift + Right Click: Copy Features");
-			GUI.Label(new Rect(10, Screen.height - 105, 300, 100), "Middle Click: Erase Terrain");
-			GUI.Label(new Rect(10, Screen.height - 90, 300, 100), "Shift + Middle Click: Erase Features");
+	        GUI.Label(new Rect(10, Screen.height - 135, 150, 100), "Right Click: Copy");
+			//GUI.Label(new Rect(10, Screen.height - 120, 300, 100), "Shift + Right Click: Copy Features");
+			GUI.Label(new Rect(10, Screen.height - 105, 300, 100), "Middle Click: Erase");
+			//GUI.Label(new Rect(10, Screen.height - 90, 300, 100), "Shift + Middle Click: Erase Features");
 	        Handles.EndGUI();
 		}
     }
@@ -57,6 +62,7 @@ public class MapEditorLogic : Editor {
     private void OnEnable() {
         Tools.current = Tool.View;
         Tools.viewTool = ViewTool.FPS;
+		l_tfCaptured = new List<TerrainFeature>();
     }
 	
     private void Draw() {
@@ -73,17 +79,35 @@ public class MapEditorLogic : Editor {
 		
         if (goTileCheck == null) {
             //goTileCheck = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			goTileCheck = GameObject.Instantiate(((MapEditor)target).goProtoTile);
+			if (bPaintMode) {
+				goTileCheck = GameObject.Instantiate(((MapEditor)target).goProtoTile);
+			}
+			else {
+				Debug.Log("No tile exists there!");
+				return;
+			}
         }
-		
-		Vector3 vLocalPos = new Vector3((vTilePos.x * mapedTarget.fTileWidth) + (mapedTarget.fTileWidth / 2), (vTilePos.y * mapedTarget.fTileHeight) + (mapedTarget.fTileHeight / 2));
-		goTileCheck.transform.position = mapedTarget.transform.position + vLocalPos;
-		goTileCheck.transform.localScale = new Vector3(mapedTarget.fTileWidth, mapedTarget.fTileHeight, 0.1f);
-		goTileCheck.transform.parent = mapedTarget.transform;
-        goTileCheck.name = string.Format("Tile_{0}_{1}", vTilePos.x, vTilePos.y);
-		goTileCheck.GetComponent<MapTile>().vGridPosition = new Vector2(vTilePos.x, vTilePos.y);
 
-		goTileCheck.GetComponent<MapTile>().Terraform(TilePicker.s_iSelection);
+		if (bPaintMode) {
+			Vector3 vLocalPos = new Vector3((vTilePos.x * mapedTarget.fTileWidth) + (mapedTarget.fTileWidth / 2), (vTilePos.y * mapedTarget.fTileHeight) + (mapedTarget.fTileHeight / 2));
+			goTileCheck.transform.position = mapedTarget.transform.position + vLocalPos;
+			goTileCheck.transform.localScale = new Vector3(mapedTarget.fTileWidth, mapedTarget.fTileHeight, 0.1f);
+			goTileCheck.transform.parent = mapedTarget.transform;
+	        goTileCheck.name = string.Format("Tile_{0}_{1}", vTilePos.x, vTilePos.y);
+			goTileCheck.GetComponent<MapTile>().vGridPosition = new Vector2(vTilePos.x, vTilePos.y);
+
+			goTileCheck.GetComponent<MapTile>().Terraform(TilePicker.s_iSelection);
+		}
+		else {
+			GameObject newfeat = GameObject.Instantiate(((MapEditor)target).goProtoFeature);
+			goTileCheck.GetComponent<MapTile>().l_tfFeatures.Add(newfeat.GetComponent<TerrainFeature>());
+
+			newfeat.transform.SetParent(goTileCheck.transform);
+			newfeat.transform.localRotation = goTileCheck.transform.localRotation;
+			//newfeat.transform.localPosition = Vector3.zero;
+			newfeat.GetComponent<TerrainFeature>().Terraform(TilePicker.s_iFeatureSelection);
+			newfeat.transform.localPosition = new Vector3(0.0f, 0.0f, (newfeat.transform.localScale.z / 2) * -1);
+		}
     }
 	
     private void Erase() {
@@ -93,10 +117,20 @@ public class MapEditorLogic : Editor {
 		
         Vector2 vTilePos = GetTilePosition();
 		GameObject goTemp = GameObject.Find(string.Format("Tile_{0}_{1}", vTilePos.x, vTilePos.y));
-		
-		if (goTemp != null && goTemp.transform.parent == mapedTarget.transform) {
-			UnityEngine.Object.DestroyImmediate(goTemp);
-        }
+
+		if (bPaintMode) {
+			if (goTemp != null && goTemp.transform.parent == mapedTarget.transform) {
+				UnityEngine.Object.DestroyImmediate(goTemp);
+	        }
+		}
+		else {
+			List<TerrainFeature> tilefeats = goTemp.GetComponent<MapTile>().l_tfFeatures;
+
+			for (int i = tilefeats.Count - 1; i > -1; i--) {
+				GameObject.DestroyImmediate(tilefeats[i].gameObject);
+				tilefeats.RemoveAt(i);
+			}
+		}
     }
 
 	private void PickupTile() {
@@ -220,7 +254,19 @@ public class MapEditorLogic : Editor {
 			for (int j = 0; j < mapedTarget.iRows; j++) {
 				goTileCheck = GameObject.Find(string.Format("Tile_{0}_{1}", i, j));
 				if (goTileCheck != null) {
-					GameObject.DestroyImmediate(goTileCheck);
+					if (bPaintMode) {
+						GameObject.DestroyImmediate(goTileCheck);
+					}
+					else {
+						List<TerrainFeature> tilefeats = goTileCheck.GetComponent<MapTile>().l_tfFeatures;
+
+						if (tilefeats.Count > 0) {
+							for (int h = tilefeats.Count - 1; h > -1; h--) {
+								GameObject.DestroyImmediate(tilefeats[h].gameObject);
+								tilefeats.RemoveAt(h);
+							}
+						}
+					}
 				}
 			}
 		}
