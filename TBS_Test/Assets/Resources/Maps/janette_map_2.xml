@@ -321,7 +321,7 @@
 			<ypos>9</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>24</xpos>
 			<ypos>9</ypos>
 		</tile>
@@ -1851,12 +1851,12 @@
 			<ypos>8</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>24</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>25</xpos>
 			<ypos>8</ypos>
 		</tile>
@@ -1911,7 +1911,7 @@
 			<ypos>13</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>24</xpos>
 			<ypos>12</ypos>
 		</tile>
@@ -1921,7 +1921,7 @@
 			<ypos>12</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>24</xpos>
 			<ypos>11</ypos>
 		</tile>
@@ -2256,7 +2256,7 @@
 			<ypos>9</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>24</xpos>
 			<ypos>10</ypos>
 		</tile>
@@ -4906,17 +4906,17 @@
 			<ypos>19</ypos>
 		</tile>
 		<tile>
-			<type>6</type>
+			<type>2</type>
 			<xpos>34</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
-			<type>6</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>19</ypos>
 		</tile>
@@ -5041,17 +5041,17 @@
 			<ypos>20</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>20</ypos>
 		</tile>
 		<tile>
-			<type>6</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>20</ypos>
 		</tile>
 		<tile>
-			<type>6</type>
+			<type>2</type>
 			<xpos>34</xpos>
 			<ypos>20</ypos>
 		</tile>
@@ -5201,7 +5201,7 @@
 			<ypos>21</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>21</ypos>
 		</tile>
@@ -5581,12 +5581,12 @@
 			<ypos>18</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>18</ypos>
 		</tile>
@@ -5771,12 +5771,12 @@
 			<ypos>16</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>17</ypos>
 		</tile>
@@ -5801,7 +5801,7 @@
 			<ypos>17</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>17</ypos>
 		</tile>
@@ -6091,7 +6091,7 @@
 			<ypos>17</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>16</ypos>
 		</tile>
@@ -6766,7 +6766,7 @@
 			<ypos>6</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>25</xpos>
 			<ypos>7</ypos>
 		</tile>
@@ -8626,12 +8626,12 @@
 			<ypos>15</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>15</ypos>
 		</tile>
@@ -8716,12 +8716,12 @@
 			<ypos>14</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>14</ypos>
 		</tile>
@@ -8766,12 +8766,12 @@
 			<ypos>13</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>13</ypos>
 		</tile>
@@ -8836,12 +8836,12 @@
 			<ypos>12</ypos>
 		</tile>
 		<tile>
-			<type>8</type>
+			<type>2</type>
 			<xpos>36</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>8</type>
 			<xpos>35</xpos>
 			<ypos>12</ypos>
 		</tile>
