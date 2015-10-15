@@ -51,7 +51,8 @@ public enum FEATURE_TYPE {
 	CRATER,
 	MOUNTAIN,
 	HILL,
-	BRIDGE
+	BRIDGE,
+	WALL
 }
 
 public enum UNIT_FACTION {

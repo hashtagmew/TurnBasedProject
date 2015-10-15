@@ -1,0 +1,18 @@
+<TBSUnit>
+	<name>Archer</name>
+
+	<level>1</level>
+	<xp>0</xp>
+	<health>10</health>
+	<move>4</move>
+	<vision>3</vision>
+	<attack>6</attack>
+	<defence>2</defence>
+	<resistance>1</resistance>
+
+	<abilities>
+		<ability strength="12">Archery</ability>
+		<ability>Archer</ability>
+		<ability>Human</ability>
+	</abilities>
+</TBSUnit>

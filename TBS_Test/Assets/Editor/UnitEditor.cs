@@ -36,6 +36,7 @@ public class UnitEditor : EditorWindow {
 	//static private float s_fXP = 0.0f;
 	//fXPtoNext = 100.0f;
 	static private float s_fAP = 3.0f;
+	static private float s_fMaxAP = 3.0f;
 	
 	static private float s_fHealth = 50.0f;
 	static private float s_fMaxHealth = 50.0f;
@@ -52,6 +53,9 @@ public class UnitEditor : EditorWindow {
 	
 	static private float s_fResistance = 2.0f;
 	static private float s_fDefence = 3.0f;
+
+	static private string s_sSpriteFilename;
+	static private string s_sSoundsetFilename;
 
 	//Window
 	[MenuItem("Window/Unit Editor %&u")]
