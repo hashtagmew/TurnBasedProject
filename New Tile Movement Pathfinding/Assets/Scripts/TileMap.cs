@@ -12,8 +12,8 @@ public class TileMap : MonoBehaviour {
 	Node[,] graph;
 
 
-	int mapSizeX = 10;
-	int mapSizeY = 10;
+	int mapSizeX = 20;
+	int mapSizeY = 20;
 
 	void Start() {
 		// Setup the selectedUnit's variable
