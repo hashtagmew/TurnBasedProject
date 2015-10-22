@@ -11,6 +11,7 @@ public class Debug_ParticleSpawner : MonoBehaviour {
 	public Text txtEntry;
 	public Text txtCounter;
 	public Text txtList;
+	public Text txtItems;
 
 	public Camera_PC camMain;
 
@@ -22,6 +23,8 @@ public class Debug_ParticleSpawner : MonoBehaviour {
 
 		for (int i = 0; i < goTemp.Length; i++) {
 			d_particles.Add(goTemp[i].name, (GameObject)goTemp[i]);
+
+			txtItems.text = txtItems.text + "\n" + goTemp[i].name;
 		}
 	}
 	
@@ -82,5 +85,9 @@ public class Debug_ParticleSpawner : MonoBehaviour {
 		for (int i = goDummy.transform.childCount - 1; i > -1; i--) {
 			GameObject.Destroy(goDummy.transform.GetChild(i).gameObject);
 		}
+	}
+
+	public void LeaveScene() {
+		Application.LoadLevel("main-menu");
 	}
 }

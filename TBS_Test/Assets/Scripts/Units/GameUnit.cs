@@ -14,14 +14,14 @@ public class GameUnit : MonoBehaviour, ISelectable {
 
 	public string sName;
 
-	//public int iLevel;
-	//public float fXP;
-	//public float fXPtoNext;
 	public float fAP;
+	public float fMaxAP;
 
 	public float fHealth;
+	public float fMaxHealth;
 	//public float fMana;
 	public float fMovement;
+	public float fMaxMovement;
 	//public float fVision;
 	public float fSpeed = 1.5f;
 
@@ -62,6 +62,10 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	// Use this for initialization
 	void Start () {
 		l_abilities = new List<Ability>();
+
+		fAP = fMaxAP;
+		fHealth = fMaxHealth;
+		fMovement = fMaxMovement;
 	}
 	
 	// Update is called once per frame
