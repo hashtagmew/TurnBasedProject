@@ -48,7 +48,7 @@ public class Unit : MonoBehaviour {
 		if (map == null) {
 			Debug.Log ("OH GOID");
 		} else {
-			Debug.Log ("YEA");
+			//Debug.Log ("YEA");
 		}
 
 		if (Vector3.Distance (transform.position, map.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
