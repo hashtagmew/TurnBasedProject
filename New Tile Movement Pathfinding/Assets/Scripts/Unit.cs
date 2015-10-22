@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour {
 	public int tileX;
 	public int tileY;
 
+	public ClickableTile click;
 	public TileMap map;
 
 	// Our pathfinding info.  Null if we have no destination ordered.
@@ -18,7 +19,12 @@ public class Unit : MonoBehaviour {
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
 	int moveSpeed = 2;
-	//float remainingMovement=2;
+	float remainingMovement=2;
+
+	void Awake(){
+		click = GetComponent<ClickableTile> ();
+		map = GetComponent<TileMap> ();
+	}
 
 	void Update() {
 		// Draw our debug line showing the pathfinding!
@@ -38,12 +44,12 @@ public class Unit : MonoBehaviour {
 				currNode++;
 			}
 		}
-
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
-		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileY )) < 0.1f)
+		if (Vector3.Distance (transform.position, map.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
 			AdvancePathing();
-
+		}
+			
 		// Smoothly animate towards the correct map tile.
 		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileY ), 5f * Time.deltaTime);
 	}
@@ -53,8 +59,8 @@ public class Unit : MonoBehaviour {
 		if(currentPath==null)
 			return;
 
-//		if(remainingMovement <= 0)
-//			return;
+		if(remainingMovement <= 0)
+			return;
 
 		// Teleport us to our correct "current" position, in case we
 		// haven't finished the animation yet.
@@ -81,11 +87,11 @@ public class Unit : MonoBehaviour {
 	// The "Next Turn" button calls this.
 	public void NextTurn() {
 		// Make sure to wrap-up any outstanding movement left over.
-//		while(currentPath!=null && remainingMovement > 0) {
-//			AdvancePathing();
-//		}
+		while(currentPath!=null && remainingMovement > 0) {
+			AdvancePathing();
+		}
 
 		// Reset our available movement points.
-		//remainingMovement = moveSpeed;
+		remainingMovement = moveSpeed;
 	}
 }
