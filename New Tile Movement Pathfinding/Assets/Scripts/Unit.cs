@@ -11,8 +11,7 @@ public class Unit : MonoBehaviour {
 	public int tileX;
 	public int tileY;
 
-	public ClickableTile click;
-	public TileMap map;
+	public TileMap map { get; private set; }
 
 	// Our pathfinding info.  Null if we have no destination ordered.
 	public List<Node> currentPath = null;
@@ -21,9 +20,8 @@ public class Unit : MonoBehaviour {
 	int moveSpeed = 2;
 	float remainingMovement=2;
 
-	void Awake(){
-		click = GetComponent<ClickableTile> ();
-		map = GetComponent<TileMap> ();
+	void Start() {
+		this.map = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
 	}
 
 	void Update() {
@@ -46,6 +44,13 @@ public class Unit : MonoBehaviour {
 		}
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
+		//Debug.Log (transform.position);
+		if (map == null) {
+			Debug.Log ("OH GOID");
+		} else {
+			Debug.Log ("YEA");
+		}
+
 		if (Vector3.Distance (transform.position, map.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
 			AdvancePathing();
 		}

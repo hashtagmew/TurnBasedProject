@@ -19,7 +19,7 @@ public class TileMap : MonoBehaviour {
 		// Setup the selectedUnit's variable
 		selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
 		selectedUnit.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
-		selectedUnit.GetComponent<Unit>().map = this;
+		//selectedUnit.GetComponent<Unit>().map = this;
 
 		GenerateMapData();
 		GeneratePathfindingGraph();
@@ -152,7 +152,8 @@ public class TileMap : MonoBehaviour {
 	}
 
 	public Vector3 TileCoordToWorldCoord(int x, int y) {
-		return new Vector3(x, 0, y);
+		Vector3 vec = new Vector3(x, 0, y);
+		return vec;
 	}
 
 	public bool UnitCanEnterTile(int x, int y) {
