@@ -25,7 +25,23 @@ public class SelectUnit : MonoBehaviour {
 				map.selectedUnit = rayHit.collider.transform.parent.gameObject;
 				Debug.Log("Unit Selected: " + map.selectedUnit.name);
 
+			}//else{
+//				Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.red);
+//				map.selectedUnit = null;
+//				Debug.Log("No unit");
+//			}
+//			if(Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))){
+//				map.selectedUnit = map.selectedUnit;
+//			}
+		}
+		if (Input.GetMouseButtonDown (1) && !EventSystem.current.IsPointerOverGameObject ()){
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))) {
+				map.selectedUnit = null;
+				Debug.Log("No unit");
 			}
 		}
 	}
 }
+
