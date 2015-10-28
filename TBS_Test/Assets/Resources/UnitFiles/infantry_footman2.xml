@@ -1,22 +1,22 @@
 <TBSUnit>
-	<name>Footsoldier</name>
+	<name>Magiclaw</name>
 	<type>INFANTRY</type>
 	<race>Human</race>
 
 	<level>1</level>
 	<xp>0</xp>
 
-	<health>90</health>
+	<health>80</health>
 	<move>6</move>
 	<vision>2</vision>
 	
-	<attack>4</attack>
-	<physattack>3</physattack>
-	<rangattack>1</rangattack>
-	<magattack>1</magattack>
+	<attack>5</attack>
+	<physattack>2</physattack>
+	<rangattack>3</rangattack>
+	<magattack>4</magattack>
 	
-	<defence>3</defence>
-	<resistance>1</resistance>
+	<defence>2</defence>
+	<resistance>4</resistance>
 
 	<abilities>
 		<ability strength="12">Melee Strike</ability>
