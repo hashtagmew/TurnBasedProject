@@ -31,18 +31,6 @@ public enum EFFECT_TYPE {
 	PASSIVE
 }
 
-public enum EFFECT_TARGET {
-	NONE = 0,
-	SELF,
-	SINGLE_ENEMY,
-	SINGLE_ALLY,
-	SINGLE_ALLY_NOT_SELF,
-	AREA,
-	ALL_ALLIES,
-	ALL_ENEMIES,
-	ALL
-}
-
 public enum TERRAIN_TYPE {
 	NONE = 0,
 	PLAINS,

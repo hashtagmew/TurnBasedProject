@@ -9,20 +9,20 @@ public static class AbilityBox {
 	static AbilityBox() {
 		s_dAbilityLookup = new Dictionary<string, Ability>();
 
-		s_dAbilityLookup.Add("Melee Strike", new Ability(ABILITY_TYPE.ACTIVE, 1.0f));
-		s_dAbilityLookup.Add("Archery", new Ability(ABILITY_TYPE.ACTIVE, 1.0f));
-		s_dAbilityLookup.Add("Magic Missile", new Ability(ABILITY_TYPE.ACTIVE, 1.0f));
-		s_dAbilityLookup.Add("Heal", new Ability(ABILITY_TYPE.ACTIVE, 1.0f));
+		s_dAbilityLookup.Add("Melee Strike", new Ability(ABILITY_TYPE.ACTIVE, EFFECT_TARGET.SINGLE_ENEMY, 1.0f, 1));
+		s_dAbilityLookup.Add("Archery", new Ability(ABILITY_TYPE.ACTIVE, EFFECT_TARGET.SINGLE_ENEMY, 1.0f, 5));
+		//s_dAbilityLookup.Add("Magic Missile", new Ability(ABILITY_TYPE.ACTIVE, 1.0f));
+		s_dAbilityLookup.Add("Heal", new Ability(ABILITY_TYPE.ACTIVE, EFFECT_TARGET.SINGLE_ALLY_NOT_SELF, 35.0f, 3));
 
 		s_dAbilityLookup.Add("Guard", new Ability(ABILITY_TYPE.PASSIVE));
-		s_dAbilityLookup.Add("Fire Resistance", new Ability(ABILITY_TYPE.PASSIVE, 1.0f));
+		s_dAbilityLookup.Add("Fire Resistance", new Ability(ABILITY_TYPE.PASSIVE, EFFECT_TARGET.NONE, 25.0f, 0));
 
 		s_dAbilityLookup.Add("Infantry", new Ability(ABILITY_TYPE.UNIT_TYPE));
 		s_dAbilityLookup.Add("Archer", new Ability(ABILITY_TYPE.UNIT_TYPE));
 		s_dAbilityLookup.Add("Cavalry", new Ability(ABILITY_TYPE.UNIT_TYPE));
 		s_dAbilityLookup.Add("Support", new Ability(ABILITY_TYPE.UNIT_TYPE));
 		s_dAbilityLookup.Add("Irregular", new Ability(ABILITY_TYPE.UNIT_TYPE));
-		s_dAbilityLookup.Add("Hero", new Ability(ABILITY_TYPE.UNIT_TYPE));
+		s_dAbilityLookup.Add("Commander", new Ability(ABILITY_TYPE.UNIT_TYPE));
 
 		s_dAbilityLookup.Add("Human", new Ability(ABILITY_TYPE.RACE));
 		s_dAbilityLookup.Add("Robot", new Ability(ABILITY_TYPE.RACE));
