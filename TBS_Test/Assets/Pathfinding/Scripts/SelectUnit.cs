@@ -15,8 +15,10 @@ public class SelectUnit : MonoBehaviour {
 
 	public GameObject unit0;
 	public GameObject unit1;
+	public GameObject SlctTile;
 	public bool CanAttack;
 	public float distance;
+	private float Range = 1.1f;
 
 	public Text txtSelectedName;
 	public Text txtSelectedHP;
@@ -36,6 +38,10 @@ public class SelectUnit : MonoBehaviour {
 	void Update () {
 
 		distance = Vector3.Distance (unit0.transform.position, unit1.transform.position);
+
+		if (map.selectedUnit != null) {
+			SlctTile.transform.position = (map.selectedUnit.transform.position);
+		}
 
 		if (distance <= 1.1f) {
 			CanAttack = true;
@@ -65,9 +71,18 @@ public class SelectUnit : MonoBehaviour {
 
 			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))) {
 				map.selectedUnit = null;
-				Debug.Log("No unit");
+				SlctTile.transform.position = new Vector3 (-100,-100,-100);
+				Debug.Log("No Unit");
 			}
 		}
+		if (Input.GetMouseButtonDown (1) && !EventSystem.current.IsPointerOverGameObject () && map.selectedUnit != null) {
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("GameUnit"))) {
+				map.deselectedUnit = rayHit.collider.transform.parent.gameObject;
+			}
+
+		}
+
 		if (Input.GetMouseButtonDown (1) && !EventSystem.current.IsPointerOverGameObject () && map.selectedUnit != null && CanAttack == true) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -81,6 +96,20 @@ public class SelectUnit : MonoBehaviour {
 				map.selectedUnit.GetComponent<AudioSource>().Play();
 			}
 		}
+
+//		if(Vector3.Distance(map.selectedUnit.transform.position, map.deselectedUnit.transform.position) < Range )
+//		{
+//			Debug.DrawLine(map.selectedUnit.transform.position, rayHit.point, Color.blue);
+//			if(Physics.Raycast(transform.position, (map.deselectedUnit.transform.position - map.selectedUnit.transform.position), out rayHit, Range))
+//			{
+//
+//
+//				if(rayHit.transform.tag == "Unit")
+//				{
+//					// In Range and i can see you!
+//				}
+//			}
+//		}
 
 		if (map.selectedUnit == null) {
 			txtSelectedName.text = "None";

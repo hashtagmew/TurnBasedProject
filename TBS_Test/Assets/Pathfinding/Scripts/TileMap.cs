@@ -5,6 +5,7 @@ using System.Linq;
 public class TileMap : MonoBehaviour {
 
 	public GameObject selectedUnit;
+	public GameObject deselectedUnit;
 
 	public TileType[] tileTypes;
 
