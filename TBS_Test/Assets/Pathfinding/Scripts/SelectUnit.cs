@@ -7,11 +7,16 @@ using UnityEngine.UI;
 public class SelectUnit : MonoBehaviour {
 
 	public TileMap map;
-	//public Unit unit;
+	public Unit unit;
 	public bool bSelected = false;
 
 	Ray ray;
 	RaycastHit rayHit;
+
+	public GameObject unit0;
+	public GameObject unit1;
+	public bool CanAttack;
+	public float distance;
 
 	public Text txtSelectedName;
 	public Text txtSelectedHP;
@@ -29,6 +34,14 @@ public class SelectUnit : MonoBehaviour {
 	}
 
 	void Update () {
+
+		distance = Vector3.Distance (unit0.transform.position, unit1.transform.position);
+
+		if (distance <= 1.1f) {
+			CanAttack = true;
+		} else
+			CanAttack = false;
+
 		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -47,12 +60,25 @@ public class SelectUnit : MonoBehaviour {
 //				map.selectedUnit = map.selectedUnit;
 //			}
 		}
-		if (Input.GetMouseButtonDown (1) && !EventSystem.current.IsPointerOverGameObject ()){
+		if (Input.GetMouseButtonDown (2) && !EventSystem.current.IsPointerOverGameObject ()){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))) {
 				map.selectedUnit = null;
 				Debug.Log("No unit");
+			}
+		}
+		if (Input.GetMouseButtonDown (1) && !EventSystem.current.IsPointerOverGameObject () && map.selectedUnit != null && CanAttack == true) {
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("GameUnit"))) {
+				Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.green);
+				GameUnit attk = map.selectedUnit.GetComponent<GameUnit>();
+				GameUnit temphit = rayHit.collider.transform.parent.gameObject.GetComponent<GameUnit>();
+				Debug.Log("Unit Hit: " + map.selectedUnit.name);
+				temphit.fHealth -= CombatMechanics.CalculateDamage((int)attk.fPhysAttack, 0, (int)temphit.fDefence, 0);
+				map.selectedUnit.GetComponent<AudioSource>().Play();
+				map.selectedUnit.GetComponent<AudioSource>().Play();
 			}
 		}
 
