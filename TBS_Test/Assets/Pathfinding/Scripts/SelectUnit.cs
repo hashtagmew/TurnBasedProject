@@ -71,7 +71,7 @@ public class SelectUnit : MonoBehaviour {
 
 			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))) {
 				map.selectedUnit = null;
-				SlctTile.transform.position = new Vector3 (-100,-100,-100);
+				SlctTile.transform.position = new Vector3 (-1000,-1000,-1000);
 				Debug.Log("No Unit");
 			}
 		}
