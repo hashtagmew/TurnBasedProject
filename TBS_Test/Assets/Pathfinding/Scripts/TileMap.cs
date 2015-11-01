@@ -5,6 +5,7 @@ using System.Linq;
 public class TileMap : MonoBehaviour {
 
 	public GameObject selectedUnit;
+	public GameObject deselectedUnit;
 
 	public TileType[] tileTypes;
 
@@ -168,7 +169,7 @@ public class TileMap : MonoBehaviour {
 		// Clear out our unit's old path.
 		selectedUnit.GetComponent<Unit>().currentPath = null;
 
-		if( UnitCanEnterTile(x,y) == false ) {
+		if (UnitCanEnterTile (x, y) == false) {
 			// We probably clicked on a mountain or something, so just quit out.
 			return;
 		}
