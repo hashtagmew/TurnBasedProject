@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SelectUnit : MonoBehaviour {
 
 	public TileMap map;
+
 	public Unit unit;
 	public bool bSelected = false;
 

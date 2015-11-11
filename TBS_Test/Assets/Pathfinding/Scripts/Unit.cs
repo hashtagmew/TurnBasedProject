@@ -18,7 +18,8 @@ public class Unit : MonoBehaviour {
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
 	int moveSpeed = 2;
-	float remainingMovement=2;
+	public float remainingMovement = 0;
+	public float resetMovement = 0;
 
 	void Start() {
 		this.map = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
@@ -42,6 +43,17 @@ public class Unit : MonoBehaviour {
 				currNode++;
 			}
 		}
+
+//		//Reset Movement Cost
+//		if (currentPath == null && remainingMovement <= 0) {
+//			remainingMovement = resetMovement;
+//		}
+//		//Make sure unit stops after remaining steps has been achieved
+//		if (remainingMovement == 0) {
+//			currentPath = null;
+//			remainingMovement = resetMovement;
+//		}
+
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
 		//Debug.Log (transform.position);
@@ -72,7 +84,7 @@ public class Unit : MonoBehaviour {
 		transform.position = map.TileCoordToWorldCoord( tileX, tileY );
 
 		// Get cost from current tile to next tile
-		//remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y );
+		remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y );
 		
 		// Move us to the next tile in the sequence
 		tileX = currentPath[1].x;
@@ -89,14 +101,21 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	public void EndTurn(){
+		currentPath = null;
+		remainingMovement = resetMovement;
+	}
+
 	// The "Next Turn" button calls this.
 	public void NextTurn() {
+
 		// Make sure to wrap-up any outstanding movement left over.
 		while(currentPath!=null && remainingMovement > 0) {
 			AdvancePathing();
+
 		}
 
 		// Reset our available movement points.
-		remainingMovement = moveSpeed;
+
 	}
 }
