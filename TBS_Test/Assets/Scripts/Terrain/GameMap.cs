@@ -188,6 +188,6 @@ public class GameMap : MonoBehaviour {
 	}
 
 	public MapTile GetTile(int x, int y) {
-		return map[x][y];
+		return map[y][x];
 	}
 }
