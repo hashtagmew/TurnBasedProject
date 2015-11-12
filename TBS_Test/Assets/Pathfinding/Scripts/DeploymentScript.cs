@@ -30,5 +30,20 @@ public class DeploymentScript : MonoBehaviour {
 		Instantiate (DeployPrefab[1], DeployTransform.transform.position, DeployTransform.transform.rotation);
 		DeployUI.SetActive (false);
 	}
+	public void DeployMC(){
+		
+		Instantiate (DeployPrefab[2], DeployTransform.transform.position, DeployTransform.transform.rotation);
+		DeployUI.SetActive (false);
+	}
+	public void DeployDem(){
+		
+		Instantiate (DeployPrefab[3], DeployTransform.transform.position, DeployTransform.transform.rotation);
+		DeployUI.SetActive (false);
+	}
+	public void DeployMag(){
+		
+		Instantiate (DeployPrefab[4], DeployTransform.transform.position, DeployTransform.transform.rotation);
+		DeployUI.SetActive (false);
+	}
 
 }
