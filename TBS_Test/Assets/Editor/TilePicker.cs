@@ -107,13 +107,16 @@ public class TilePicker : EditorWindow {
 
 			//Check for a "picked up" tile
 			if (s_maplogic != null) {
-				if (s_maplogic.iLastCapturedTile != s_maplogic.iCapturedTile) {
+				//if (s_maplogic.iLastCapturedTile != s_maplogic.iCapturedTile) {
+				if (s_maplogic.bCaptureTile) {
 					s_iLastSelection = (TERRAIN_TYPE)s_maplogic.iLastCapturedTile;
 					s_iSelection = s_iLastSelection;
 					s_maplogic.iCapturedTile = s_maplogic.iLastCapturedTile;
 
 					LoadTileTexture();
 					Repaint();
+
+					s_maplogic.bCaptureTile = false;
 				}
 			}
 			else {
@@ -631,6 +634,8 @@ public class TilePicker : EditorWindow {
 								int value = int.Parse(xlayer3_tiledata.Attribute("type").Value);
 								tempobj.GetComponent<TerrainFeature>().Terraform((FEATURE_TYPE)value);
 								tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
+								//Scale doesn't load properly?
+								tempobj.transform.localScale = new Vector3(0.1f, 8.0f, 1.0f);
 							}
 						}
 
@@ -638,7 +643,8 @@ public class TilePicker : EditorWindow {
 
 						TempTile.name = string.Format("Tile_{0}_{1}", TempTile.GetComponent<MapTile>().vGridPosition.x, TempTile.GetComponent<MapTile>().vGridPosition.y);
 						TempTile.transform.localPosition = new Vector3(TempTile.GetComponent<MapTile>().vGridPosition.x + 0.5f, TempTile.GetComponent<MapTile>().vGridPosition.y + 0.5f, 0);
-						TempTile.transform.localRotation = Quaternion.identity;
+						//TempTile.transform.localRotation = Quaternion.identity;
+						TempTile.transform.localEulerAngles = new Vector3(0.0f, 0.0f, (float)TempTile.GetComponent<MapTile>().eOrient);
 						TempTile.transform.localScale = new Vector3(1, 1, 0.1f);
 					}
 				}

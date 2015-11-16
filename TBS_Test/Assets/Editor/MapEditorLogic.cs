@@ -14,6 +14,7 @@ public class MapEditorLogic : Editor {
 	private GameObject goTileCheck;
 	public bool bShowTips = true;
 	public int iCapturedTile = 0;
+	public bool bCaptureTile = false;
 	public int iLastCapturedTile = 0;
 	public List<TerrainFeature> l_tfCaptured;
 
@@ -144,6 +145,8 @@ public class MapEditorLogic : Editor {
 
 		if (goTemp != null) {
 			iLastCapturedTile = (int)goTemp.GetComponent<MapTile>().iType;
+			TilePicker.s_iSelection = (TERRAIN_TYPE)iLastCapturedTile;
+			bCaptureTile = true;
 			TilePicker.s_eTileRot = goTemp.GetComponent<MapTile>().eOrient;
 			TilePicker.s_eTransition = goTemp.GetComponent<MapTile>().iTransitionType;
 		}
