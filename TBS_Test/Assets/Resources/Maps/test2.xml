@@ -440,14 +440,14 @@
 		<tile>
 			<type>1</type>
 			<transition>0</transition>
-			<rotation>0</rotation>
+			<rotation>90</rotation>
 			<xpos>6</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>1</type>
 			<transition>0</transition>
-			<rotation>0</rotation>
+			<rotation>90</rotation>
 			<xpos>6</xpos>
 			<ypos>11</ypos>
 		</tile>
@@ -625,20 +625,6 @@
 			<ypos>9</ypos>
 		</tile>
 		<tile>
-			<type>4</type>
-			<transition>0</transition>
-			<rotation>0</rotation>
-			<xpos>9</xpos>
-			<ypos>9</ypos>
-		</tile>
-		<tile>
-			<type>1</type>
-			<transition>6</transition>
-			<rotation>0</rotation>
-			<xpos>9</xpos>
-			<ypos>8</ypos>
-		</tile>
-		<tile>
 			<type>5</type>
 			<transition>0</transition>
 			<rotation>0</rotation>
@@ -852,7 +838,7 @@
 		<tile>
 			<type>1</type>
 			<transition>0</transition>
-			<rotation>0</rotation>
+			<rotation>180</rotation>
 			<xpos>8</xpos>
 			<ypos>5</ypos>
 		</tile>
@@ -866,21 +852,21 @@
 		<tile>
 			<type>1</type>
 			<transition>6</transition>
-			<rotation>0</rotation>
+			<rotation>180</rotation>
 			<xpos>9</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>1</type>
 			<transition>6</transition>
-			<rotation>0</rotation>
+			<rotation>180</rotation>
 			<xpos>9</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>1</type>
 			<transition>6</transition>
-			<rotation>0</rotation>
+			<rotation>180</rotation>
 			<xpos>9</xpos>
 			<ypos>7</ypos>
 		</tile>
@@ -950,14 +936,7 @@
 		<tile>
 			<type>1</type>
 			<transition>0</transition>
-			<rotation>0</rotation>
-			<xpos>7</xpos>
-			<ypos>6</ypos>
-		</tile>
-		<tile>
-			<type>1</type>
-			<transition>0</transition>
-			<rotation>0</rotation>
+			<rotation>180</rotation>
 			<xpos>7</xpos>
 			<ypos>5</ypos>
 		</tile>
@@ -4418,21 +4397,21 @@
 		<tile>
 			<type>1</type>
 			<transition>0</transition>
-			<rotation>0</rotation>
+			<rotation>90</rotation>
 			<xpos>6</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>1</type>
 			<transition>0</transition>
-			<rotation>0</rotation>
+			<rotation>90</rotation>
 			<xpos>6</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>1</type>
-			<transition>5</transition>
-			<rotation>0</rotation>
+			<transition>0</transition>
+			<rotation>90</rotation>
 			<xpos>6</xpos>
 			<ypos>8</ypos>
 		</tile>
@@ -4481,8 +4460,29 @@
 		<tile>
 			<type>1</type>
 			<transition>0</transition>
-			<rotation>0</rotation>
+			<rotation>90</rotation>
 			<xpos>6</xpos>
+			<ypos>6</ypos>
+		</tile>
+		<tile>
+			<type>1</type>
+			<transition>6</transition>
+			<rotation>180</rotation>
+			<xpos>9</xpos>
+			<ypos>9</ypos>
+		</tile>
+		<tile>
+			<type>1</type>
+			<transition>6</transition>
+			<rotation>180</rotation>
+			<xpos>9</xpos>
+			<ypos>8</ypos>
+		</tile>
+		<tile>
+			<type>1</type>
+			<transition>0</transition>
+			<rotation>180</rotation>
+			<xpos>7</xpos>
 			<ypos>6</ypos>
 		</tile>
 </tiles>
