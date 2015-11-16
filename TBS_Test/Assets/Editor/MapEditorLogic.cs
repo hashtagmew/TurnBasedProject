@@ -96,7 +96,8 @@ public class MapEditorLogic : Editor {
 	        goTileCheck.name = string.Format("Tile_{0}_{1}", vTilePos.x, vTilePos.y);
 			goTileCheck.GetComponent<MapTile>().vGridPosition = new Vector2(vTilePos.x, vTilePos.y);
 
-			goTileCheck.GetComponent<MapTile>().Terraform(TilePicker.s_iSelection);
+			goTileCheck.GetComponent<MapTile>().Terraform(TilePicker.s_iSelection, TilePicker.s_eTransition, TilePicker.s_eTileRot);
+			Debug.Log (TilePicker.s_eTransition.ToString() + " " + TilePicker.s_eTileRot.ToString());
 		}
 		else {
 			GameObject newfeat = GameObject.Instantiate(((MapEditor)target).goProtoFeature);
@@ -143,6 +144,8 @@ public class MapEditorLogic : Editor {
 
 		if (goTemp != null) {
 			iLastCapturedTile = (int)goTemp.GetComponent<MapTile>().iType;
+			TilePicker.s_eTileRot = goTemp.GetComponent<MapTile>().eOrient;
+			TilePicker.s_eTransition = goTemp.GetComponent<MapTile>().iTransitionType;
 		}
 		else {
 			Debug.Log("Couldn't pickup tile at " + vTilePos.ToString());
@@ -239,7 +242,7 @@ public class MapEditorLogic : Editor {
 			for (int j = 0; j < mapedTarget.iRows; j++) {
 				goTileCheck = GameObject.Find(string.Format("Tile_{0}_{1}", i, j));
 				if (goTileCheck != null) {
-					goTileCheck.GetComponent<MapTile>().Terraform(TERRAIN_TYPE.NONE);
+					goTileCheck.GetComponent<MapTile>().Terraform(TERRAIN_TYPE.NONE, TERRAIN_TYPE.NONE, TERRAIN_ORIENTATION.UP);
 				}
 			}
 		}

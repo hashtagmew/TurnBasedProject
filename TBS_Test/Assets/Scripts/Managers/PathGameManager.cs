@@ -17,19 +17,19 @@ public class PathGameManager : MonoBehaviour {
 	void Update () {
 		if (mapcursor.mapTile != null) {
 			if (Input.GetKeyDown(KeyCode.F1)) {
-				mapcursor.mapTile.Terraform(TERRAIN_TYPE.NONE);
+				//mapcursor.mapTile.Terraform(TERRAIN_TYPE.NONE);
 			}
 
 			if (Input.GetKeyDown(KeyCode.F2)) {
-				mapcursor.mapTile.Terraform(TERRAIN_TYPE.DUST_BOWL);
+				//mapcursor.mapTile.Terraform(TERRAIN_TYPE.DUST_BOWL);
 			}
 
 			if (Input.GetKeyDown(KeyCode.F3)) {
-				mapcursor.mapTile.Terraform(TERRAIN_TYPE.RIVER);
+				//mapcursor.mapTile.Terraform(TERRAIN_TYPE.RIVER);
 			}
 
 			if (Input.GetKeyDown(KeyCode.F4)) {
-				mapcursor.mapTile.Terraform(TERRAIN_TYPE.PLAINS);
+				//mapcursor.mapTile.Terraform(TERRAIN_TYPE.PLAINS);
 			}
 		}
 		else {

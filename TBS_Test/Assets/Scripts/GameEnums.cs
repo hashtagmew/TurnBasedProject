@@ -56,6 +56,13 @@ public enum TERRAIN_TYPE {
 	LAVA
 }
 
+public enum TERRAIN_ORIENTATION {
+	UP = 0,
+	RIGHT = 90,
+	DOWN = 180,
+	LEFT = 270
+}
+
 public enum FEATURE_TYPE {
 	NONE = 0,
 	TREE,

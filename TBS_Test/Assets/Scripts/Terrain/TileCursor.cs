@@ -49,14 +49,14 @@ public class TileCursor : MonoBehaviour {
 
 	public void TerraformSelection(TERRAIN_TYPE newtype) {
 		if (mapTile != null) {
-			mapTile.Terraform(newtype);
+			mapTile.SimpleTerraform(newtype);
 		}
 	}
 
 	//For compatability with Unity UI buttons
 	public void TerraformSelection(int newtype) {
 		if (mapTile != null) {
-			mapTile.Terraform((TERRAIN_TYPE)newtype);
+			mapTile.SimpleTerraform((TERRAIN_TYPE)newtype);
 		}
 	}
 }

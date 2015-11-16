@@ -25,6 +25,8 @@ public class PUNNetController : PunBehaviour {
 	public ControllerState m_CurrentState { get; private set; }
 	public ExitGames.Client.Photon.Hashtable m_PropertiesHash;
 
+	public const int MAX_PLAYERS = 2;
+
 	public Text m_GameTimerDisplay = null;
 	float m_StartTimer = 0.0f;
 
@@ -33,11 +35,10 @@ public class PUNNetController : PunBehaviour {
 	// Use this for initialization
 	void Start () {
 		m_CurrentState = ControllerState.NOCONNECTION;
+
 		m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
 		m_PropertiesHash.Add("Ready", false);
-
-		//More Custom Properties
-
+		m_PropertiesHash.Add("Faction", "1");
 		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
 
 	}
@@ -69,19 +70,18 @@ public class PUNNetController : PunBehaviour {
 				tempText.text += tempString;
 			}
 
-			if (PhotonNetwork.playerList.Length < 4)
+			if (PhotonNetwork.playerList.Length < MAX_PLAYERS)
 			{
-				for (int i = 0; i < (4 - PhotonNetwork.playerList.Length); ++i)
+				for (int i = 0; i < (MAX_PLAYERS - PhotonNetwork.playerList.Length); ++i)
 				{
 					tempText.text += "Empty";
-					if (i + PhotonNetwork.playerList.Length < 4)
+					if (i + PhotonNetwork.playerList.Length < MAX_PLAYERS)
 					{
 						tempText.text += "\n";
 					}
 				}
 			}
-			if (PhotonNetwork.playerList.Length == 1)
-			{
+			if (PhotonNetwork.playerList.Length == MAX_PLAYERS) {
 				int readyCount = 0;
 				foreach (PhotonPlayer player in PhotonNetwork.playerList)
 				{
@@ -90,7 +90,7 @@ public class PUNNetController : PunBehaviour {
 						readyCount += 1;
 					}
 				}
-				if (readyCount >= 1)
+				if (readyCount >= MAX_PLAYERS)
 				{
 					if (!m_bCounting)
 					{
@@ -106,7 +106,7 @@ public class PUNNetController : PunBehaviour {
 					{
 						if (m_StartTimer >= 6.0f)
 						{
-							PhotonNetwork.LoadLevel("UIPrototype");
+							PhotonNetwork.LoadLevel("perspec-test");
 						}
 						else
 						{
@@ -130,7 +130,7 @@ public class PUNNetController : PunBehaviour {
 			}
 			else
 			{
-				Debug.Log("Waiting on " + (4 - PhotonNetwork.playerList.Length) + " players...");
+				Debug.Log("Waiting on " + (MAX_PLAYERS - PhotonNetwork.playerList.Length) + " players...");
 			}
 			
 		}
@@ -165,7 +165,7 @@ public class PUNNetController : PunBehaviour {
 		Debug.Log("\t\tJoined a room!");
 
 		UIPanelManager.OpenPanel("ClientConnected");
-		UIPanelManager.getUIElementOnPanel("MenuDescription").GetComponentInChildren<Text>().text = "Room Name:\n" + PhotonNetwork.room.name;
+		UIPanelManager.getUIElementOnPanel("MenuDescription").GetComponentInChildren<Text>().text = PhotonNetwork.room.name + " Room";
 
 	}
 
@@ -214,7 +214,7 @@ public class PUNNetController : PunBehaviour {
 	{
 		RoomOptions opt = new RoomOptions();
 
-		opt.maxPlayers = 4;
+		opt.maxPlayers = MAX_PLAYERS;
 		opt.isVisible = true;
 		opt.isOpen = true;
 		UIPanelManager.OpenPanel("Connecting");
@@ -229,7 +229,7 @@ public class PUNNetController : PunBehaviour {
 	{
 		RoomOptions opt = new RoomOptions();
 
-		opt.maxPlayers = 4;
+		opt.maxPlayers = MAX_PLAYERS;
 		opt.isVisible = true;
 		opt.isOpen = true;
 		UIPanelManager.OpenPanel("Connecting");
@@ -251,9 +251,22 @@ public class PUNNetController : PunBehaviour {
 		m_ssRoomName = room;
 	}
 
+	public void setRoomName() {
+		m_ssRoomName = UIPanelManager.getUIElementOnPanel("RoomName").GetComponent<InputField>().text;
+	}
+
 	public void setPlayerName (string name)
 	{
 		PhotonNetwork.playerName = name;
+	}
+
+	public void setPlayerFaction() {
+		m_PropertiesHash["Faction"] = UIPanelManager.getUIElementOnPanel("FactionPick").GetComponent<Slider>().value.ToString();
+		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
+	}
+
+	public void setPlayerName() {
+		PhotonNetwork.playerName = UIPanelManager.getUIElementOnPanel("PlayerName").GetComponent<InputField>().text;
 	}
 
 	public void setRoomReady(bool ready)
@@ -270,7 +283,7 @@ public class PUNNetController : PunBehaviour {
 			Debug.Log("Not Ready To Play");
 		}
 
-		if (PhotonNetwork.playerList.Length == 4)
+		if (PhotonNetwork.playerList.Length == MAX_PLAYERS)
 		{
 			int readyCount = 0;
 			foreach (PhotonPlayer player in PhotonNetwork.playerList)
@@ -280,10 +293,10 @@ public class PUNNetController : PunBehaviour {
 					readyCount += 1;
 				}
 			}
-			if (readyCount >= 4)
+			if (readyCount >= MAX_PLAYERS)
 			{
 				Debug.Log("All Players Are Connected And Ready!");
-				PhotonNetwork.LoadLevel("UIPrototype");
+				PhotonNetwork.LoadLevel("perspec-test");
 			}
 			else
 			{
@@ -292,7 +305,7 @@ public class PUNNetController : PunBehaviour {
 		}
 		else
 		{
-			Debug.Log("Waiting on " + (4 - PhotonNetwork.playerList.Length) + " players...");
+			Debug.Log("Waiting on " + (MAX_PLAYERS - PhotonNetwork.playerList.Length) + " players...");
 		}
 
 	}

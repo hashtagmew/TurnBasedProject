@@ -27,6 +27,9 @@ public class TilePicker : EditorWindow {
 	static public FEATURE_TYPE s_iLastFeatureSelection = FEATURE_TYPE.TREE;
 	static public FEATURE_TYPE s_iFeatureSelection = FEATURE_TYPE.NONE;
 
+	static public TERRAIN_TYPE s_eTransition = TERRAIN_TYPE.NONE;
+	static public TERRAIN_ORIENTATION s_eTileRot = TERRAIN_ORIENTATION.UP;
+
 	static public MAPED_TOOL s_iTool;
 
 	static public Texture s_texTile;
@@ -137,11 +140,19 @@ public class TilePicker : EditorWindow {
 		//Painting terrain tiles
 		if (s_bPaintMode) {
 			GUILayout.BeginHorizontal();
-
 			GUI.SetNextControlName("Top");
 			GUILayout.Label("Tile");
 			s_iSelection = (TERRAIN_TYPE)EditorGUILayout.EnumPopup(s_iSelection);
+			GUILayout.EndHorizontal();
 
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Transition");
+			s_eTransition = (TERRAIN_TYPE)EditorGUILayout.EnumPopup(s_eTransition);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Rotation");
+			s_eTileRot = (TERRAIN_ORIENTATION)EditorGUILayout.EnumPopup(s_eTileRot);
 			GUILayout.EndHorizontal();
 
 			if (s_iLastSelection != s_iSelection) {
@@ -473,6 +484,18 @@ public class TilePicker : EditorWindow {
 			writer.WriteWhitespace("\n");
 
 			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("transition");
+			writer.WriteValue((int)temptile.iTransitionType);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
+			writer.WriteStartElement("rotation");
+			writer.WriteValue((int)temptile.eOrient);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			writer.WriteWhitespace("\t\t\t");
 			writer.WriteStartElement("xpos");
 			writer.WriteValue(temptile.vGridPosition.x);
 			writer.WriteEndElement();
@@ -585,7 +608,13 @@ public class TilePicker : EditorWindow {
 
 						foreach (XElement xlayer3_tiledata in xlayer2_tiles.Elements()) {
 							if (xlayer3_tiledata.Name == "type") {
-								TempTile.GetComponent<MapTile>().Terraform((TERRAIN_TYPE)int.Parse(xlayer3_tiledata.Value));
+								TempTile.GetComponent<MapTile>().iType = (TERRAIN_TYPE)int.Parse(xlayer3_tiledata.Value);
+							}
+							else if (xlayer3_tiledata.Name == "transition") {
+								TempTile.GetComponent<MapTile>().iTransitionType = (TERRAIN_TYPE)int.Parse(xlayer3_tiledata.Value);
+							}
+							else if (xlayer3_tiledata.Name == "rotation") {
+								TempTile.GetComponent<MapTile>().eOrient = (TERRAIN_ORIENTATION)int.Parse(xlayer3_tiledata.Value);
 							}
 							else if (xlayer3_tiledata.Name == "xpos") {
 								TempTile.GetComponent<MapTile>().vGridPosition = new Vector2(int.Parse(xlayer3_tiledata.Value), TempTile.GetComponent<MapTile>().vGridPosition.y);
@@ -604,6 +633,8 @@ public class TilePicker : EditorWindow {
 								tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
 							}
 						}
+
+						TempTile.GetComponent<MapTile>().Terraform(TempTile.GetComponent<MapTile>().iType, TempTile.GetComponent<MapTile>().iTransitionType, TempTile.GetComponent<MapTile>().eOrient);
 
 						TempTile.name = string.Format("Tile_{0}_{1}", TempTile.GetComponent<MapTile>().vGridPosition.x, TempTile.GetComponent<MapTile>().vGridPosition.y);
 						TempTile.transform.localPosition = new Vector3(TempTile.GetComponent<MapTile>().vGridPosition.x + 0.5f, TempTile.GetComponent<MapTile>().vGridPosition.y + 0.5f, 0);

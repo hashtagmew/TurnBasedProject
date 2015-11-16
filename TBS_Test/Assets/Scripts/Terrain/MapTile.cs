@@ -8,6 +8,8 @@ public class MapTile : MonoBehaviour {
 	public List<TerrainFeature> l_tfFeatures;
 
 	public TERRAIN_TYPE iType = TERRAIN_TYPE.NONE;
+	public TERRAIN_TYPE iTransitionType = TERRAIN_TYPE.NONE;
+	public TERRAIN_ORIENTATION eOrient = TERRAIN_ORIENTATION.UP;
 	public string sDisplayName;
 
 	public MeshRenderer meshrenAppearance;
@@ -31,7 +33,7 @@ public class MapTile : MonoBehaviour {
 		}
 	}
 
-	public void Terraform(TERRAIN_TYPE changeto) {
+	public void SimpleTerraform(TERRAIN_TYPE changeto) {
 		iType = changeto;
 
 		if (iType == TERRAIN_TYPE.DUST_BOWL) {
@@ -65,10 +67,86 @@ public class MapTile : MonoBehaviour {
 			meshrenAppearance.material = Resources.Load("Terrain/none") as Material;
 		}
 
+		GenerateFormattedDisplayName(changeto);
+	}
+
+	public void Terraform(TERRAIN_TYPE changeto, TERRAIN_TYPE transition, TERRAIN_ORIENTATION rot) {
+		iType = changeto;
+		iTransitionType = transition;
+
+		if (changeto != transition && changeto != TERRAIN_TYPE.NONE && transition != TERRAIN_TYPE.NONE) {
+			//Grass/Dirt
+			if (iType == TERRAIN_TYPE.DUST_BOWL && transition == TERRAIN_TYPE.PLAINS || 
+			    iType == TERRAIN_TYPE.PLAINS && transition == TERRAIN_TYPE.DUST_BOWL) {
+				meshrenAppearance.material = Resources.Load("Terrain/sand-to-grass") as Material;
+			}
+			//Grass/Water
+			else if (iType == TERRAIN_TYPE.RIVER && transition == TERRAIN_TYPE.PLAINS || 
+			         iType == TERRAIN_TYPE.PLAINS && transition == TERRAIN_TYPE.RIVER) {
+				meshrenAppearance.material = Resources.Load("Terrain/grass-to-water") as Material;
+			}
+			//Lava/Water
+			else if (iType == TERRAIN_TYPE.RIVER && transition == TERRAIN_TYPE.LAVA || 
+			         iType == TERRAIN_TYPE.LAVA && transition == TERRAIN_TYPE.RIVER) {
+				meshrenAppearance.material = Resources.Load("Terrain/lava-to-water") as Material;
+			}
+			//Sand/Lava
+			else if (iType == TERRAIN_TYPE.DUST_BOWL && transition == TERRAIN_TYPE.LAVA || 
+			         iType == TERRAIN_TYPE.LAVA && transition == TERRAIN_TYPE.DUST_BOWL) {
+				meshrenAppearance.material = Resources.Load("Terrain/sand-to-lava") as Material;
+			}
+			//Sand/Wasteland
+			else if (iType == TERRAIN_TYPE.DUST_BOWL && transition == TERRAIN_TYPE.WASTELAND || 
+			         iType == TERRAIN_TYPE.WASTELAND && transition == TERRAIN_TYPE.DUST_BOWL) {
+				meshrenAppearance.material = Resources.Load("Terrain/sand-to-wasteland") as Material;
+			}
+			//Sand/Water
+			else if (iType == TERRAIN_TYPE.DUST_BOWL && transition == TERRAIN_TYPE.RIVER || 
+			         iType == TERRAIN_TYPE.RIVER && transition == TERRAIN_TYPE.DUST_BOWL) {
+				meshrenAppearance.material = Resources.Load("Terrain/sand-to-water") as Material;
+			}
+			//Wasteland/Lava
+			else if (iType == TERRAIN_TYPE.WASTELAND && transition == TERRAIN_TYPE.LAVA || 
+			         iType == TERRAIN_TYPE.LAVA && transition == TERRAIN_TYPE.WASTELAND) {
+				meshrenAppearance.material = Resources.Load("Terrain/wasteland-to-lava") as Material;
+			}
+			//Wasteland/Water
+			else if (iType == TERRAIN_TYPE.WASTELAND && transition == TERRAIN_TYPE.RIVER || 
+			         iType == TERRAIN_TYPE.RIVER && transition == TERRAIN_TYPE.WASTELAND) {
+				meshrenAppearance.material = Resources.Load("Terrain/wasteland-to-water") as Material;
+			}
+			else {
+				Debug.Log("No transition existed between " + changeto.ToString() + " and " + transition.ToString() + "!");
+				SimpleTerraform(changeto);
+			}
+		}
+		//No transition needed
+		else {
+			SimpleTerraform(changeto);
+		}
+
+		this.transform.localEulerAngles = new Vector3(this.transform.localRotation.eulerAngles.x,
+		                               this.transform.localRotation.eulerAngles.y,
+		                               (float)rot);
+		//this.transform.localEulerAngles.Set(neweuler.x, neweuler.y, neweuler.z);
+		//this.transform.eulerAngles.Set(neweuler.x, neweuler.y, neweuler.z);
+		//this.transform.Rotate(neweuler);
+		//this.transform.eulerAngles
+		//this.transform.localRotation.eulerAngles = neweuler;
+
+		Debug.Log((float)rot);
+
+		this.eOrient = rot;
+		this.iTransitionType = transition;
+		
+		GenerateFormattedDisplayName(changeto);
+	}
+
+	private void GenerateFormattedDisplayName(TERRAIN_TYPE changeto) {
 		//Format name of terrain nicely for user display
 		sDisplayName = changeto.ToString().ToLower();
 		sDisplayName = ToProper(sDisplayName);
-
+		
 		string stemp = "";
 		bool buppernext = true;
 		for (int i = 0; i < sDisplayName.Length; i++) {
@@ -87,7 +165,7 @@ public class MapTile : MonoBehaviour {
 				}
 			}
 		}
-
+		
 		sDisplayName = stemp;
 	}
 
