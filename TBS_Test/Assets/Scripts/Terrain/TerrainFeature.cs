@@ -31,12 +31,12 @@ public class TerrainFeature : MonoBehaviour {
 			ChangeModel("tree");
 		}
 		else if (iType == FEATURE_TYPE.MOUNTAIN) {
-			this.transform.localScale = new Vector3(0.8f, 0.8f, 4.0f);
+			//this.transform.localScale = new Vector3(0.8f, 0.8f, 4.0f);
 			myRenderer.sharedMaterial = Resources.Load("Terrain/cliff") as Material;
 			this.name = "Feature-Mountain";
 		}
 		else if (iType == FEATURE_TYPE.CRATER) {
-			this.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
+			//this.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
 			myRenderer.sharedMaterial = Resources.Load("Terrain/crater") as Material;
 			this.name = "Feature-Crater";
 		}

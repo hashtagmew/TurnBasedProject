@@ -1,15 +1,10 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
-public class AttackData {
+namespace Combat {
+	public class AttackData : ScriptableObject {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		public List<DamageData> l_damage = new List<DamageData>();
 	}
 }

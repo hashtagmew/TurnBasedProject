@@ -41,34 +41,26 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	public float fDefence;
 
 	public List<Ability> l_abilities;
-
-//	public GameUnit() {
-//		vGridPosition = Vector2.zero;
-//		
-//		sName = "Noname";
-//		
-//		iLevel = 1;
-//		fXP = 0.0f;
-//		fXPtoNext = 100.0f;
-//		
-//		fHealth = 50.0f;
-//		fMovement = 6.0f;
-//		fVision = 2.0f;
-//
-//		fAttack = 4.0f;
-//		fPhysAttack = 4.0f;
-//		fRangAttack = 4.0f;
-//		fMagiAttack = 4.0f;
-//		
-//		fResistance = 2.0f;
-//		fDefence = 3.0f;
-//		
-//		l_abilities = new List<Ability>();
-//	}
+	public Dictionary<ABILITY_ELEMENT, float> d_efElementalResistances {
+		get;
+		private set;
+	}
 
 	// Use this for initialization
 	void Start () {
 		l_abilities = new List<Ability>();
+		d_efElementalResistances = new Dictionary<ABILITY_ELEMENT, float>();
+
+		d_efElementalResistances.Add(ABILITY_ELEMENT.KINETIC, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.MAGIC, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.LIGHT, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.DARK, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.EARTH, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.WATER, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.AIR, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.FIRE, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.ELECTRIC, 1.0f);
+		d_efElementalResistances.Add(ABILITY_ELEMENT.ICE, 1.0f);
 
 		fAP = fMaxAP;
 		fHealth = fMaxHealth;
@@ -111,6 +103,11 @@ public class GameUnit : MonoBehaviour, ISelectable {
 //				this.transform.position = new Vector3(fTempX, this.transform.position.y, fTempZ);
 //			}
 		//}
+	}
+
+	void SetResistance(ABILITY_ELEMENT element, float resistpercent) {
+		//resistpercent = Mathf.Clamp(resistpercent, -1.0f, 4.0f);
+		d_efElementalResistances[element] = resistpercent;
 	}
 
 	public virtual void OnSelected() {

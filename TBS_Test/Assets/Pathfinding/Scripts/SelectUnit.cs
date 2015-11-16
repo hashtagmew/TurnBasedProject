@@ -92,7 +92,7 @@ public class SelectUnit : MonoBehaviour {
 				GameUnit attk = map.selectedUnit.GetComponent<GameUnit>();
 				GameUnit temphit = rayHit.collider.transform.parent.gameObject.GetComponent<GameUnit>();
 				Debug.Log("Unit Hit: " + map.selectedUnit.name);
-				temphit.fHealth -= CombatMechanics.CalculateDamage((int)attk.fPhysAttack, 0, (int)temphit.fDefence, 0);
+				temphit.fHealth -= Combat.CombatMechanics.CalculateDamage((int)attk.fPhysAttack, 0, (int)temphit.fDefence, 0);
 				map.selectedUnit.GetComponent<AudioSource>().Play();
 				map.selectedUnit.GetComponent<AudioSource>().Play();
 			}

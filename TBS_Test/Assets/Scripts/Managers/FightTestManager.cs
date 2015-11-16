@@ -90,15 +90,15 @@ public class FightTestManager : MonoBehaviour {
 	}
 
 	private int CalculateDamage(int attack, int attackbonus, int defence, int defencebonus, bool ignoredef = false) {
-		return CombatMechanics.CalculateDamage(attack, attackbonus, defence, defencebonus, ignoredef);
+		return Combat.CombatMechanics.CalculateDamage(attack, attackbonus, defence, defencebonus, ignoredef);
 	}
 
 	public int ChanceToHit(int distance, int hitbonus, int hitpenalty, bool guaranteed = false, bool inverserange = false) {
-		return CombatMechanics.ChanceToHit(distance, hitbonus, hitpenalty, guaranteed, inverserange);
+		return Combat.CombatMechanics.ChanceToHit(distance, hitbonus, hitpenalty, guaranteed, inverserange);
 	}
 
 	private bool RollChanceToHit(int distance, int hitbonus, int hitpenalty, bool guaranteed = false, bool inverserange = false) {
-		return CombatMechanics.RollChanceToHit(distance, hitbonus, hitpenalty, guaranteed, inverserange);
+		return Combat.CombatMechanics.RollChanceToHit(distance, hitbonus, hitpenalty, guaranteed, inverserange);
 	}
 
 	public void SwapUnits() {
