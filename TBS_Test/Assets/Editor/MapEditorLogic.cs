@@ -106,9 +106,9 @@ public class MapEditorLogic : Editor {
 
 			newfeat.transform.SetParent(goTileCheck.transform);
 			newfeat.transform.localRotation = goTileCheck.transform.localRotation;
-			//newfeat.transform.localPosition = Vector3.zero;
+			newfeat.transform.localPosition = Vector3.zero;
 			newfeat.GetComponent<TerrainFeature>().Terraform(TilePicker.s_iFeatureSelection);
-			newfeat.transform.localPosition = new Vector3(0.0f, 0.0f, (newfeat.transform.localScale.z / 2) * -1);
+			//newfeat.transform.localPosition = new Vector3(0.0f, 0.0f, (newfeat.transform.localScale.z / 2) * -1);
 		}
     }
 	

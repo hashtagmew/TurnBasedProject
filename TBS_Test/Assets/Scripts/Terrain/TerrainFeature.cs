@@ -43,14 +43,14 @@ public class TerrainFeature : MonoBehaviour {
 		else if (iType == FEATURE_TYPE.WALL) {
 			//this.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
 			//myRenderer.sharedMaterial = Resources.Load("Terrain/crater") as Material;
-			this.name = "Feature-Crater";
+			this.name = "Feature-Wall";
 
 			ChangeModel("wall");
 		}
 		else if (iType == FEATURE_TYPE.HILL) {
 			//this.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
 			//myRenderer.sharedMaterial = Resources.Load("Terrain/crater") as Material;
-			this.name = "Feature-Crater";
+			this.name = "Feature-Hill";
 
 			ChangeModel("hill");
 		}
