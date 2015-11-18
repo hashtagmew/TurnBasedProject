@@ -21,11 +21,13 @@ public class Unit : MonoBehaviour {
 	public float remainingMovement = 0;
 	public float resetMovement = 0;
 
+
 	void Start() {
 		this.map = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
 	}
 
 	void Update() {
+
 		// Draw our debug line showing the pathfinding!
 		// NOTE: This won't appear in the actual game view.
 		if(currentPath != null) {
