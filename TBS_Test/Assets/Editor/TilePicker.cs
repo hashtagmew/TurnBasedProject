@@ -635,7 +635,7 @@ public class TilePicker : EditorWindow {
 								tempobj.GetComponent<TerrainFeature>().Terraform((FEATURE_TYPE)value);
 								tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
 								//Scale doesn't load properly?
-								tempobj.transform.localScale = new Vector3(0.1f, 8.0f, 1.0f);
+								//tempobj.transform.localScale = new Vector3(0.1f, 8.0f, 1.0f);
 							}
 						}
 

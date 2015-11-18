@@ -106,7 +106,7 @@ public class PUNNetController : PunBehaviour {
 					{
 						if (m_StartTimer >= 6.0f)
 						{
-							PhotonNetwork.LoadLevel("perspec-test");
+							PhotonNetwork.LoadLevel("netplayer");
 						}
 						else
 						{
@@ -260,6 +260,10 @@ public class PUNNetController : PunBehaviour {
 		PhotonNetwork.playerName = name;
 	}
 
+	public void ForceNetworkScene(string scene) {
+		PhotonNetwork.LoadLevel(scene);
+	}
+
 	public void setPlayerFaction() {
 		m_PropertiesHash["Faction"] = UIPanelManager.getUIElementOnPanel("FactionPick").GetComponent<Slider>().value.ToString();
 		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
@@ -296,7 +300,7 @@ public class PUNNetController : PunBehaviour {
 			if (readyCount >= MAX_PLAYERS)
 			{
 				Debug.Log("All Players Are Connected And Ready!");
-				PhotonNetwork.LoadLevel("perspec-test");
+				PhotonNetwork.LoadLevel("netplayer");
 			}
 			else
 			{
