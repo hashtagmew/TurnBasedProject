@@ -633,9 +633,11 @@ public class TilePicker : EditorWindow {
 								tempobj.transform.localRotation = TempTile.transform.localRotation;
 								int value = int.Parse(xlayer3_tiledata.Attribute("type").Value);
 								tempobj.GetComponent<TerrainFeature>().Terraform((FEATURE_TYPE)value);
-								tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
+								//tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
+								tempobj.transform.localPosition = Vector3.zero;
 								//Scale doesn't load properly?
 								//tempobj.transform.localScale = new Vector3(0.1f, 8.0f, 1.0f);
+								tempobj.transform.localScale = new Vector3(1, 1, 10);
 							}
 						}
 
