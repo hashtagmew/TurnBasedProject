@@ -4,6 +4,8 @@ using System.Linq;
 
 public class TileMap : MonoBehaviour {
 
+	public DeploymentScript D_S;
+
 	public GameObject selectedUnit;
 	public GameObject deselectedUnit;
 
@@ -21,7 +23,7 @@ public class TileMap : MonoBehaviour {
 		selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
 		selectedUnit.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
 		//selectedUnit.GetComponent<Unit>().map = this;
-
+		
 		GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisual();
