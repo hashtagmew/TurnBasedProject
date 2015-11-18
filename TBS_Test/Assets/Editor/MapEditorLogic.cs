@@ -255,21 +255,22 @@ public class MapEditorLogic : Editor {
 		if (mapedTarget == null) {
 			mapedTarget = (MapEditor)this.target;
 		}
-		
-		for (int i = 0; i < mapedTarget.iColumns; i++) {
-			for (int j = 0; j < mapedTarget.iRows; j++) {
-				goTileCheck = GameObject.Find(string.Format("Tile_{0}_{1}", i, j));
-				if (goTileCheck != null) {
-					if (bPaintMode) {
-						GameObject.DestroyImmediate(goTileCheck);
-					}
-					else {
-						List<TerrainFeature> tilefeats = goTileCheck.GetComponent<MapTile>().l_tfFeatures;
 
-						if (tilefeats.Count > 0) {
-							for (int h = tilefeats.Count - 1; h > -1; h--) {
-								GameObject.DestroyImmediate(tilefeats[h].gameObject);
-								tilefeats.RemoveAt(h);
+		if (mapedTarget != null) {
+			for (int i = 0; i < mapedTarget.iColumns; i++) {
+				for (int j = 0; j < mapedTarget.iRows; j++) {
+					goTileCheck = GameObject.Find (string.Format ("Tile_{0}_{1}", i, j));
+					if (goTileCheck != null) {
+						if (bPaintMode) {
+							GameObject.DestroyImmediate (goTileCheck);
+						} else {
+							List<TerrainFeature> tilefeats = goTileCheck.GetComponent<MapTile> ().l_tfFeatures;
+
+							if (tilefeats.Count > 0) {
+								for (int h = tilefeats.Count - 1; h > -1; h--) {
+									GameObject.DestroyImmediate (tilefeats [h].gameObject);
+									tilefeats.RemoveAt (h);
+								}
 							}
 						}
 					}

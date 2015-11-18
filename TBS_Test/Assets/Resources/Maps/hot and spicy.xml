@@ -18,2001 +18,2801 @@ Expect many hot fights!</description>
 	<tiles>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>3</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>3</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>3</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>7</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>6</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>6</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>7</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>7</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>7</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>7</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>6</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>2</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>0</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>1</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>3</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>3</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>5</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>6</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>8</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>7</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>4</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>19</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>10</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>5</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>19</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>0</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>1</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>3</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>2</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>3</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>4</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>180</rotation>
 			<xpos>4</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>9</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>9</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>9</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
-			<type>2</type>
+			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>18</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>18</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>5</type>
+			<transition>2</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>17</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>17</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>8</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>7</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>9</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>3</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>5</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>4</xpos>
 			<ypos>14</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>9</transition>
+			<rotation>180</rotation>
 			<xpos>6</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>8</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>7</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>15</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>16</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>9</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>6</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>12</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>12</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>14</xpos>
 			<ypos>13</ypos>
 		</tile>
 		<tile>
 			<type>9</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>11</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>10</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>10</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>16</xpos>
 			<ypos>11</ypos>
 		</tile>
 		<tile>
 			<type>8</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>13</xpos>
 			<ypos>9</ypos>
 		</tile>
 		<tile>
 			<type>2</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
 			<xpos>15</xpos>
 			<ypos>11</ypos>
 		</tile>
