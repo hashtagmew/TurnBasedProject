@@ -3,6 +3,8 @@ using System.Collections;
 
 public class DeploymentScript : MonoBehaviour {
 
+	public TileMap map { get; private set; }
+
 	public GameObject[] DeployPrefab;
 	public GameObject DeployTransform;
 	public GameObject DeployUI;
@@ -39,7 +41,7 @@ public class DeploymentScript : MonoBehaviour {
 		DeployUI.SetActive (false);
 	}
 	public void DeployAT(){
-		
+
 		Instantiate (DeployPrefab[1], DeployTransform.transform.position, DeployTransform.transform.rotation);
 		DeployUI.SetActive (false);
 	}
