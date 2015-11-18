@@ -9,7 +9,20 @@ public class DeploymentScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		DeployPrefab [0].GetComponent<Unit> ().tileX = (int)DeployPrefab [0].transform.position.x;
+		DeployPrefab [0].GetComponent<Unit> ().tileY = (int)DeployPrefab [0].transform.position.z;
+
+		DeployPrefab [1].GetComponent<Unit> ().tileX = (int)DeployPrefab [1].transform.position.x;
+		DeployPrefab [1].GetComponent<Unit> ().tileY = (int)DeployPrefab [1].transform.position.z;
+
+		DeployPrefab [2].GetComponent<Unit> ().tileX = (int)DeployPrefab [2].transform.position.x;
+		DeployPrefab [2].GetComponent<Unit> ().tileY = (int)DeployPrefab [2].transform.position.z;
+
+		DeployPrefab [3].GetComponent<Unit> ().tileX = (int)DeployPrefab [3].transform.position.x;
+		DeployPrefab [3].GetComponent<Unit> ().tileY = (int)DeployPrefab [3].transform.position.z;
+
+		DeployPrefab [4].GetComponent<Unit> ().tileX = (int)DeployPrefab [4].transform.position.x;
+		DeployPrefab [4].GetComponent<Unit> ().tileY = (int)DeployPrefab [4].transform.position.z;
 	}
 	
 	// Update is called once per frame
