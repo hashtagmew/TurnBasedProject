@@ -23,6 +23,10 @@ public class TileMap : MonoBehaviour {
 		selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
 		selectedUnit.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
 		//selectedUnit.GetComponent<Unit>().map = this;
+		if (gameObject.tag == "Unit") {
+			this.gameObject.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
+			this.gameObject.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
+		}
 		
 		GenerateMapData();
 		GeneratePathfindingGraph();
