@@ -4,7 +4,7 @@ using System.Linq;
 
 public class TileMap : MonoBehaviour {
 
-	public DeploymentScript D_S;
+	//public DeploymentScript D_S;
 
 	public GameObject selectedUnit;
 	public GameObject deselectedUnit;
@@ -252,7 +252,7 @@ public class TileMap : MonoBehaviour {
 			curr = prev[curr];
 		}
 
-		// Right now, currentPath describes a route from out target to our source
+		// Right now, currentPath describes a route from our target to our source
 		// So we need to invert it!
 
 		currentPath.Reverse();

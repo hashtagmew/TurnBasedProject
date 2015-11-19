@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public enum UNIT_DIR {
+	NONE = 0,
+	UP_RIGHT,
+	UP_LEFT,
+	DOWN_RIGHT,
+	DOWN_LEFT
+}
+
 public class Unit : MonoBehaviour {
 
 	// tileX and tileY represent the correct map-tile position
@@ -11,6 +19,8 @@ public class Unit : MonoBehaviour {
 	public int tileX;
 	public int tileY;
 
+	public UNIT_DIR eGridDirection = UNIT_DIR.DOWN_RIGHT;
+
 	public TileMap map { get; private set; }
 
 	// Our pathfinding info.  Null if we have no destination ordered.
@@ -20,14 +30,65 @@ public class Unit : MonoBehaviour {
 	int moveSpeed = 2;
 	public float remainingMovement = 0;
 	public float resetMovement = 0;
+	public float currDirX;
+	public float currDirY;
+	private Vector2 CurPos;
+	private Vector2 NextPos;
 
+	public GameObject IdleSprite;
+
+	private SpriteRenderer myRend;
+
+	public Sprite texDirSpriteUR;
+	public Sprite texDirSpriteDR;
+	public Sprite texDirSpriteUL;
+	public Sprite texDirSpriteDL;
 
 	void Start() {
 		this.map = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
+		myRend = this.GetComponentInChildren<SpriteRenderer> ();
 	}
 
 	void Update() {
 
+		//Finding Direction the Unit is moving in so that the sprite can be changed
+
+		if (currentPath != null && currentPath.Count > 1) {
+			CurPos = new Vector2(tileX, tileY);
+			NextPos = new Vector2 (currentPath[1].x, currentPath [1].y);
+		}
+
+		currDirX = CurPos.x - NextPos.x;
+		currDirY = CurPos.y - NextPos.y;
+
+		//setting direction
+		if (currDirX == -1 && currDirY == 0) {
+			eGridDirection = UNIT_DIR.UP_RIGHT;
+		}
+		else if (currDirX == 0 && currDirY == 1) {
+			eGridDirection = UNIT_DIR.DOWN_RIGHT;
+		}
+		else if (currDirX == 0 && currDirY == -1) {
+			eGridDirection = UNIT_DIR.UP_LEFT;
+		}
+		else if (currDirX == 1 && currDirY == 0) {
+			eGridDirection = UNIT_DIR.DOWN_LEFT;
+		}
+
+		//Changing sprite based on direction
+		if (eGridDirection == UNIT_DIR.UP_RIGHT) {
+			myRend.sprite = texDirSpriteUR;
+		}
+		if (eGridDirection == UNIT_DIR.DOWN_RIGHT) {
+			myRend.sprite = texDirSpriteDR;
+		}
+		if (eGridDirection == UNIT_DIR.UP_LEFT) {
+			myRend.sprite = texDirSpriteUL;
+		}
+		if (eGridDirection == UNIT_DIR.DOWN_LEFT) {
+			myRend.sprite = texDirSpriteDL;
+		}
+		
 		// Draw our debug line showing the pathfinding!
 		// NOTE: This won't appear in the actual game view.
 		if(currentPath != null) {
