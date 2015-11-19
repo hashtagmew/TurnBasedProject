@@ -32,25 +32,27 @@ public class TerrainFeature : MonoBehaviour {
 		}
 		else if (iType == FEATURE_TYPE.MOUNTAIN) {
 			//this.transform.localScale = new Vector3(0.8f, 0.8f, 4.0f);
-			myRenderer.sharedMaterial = Resources.Load("Terrain/cliff") as Material;
+			//myRenderer.sharedMaterial = Resources.Load("Terrain/cliff") as Material;
 			this.name = "Feature-Mountain";
+			ChangeModel("mountain");
 		}
 		else if (iType == FEATURE_TYPE.CRATER) {
 			//this.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
-			myRenderer.sharedMaterial = Resources.Load("Terrain/crater") as Material;
+			//myRenderer.sharedMaterial = Resources.Load("Terrain/crater") as Material;
 			this.name = "Feature-Crater";
+			ChangeModel("crater");
 		}
 		else if (iType == FEATURE_TYPE.WALL) {
 			//this.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
 			//myRenderer.sharedMaterial = Resources.Load("Terrain/crater") as Material;
-			this.name = "Feature-Crater";
+			this.name = "Feature-Wall";
 
 			ChangeModel("wall");
 		}
 		else if (iType == FEATURE_TYPE.HILL) {
 			//this.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
 			//myRenderer.sharedMaterial = Resources.Load("Terrain/crater") as Material;
-			this.name = "Feature-Crater";
+			this.name = "Feature-Hill";
 
 			ChangeModel("hill");
 		}

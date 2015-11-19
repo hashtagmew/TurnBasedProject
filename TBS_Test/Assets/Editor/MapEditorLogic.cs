@@ -106,9 +106,9 @@ public class MapEditorLogic : Editor {
 
 			newfeat.transform.SetParent(goTileCheck.transform);
 			newfeat.transform.localRotation = goTileCheck.transform.localRotation;
-			//newfeat.transform.localPosition = Vector3.zero;
+			newfeat.transform.localPosition = Vector3.zero;
 			newfeat.GetComponent<TerrainFeature>().Terraform(TilePicker.s_iFeatureSelection);
-			newfeat.transform.localPosition = new Vector3(0.0f, 0.0f, (newfeat.transform.localScale.z / 2) * -1);
+			//newfeat.transform.localPosition = new Vector3(0.0f, 0.0f, (newfeat.transform.localScale.z / 2) * -1);
 		}
     }
 	
@@ -255,21 +255,22 @@ public class MapEditorLogic : Editor {
 		if (mapedTarget == null) {
 			mapedTarget = (MapEditor)this.target;
 		}
-		
-		for (int i = 0; i < mapedTarget.iColumns; i++) {
-			for (int j = 0; j < mapedTarget.iRows; j++) {
-				goTileCheck = GameObject.Find(string.Format("Tile_{0}_{1}", i, j));
-				if (goTileCheck != null) {
-					if (bPaintMode) {
-						GameObject.DestroyImmediate(goTileCheck);
-					}
-					else {
-						List<TerrainFeature> tilefeats = goTileCheck.GetComponent<MapTile>().l_tfFeatures;
 
-						if (tilefeats.Count > 0) {
-							for (int h = tilefeats.Count - 1; h > -1; h--) {
-								GameObject.DestroyImmediate(tilefeats[h].gameObject);
-								tilefeats.RemoveAt(h);
+		if (mapedTarget != null) {
+			for (int i = 0; i < mapedTarget.iColumns; i++) {
+				for (int j = 0; j < mapedTarget.iRows; j++) {
+					goTileCheck = GameObject.Find (string.Format ("Tile_{0}_{1}", i, j));
+					if (goTileCheck != null) {
+						if (bPaintMode) {
+							GameObject.DestroyImmediate (goTileCheck);
+						} else {
+							List<TerrainFeature> tilefeats = goTileCheck.GetComponent<MapTile> ().l_tfFeatures;
+
+							if (tilefeats.Count > 0) {
+								for (int h = tilefeats.Count - 1; h > -1; h--) {
+									GameObject.DestroyImmediate (tilefeats [h].gameObject);
+									tilefeats.RemoveAt (h);
+								}
 							}
 						}
 					}

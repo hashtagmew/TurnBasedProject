@@ -134,7 +134,7 @@ public class MapTile : MonoBehaviour {
 		//this.transform.eulerAngles
 		//this.transform.localRotation.eulerAngles = neweuler;
 
-		Debug.Log((float)rot);
+		//Debug.Log((float)rot);
 
 		this.eOrient = rot;
 		this.iTransitionType = transition;

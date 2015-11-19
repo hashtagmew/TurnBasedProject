@@ -367,172 +367,176 @@ public class TilePicker : EditorWindow {
 		XmlWriterSettings xsettings = new XmlWriterSettings();
 		xsettings.Encoding = Encoding.ASCII;
 		xsettings.OmitXmlDeclaration = true;
-		
-		XmlWriter writer = XmlWriter.Create(s_sLastFile, xsettings);
-		
-		//Document open
-		writer.WriteStartDocument();
-		writer.WriteStartElement("thernion_map");
-		writer.WriteWhitespace("\n");
-		
-		//Name
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("name");
-		writer.WriteValue(s_sName);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
 
-		//Desc
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("description");
-		writer.WriteValue(s_sDescription);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
-		
-		//Lights
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("lights");
-		writer.WriteWhitespace("\n");
-
-		if (s_a_goLight == null || s_a_goLight.Count < 1) {
-			EditorUtility.DisplayDialog("Error", "Error saving map: please ensure a light is loaded in the TileEditor!\nThe map has not been saved.", "OK");
-		}
-
-		foreach (Light bulb in s_a_goLight) {
-			writer.WriteWhitespace("\t\t");
-			writer.WriteStartElement("light");
+		try {
+			XmlWriter writer = XmlWriter.Create(s_sLastFile, xsettings);
+			
+			//Document open
+			writer.WriteStartDocument();
+			writer.WriteStartElement("thernion_map");
 			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("type");
-			writer.WriteValue((int)bulb.type);
+			
+			//Name
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("name");
+			writer.WriteValue(s_sName);
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
 
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("color");
-			writer.WriteValue(bulb.color.ToHexStringRGBA());
+			//Desc
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("description");
+			writer.WriteValue(s_sDescription);
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("positionx");
-			writer.WriteValue(bulb.gameObject.transform.position.x);
-			writer.WriteEndElement();
+			
+			//Lights
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("lights");
 			writer.WriteWhitespace("\n");
 
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("positiony");
-			writer.WriteValue(bulb.gameObject.transform.position.y);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("positionz");
-			writer.WriteValue(bulb.gameObject.transform.position.z);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("range");
-			writer.WriteValue(bulb.range);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("intensity");
-			writer.WriteValue(bulb.intensity);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t");
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-		}
-
-		writer.WriteWhitespace("\t");
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
-
-		//Size
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("mapsizex");
-		writer.WriteValue(s_maped.iRows);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
-		writer.WriteWhitespace("\t");
-
-		writer.WriteStartElement("mapsizey");
-		writer.WriteValue(s_maped.iColumns);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
-
-		//Tiles
-		MapTile temptile = null;
-
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("tiles");
-		writer.WriteWhitespace("\n");
-		for (int i = 0; i < s_maped.transform.childCount; i++) {
-			temptile = (MapTile)s_maped.transform.GetChild(i).GetComponent<MapTile>();
-
-			writer.WriteWhitespace("\t\t");
-			writer.WriteStartElement("tile");
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("type");
-			writer.WriteValue((int)temptile.iType);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("transition");
-			writer.WriteValue((int)temptile.iTransitionType);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("rotation");
-			writer.WriteValue((int)temptile.eOrient);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("xpos");
-			writer.WriteValue(temptile.vGridPosition.x);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			writer.WriteWhitespace("\t\t\t");
-			writer.WriteStartElement("ypos");
-			writer.WriteValue(temptile.vGridPosition.y);
-			writer.WriteEndElement();
-			writer.WriteWhitespace("\n");
-
-			if (temptile.l_tfFeatures.Count > 0) {
-				foreach (TerrainFeature tf in temptile.l_tfFeatures) {
-					writer.WriteWhitespace("\t\t\t");
-					writer.WriteStartElement("feature");
-					writer.WriteAttributeString("type", ((int)tf.iType).ToString());
-					writer.WriteEndElement();
-					writer.WriteWhitespace("\n");
-				}
+			if (s_a_goLight == null || s_a_goLight.Count < 1) {
+				EditorUtility.DisplayDialog("Error", "Error saving map: please ensure a light is loaded in the TileEditor!\nThe map has not been saved.", "OK");
 			}
 
-			writer.WriteWhitespace("\t\t");
+			foreach (Light bulb in s_a_goLight) {
+				writer.WriteWhitespace("\t\t");
+				writer.WriteStartElement("light");
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("type");
+				writer.WriteValue((int)bulb.type);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("color");
+				writer.WriteValue(bulb.color.ToHexStringRGBA());
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("positionx");
+				writer.WriteValue(bulb.gameObject.transform.position.x);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("positiony");
+				writer.WriteValue(bulb.gameObject.transform.position.y);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("positionz");
+				writer.WriteValue(bulb.gameObject.transform.position.z);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("range");
+				writer.WriteValue(bulb.range);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("intensity");
+				writer.WriteValue(bulb.intensity);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t");
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+			}
+
+			writer.WriteWhitespace("\t");
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
-		}
-		writer.WriteEndElement();
-		
-		//Document end
-		writer.WriteWhitespace("\n");
-		writer.WriteEndElement();
-		writer.WriteEndDocument();
-		
-		writer.Close();
 
+			//Size
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("mapsizex");
+			writer.WriteValue(s_maped.iRows);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+			writer.WriteWhitespace("\t");
+
+			writer.WriteStartElement("mapsizey");
+			writer.WriteValue(s_maped.iColumns);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+
+			//Tiles
+			MapTile temptile = null;
+
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("tiles");
+			writer.WriteWhitespace("\n");
+			for (int i = 0; i < s_maped.transform.childCount; i++) {
+				temptile = (MapTile)s_maped.transform.GetChild(i).GetComponent<MapTile>();
+
+				writer.WriteWhitespace("\t\t");
+				writer.WriteStartElement("tile");
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("type");
+				writer.WriteValue((int)temptile.iType);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("transition");
+				writer.WriteValue((int)temptile.iTransitionType);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("rotation");
+				writer.WriteValue((int)temptile.eOrient);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("xpos");
+				writer.WriteValue(temptile.vGridPosition.x);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				writer.WriteWhitespace("\t\t\t");
+				writer.WriteStartElement("ypos");
+				writer.WriteValue(temptile.vGridPosition.y);
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+
+				if (temptile.l_tfFeatures.Count > 0) {
+					foreach (TerrainFeature tf in temptile.l_tfFeatures) {
+						writer.WriteWhitespace("\t\t\t");
+						writer.WriteStartElement("feature");
+						writer.WriteAttributeString("type", ((int)tf.iType).ToString());
+						writer.WriteEndElement();
+						writer.WriteWhitespace("\n");
+					}
+				}
+
+				writer.WriteWhitespace("\t\t");
+				writer.WriteEndElement();
+				writer.WriteWhitespace("\n");
+			}
+			writer.WriteEndElement();
+			
+			//Document end
+			writer.WriteWhitespace("\n");
+			writer.WriteEndElement();
+			writer.WriteEndDocument();
+			
+			writer.Close();
+		}
+		catch (Exception e) {
+			EditorUtility.DisplayDialog ("Error", "Error: " + e.Message + " (Map was not saved)!", "OK");
+		}
 	}
 
 	void LoadMap(string path) {
@@ -633,9 +637,11 @@ public class TilePicker : EditorWindow {
 								tempobj.transform.localRotation = TempTile.transform.localRotation;
 								int value = int.Parse(xlayer3_tiledata.Attribute("type").Value);
 								tempobj.GetComponent<TerrainFeature>().Terraform((FEATURE_TYPE)value);
-								tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
+								//tempobj.transform.localPosition = new Vector3(0.0f, 0.0f, (tempobj.transform.localScale.z / 2) * -1);
+								tempobj.transform.localPosition = Vector3.zero;
 								//Scale doesn't load properly?
 								//tempobj.transform.localScale = new Vector3(0.1f, 8.0f, 1.0f);
+								tempobj.transform.localScale = new Vector3(1, 1, 10);
 							}
 						}
 
