@@ -1732,7 +1732,6 @@
 			<rotation>0</rotation>
 			<xpos>37</xpos>
 			<ypos>44</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -2325,7 +2324,6 @@
 			<rotation>0</rotation>
 			<xpos>38</xpos>
 			<ypos>42</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -2362,8 +2360,6 @@
 			<rotation>0</rotation>
 			<xpos>37</xpos>
 			<ypos>43</ypos>
-			<feature type="4" />
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -2372,7 +2368,6 @@
 			<rotation>0</rotation>
 			<xpos>38</xpos>
 			<ypos>43</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -2774,7 +2769,6 @@
 			<rotation>0</rotation>
 			<xpos>41</xpos>
 			<ypos>37</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -8722,20 +8716,6 @@
 			<transition>0</transition>
 			<rotation>0</rotation>
 			<xpos>49</xpos>
-			<ypos>30</ypos>
-		</tile>
-		<tile>
-			<type>1</type>
-			<transition>0</transition>
-			<rotation>0</rotation>
-			<xpos>49</xpos>
-			<ypos>29</ypos>
-		</tile>
-		<tile>
-			<type>1</type>
-			<transition>0</transition>
-			<rotation>0</rotation>
-			<xpos>49</xpos>
 			<ypos>28</ypos>
 		</tile>
 		<tile>
@@ -9011,7 +8991,6 @@
 			<rotation>0</rotation>
 			<xpos>43</xpos>
 			<ypos>35</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -9027,7 +9006,6 @@
 			<rotation>0</rotation>
 			<xpos>42</xpos>
 			<ypos>36</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -9128,7 +9106,7 @@
 			<rotation>0</rotation>
 			<xpos>44</xpos>
 			<ypos>34</ypos>
-			<feature type="4" />
+			<feature type="5" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -9978,7 +9956,6 @@
 			<rotation>0</rotation>
 			<xpos>41</xpos>
 			<ypos>27</ypos>
-			<feature type="4" />
 		</tile>
 		<tile>
 			<type>1</type>
@@ -10000,7 +9977,6 @@
 			<rotation>0</rotation>
 			<xpos>42</xpos>
 			<ypos>27</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -10009,7 +9985,6 @@
 			<rotation>0</rotation>
 			<xpos>42</xpos>
 			<ypos>28</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -10137,7 +10112,6 @@
 			<rotation>0</rotation>
 			<xpos>42</xpos>
 			<ypos>26</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -12238,7 +12212,6 @@
 			<rotation>0</rotation>
 			<xpos>45</xpos>
 			<ypos>23</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -12352,7 +12325,6 @@
 			<rotation>0</rotation>
 			<xpos>45</xpos>
 			<ypos>21</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -12431,7 +12403,6 @@
 			<rotation>0</rotation>
 			<xpos>45</xpos>
 			<ypos>22</ypos>
-			<feature type="4" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -16854,7 +16825,6 @@
 			<rotation>0</rotation>
 			<xpos>34</xpos>
 			<ypos>1</ypos>
-			<feature type="1" />
 			<feature type="5" />
 		</tile>
 		<tile>
@@ -17738,6 +17708,20 @@
 			<transition>0</transition>
 			<rotation>180</rotation>
 			<xpos>7</xpos>
+			<ypos>29</ypos>
+		</tile>
+		<tile>
+			<type>1</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
+			<xpos>49</xpos>
+			<ypos>30</ypos>
+		</tile>
+		<tile>
+			<type>1</type>
+			<transition>0</transition>
+			<rotation>0</rotation>
+			<xpos>49</xpos>
 			<ypos>29</ypos>
 		</tile>
 </tiles>
