@@ -25,6 +25,9 @@ public class DeploymentScript : MonoBehaviour {
 
 		DeployPrefab [4].GetComponent<Unit> ().tileX = (int)DeployPrefab [4].transform.position.x;
 		DeployPrefab [4].GetComponent<Unit> ().tileY = (int)DeployPrefab [4].transform.position.z;
+
+		DeployPrefab [5].GetComponent<Unit> ().tileX = (int)DeployPrefab [4].transform.position.x;
+		DeployPrefab [5].GetComponent<Unit> ().tileY = (int)DeployPrefab [4].transform.position.z;
 	}
 	
 	// Update is called once per frame
@@ -58,6 +61,11 @@ public class DeploymentScript : MonoBehaviour {
 	public void DeployMag(){
 		
 		Instantiate (DeployPrefab[4], DeployTransform.transform.position, DeployTransform.transform.rotation);
+		DeployUI.SetActive (false);
+	}
+	public void DeploySkim(){
+		
+		Instantiate (DeployPrefab[5], DeployTransform.transform.position, DeployTransform.transform.rotation);
 		DeployUI.SetActive (false);
 	}
 
