@@ -12,6 +12,11 @@ public class NetPlayer : Photon.MonoBehaviour {
 	void Start () {
 		//
 	}
+
+	void OnPhotonInstantiate(PhotonMessageInfo info) {
+		// e.g. store this gameobject as this player's charater in PhotonPlayer.TagObject
+		info.sender.TagObject = this.gameObject;
+	}
 	
 	// Update is called once per frame
 	void Update () {

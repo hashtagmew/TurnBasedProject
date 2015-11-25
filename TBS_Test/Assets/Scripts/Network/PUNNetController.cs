@@ -23,7 +23,7 @@ public class PUNNetController : PunBehaviour {
 
 	public string m_ssRoomName { get; private set; }
 	public ControllerState m_CurrentState { get; private set; }
-	public ExitGames.Client.Photon.Hashtable m_PropertiesHash;
+	public ExitGames.Client.Photon.Hashtable m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
 
 	public const int MAX_PLAYERS = 2;
 
@@ -36,11 +36,15 @@ public class PUNNetController : PunBehaviour {
 	void Start () {
 		m_CurrentState = ControllerState.NOCONNECTION;
 
-		m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
+		//m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
 		m_PropertiesHash.Add("Ready", false);
-		m_PropertiesHash.Add("Faction", "1");
+		m_PropertiesHash.Add("Faction", 1);
+
 		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
 
+//		m_PropertiesHash.Clear();
+//		m_PropertiesHash.Add("Turn", PhotonNetwork.player.ID);
+//		PhotonNetwork.room.SetCustomProperties(m_PropertiesHash);
 	}
 	
 	// Update is called once per frame
@@ -180,6 +184,10 @@ public class PUNNetController : PunBehaviour {
 		m_CurrentState = ControllerState.ROOM;
 		Debug.Log("\t\tCreated a room!");
 		base.OnCreatedRoom();
+
+		m_PropertiesHash.Clear();
+		m_PropertiesHash.Add("Turn", PhotonNetwork.player.ID);
+		PhotonNetwork.room.SetCustomProperties(m_PropertiesHash);
 	}
 
 	public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)
@@ -265,7 +273,7 @@ public class PUNNetController : PunBehaviour {
 	}
 
 	public void setPlayerFaction() {
-		m_PropertiesHash["Faction"] = UIPanelManager.getUIElementOnPanel("FactionPick").GetComponent<Slider>().value.ToString();
+		m_PropertiesHash["Faction"] = (int)UIPanelManager.getUIElementOnPanel("FactionPick").GetComponent<Slider>().value;
 		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
 	}
 
