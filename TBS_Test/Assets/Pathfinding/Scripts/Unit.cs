@@ -51,6 +51,9 @@ public class Unit : MonoBehaviour {
 
 	void Update() {
 
+//		//End turn
+		
+
 		//Finding Direction the Unit is moving in so that the sprite can be changed
 
 		if (currentPath != null && currentPath.Count > 1) {
@@ -165,8 +168,9 @@ public class Unit : MonoBehaviour {
 	}
 
 	public void EndTurn(){
-		currentPath = null;
-		remainingMovement = resetMovement;
+		map.selectedUnit.GetComponent<Unit>().currentPath = null;
+		//remainingMovement = resetMovement;
+		map.selectedUnit.GetComponent<Unit> ().remainingMovement = map.selectedUnit.GetComponent<Unit> ().resetMovement;
 	}
 
 	// The "Next Turn" button calls this.
