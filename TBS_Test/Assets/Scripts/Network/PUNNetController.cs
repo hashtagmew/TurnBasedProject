@@ -16,7 +16,7 @@ public enum ControllerState
 	TRYROOM,
 	ROOM,
 	READY,
-	GAME,
+	GAME
 }
 
 public class PUNNetController : PunBehaviour {
@@ -187,6 +187,7 @@ public class PUNNetController : PunBehaviour {
 
 		m_PropertiesHash.Clear();
 		m_PropertiesHash.Add("Turn", PhotonNetwork.player.ID);
+		m_PropertiesHash.Add("Map", "janette_map_1");
 		PhotonNetwork.room.SetCustomProperties(m_PropertiesHash);
 	}
 

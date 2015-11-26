@@ -1,13 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public enum UNIT_DIR {
-	NONE = 0,
-	UP_RIGHT,
-	UP_LEFT,
-	DOWN_RIGHT,
-	DOWN_LEFT
-}
+
 
 public class Unit : MonoBehaviour {
 
@@ -50,6 +44,9 @@ public class Unit : MonoBehaviour {
 	}
 
 	void Update() {
+
+//		//End turn
+		
 
 		//Finding Direction the Unit is moving in so that the sprite can be changed
 
@@ -165,8 +162,9 @@ public class Unit : MonoBehaviour {
 	}
 
 	public void EndTurn(){
-		currentPath = null;
-		remainingMovement = resetMovement;
+		map.selectedUnit.GetComponent<Unit>().currentPath = null;
+		//remainingMovement = resetMovement;
+		map.selectedUnit.GetComponent<Unit> ().remainingMovement = map.selectedUnit.GetComponent<Unit> ().resetMovement;
 	}
 
 	// The "Next Turn" button calls this.
