@@ -8,8 +8,14 @@ public class NetGameManager : MonoBehaviour {
 	public Text txtTurn;
 	public Button uiEndTurn;
 
-	public GameObject goLocalNetPlayer;
+	//public GameObject goLocalNetPlayer;
 
+	public NetPathMap pathmap;
+	public NetGameMap map;
+
+	public List<GameUnit> l_guUnits;
+
+	public GameObject protoUnit;
 	
 	void Start() {
 		//
@@ -38,13 +44,20 @@ public class NetGameManager : MonoBehaviour {
 				txtTurn.text = "Their turn";
 			}
 
-			if (Input.GetKeyDown(KeyCode.F1)) {
-				Application.LoadLevel("net-test");
-			}
+//			if (Input.GetKeyDown(KeyCode.P) && !goLocalNetPlayer) {
+//				goLocalNetPlayer = (GameObject)PhotonNetwork.Instantiate("NetPlayer", Vector3.zero, Quaternion.identity, 0);
+//			}
+		}
 
-			if (Input.GetKeyDown(KeyCode.P) && !goLocalNetPlayer) {
-				goLocalNetPlayer = (GameObject)PhotonNetwork.Instantiate("NetPlayer", Vector3.zero, Quaternion.identity, 0);
-			}
+		//Debug
+		if (Input.GetKeyDown(KeyCode.F1)) {
+			Application.LoadLevel("net-test");
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha1)) {
+			Vector3 vectemp = new Vector3(0.0f, 0.0f, 0.0f);
+			GameObject tempunit = (GameObject)PhotonNetwork.Instantiate("NetGameUnit", vectemp, Quaternion.identity, 0);
+			l_guUnits.Add(tempunit.GetComponent<GameUnit>());
 		}
 	}
 

@@ -88,3 +88,11 @@ public enum MAPED_TOOL {
 	FILL,
 	LINE
 }
+
+public enum UNIT_DIR {
+	NONE = 0,
+	UP_RIGHT,
+	UP_LEFT,
+	DOWN_RIGHT,
+	DOWN_LEFT
+}
