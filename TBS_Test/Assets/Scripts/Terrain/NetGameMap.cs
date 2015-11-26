@@ -26,6 +26,8 @@ public class NetGameMap : MonoBehaviour {
 	public string sDescription = "";
 
 	public string sMapFile;
+
+	public NetPathMap pathmap;
 	
 	void Start() {
 		if (PhotonNetwork.room != null) {
@@ -36,6 +38,8 @@ public class NetGameMap : MonoBehaviour {
 			Debug.LogError("There is no network room!");
 			LoadMap("Maps/janette_map_1");
 		}
+
+		pathmap.Initialise();
 	}
 
 	void Update() {
