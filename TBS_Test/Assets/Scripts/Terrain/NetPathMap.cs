@@ -26,6 +26,8 @@ public class NetPathMap : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//
+		//.GetComponent<GameUnit>().tileX = (int)selectedUnit.transform.position.x;
+		//GameUnit.GetComponent<GameUnit>().tileY = (int)selectedUnit.transform.position.y;
 	}
 	
 	// Update is called once per frame

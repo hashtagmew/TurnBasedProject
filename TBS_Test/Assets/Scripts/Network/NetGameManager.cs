@@ -15,7 +15,7 @@ public class NetGameManager : MonoBehaviour {
 
 	public List<GameUnit> l_guUnits;
 
-	public GameObject protoUnit;
+	//public GameObject protoUnit;
 	
 	void Start() {
 		//
@@ -57,7 +57,10 @@ public class NetGameManager : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Alpha1)) {
 			Vector3 vectemp = new Vector3(0.0f, 0.0f, 0.0f);
 			GameObject tempunit = (GameObject)PhotonNetwork.Instantiate("NetGameUnit", vectemp, Quaternion.identity, 0);
-			l_guUnits.Add(tempunit.GetComponent<GameUnit>());
+			GameUnit tempunit2 = tempunit.GetComponent<GameUnit>();
+			l_guUnits.Add(tempunit2);
+			tempunit2.tileX = (int)tempunit2.transform.position.x;
+			tempunit2.tileY = (int)tempunit2.transform.position.y;
 		}
 	}
 

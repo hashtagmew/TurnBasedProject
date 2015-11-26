@@ -96,3 +96,8 @@ public enum UNIT_DIR {
 	DOWN_RIGHT,
 	DOWN_LEFT
 }
+public enum GAME_MODE {
+	NONE = 0,
+	DEPLOYMENT,
+	DOMINATION
+}

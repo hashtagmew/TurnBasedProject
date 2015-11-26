@@ -236,9 +236,9 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	}
 	
 	public void EndTurn(){
-		pathmap.selectedUnit.GetComponent<Unit>().currentPath = null;
-		//remainingMovement = resetMovement;
-		pathmap.selectedUnit.GetComponent<Unit> ().remainingMovement = pathmap.selectedUnit.GetComponent<Unit> ().resetMovement;
+//		pathmap.selectedUnit.GetComponent<Unit>().currentPath = null;
+//		//remainingMovement = resetMovement;
+//		pathmap.selectedUnit.GetComponent<Unit> ().remainingMovement = pathmap.selectedUnit.GetComponent<Unit> ().resetMovement;
 	}
 	
 	// The "Next Turn" button calls this.
