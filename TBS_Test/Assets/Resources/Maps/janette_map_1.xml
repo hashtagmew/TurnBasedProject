@@ -8,6 +8,7 @@
 			<positionx>12.5</positionx>
 			<positiony>12.5</positiony>
 			<positionz>-3.28</positionz>
+			<rotationx>90</rotationx>
 			<range>100</range>
 			<intensity>1</intensity>
 		</light>

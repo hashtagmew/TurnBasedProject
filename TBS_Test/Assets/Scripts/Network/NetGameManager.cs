@@ -18,31 +18,33 @@ public class NetGameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		//Is it our turn?
-		if (PhotonNetwork.room == null) {
-			Debug.Log("NO ROOM");
-		}
-		else {
-			Debug.Log("PAIRS " + PhotonNetwork.room.customProperties.Count.ToString());
-			foreach (DictionaryEntry pair in PhotonNetwork.room.customProperties) {
-				Debug.Log(pair.Key);
+//		if (PhotonNetwork.room == null) {
+//			Debug.Log("Not sure if our turn, no room is present!");
+//		}
+//		else {
+//			Debug.Log("PAIRS " + PhotonNetwork.room.customProperties.Count.ToString());
+//			foreach (DictionaryEntry pair in PhotonNetwork.room.customProperties) {
+//				Debug.Log(pair.Key);
+//			}
+//		}
+
+		if (PhotonNetwork.room != null) {
+			if ((int)PhotonNetwork.room.customProperties["Turn"] == PhotonNetwork.player.ID) {
+				uiEndTurn.interactable = true;
+				txtTurn.text = "My turn";
 			}
-		}
+			else {
+				uiEndTurn.interactable = false;
+				txtTurn.text = "Their turn";
+			}
 
-		if ((int)PhotonNetwork.room.customProperties["Turn"] == PhotonNetwork.player.ID) {
-			uiEndTurn.interactable = true;
-			txtTurn.text = "My turn";
-		}
-		else {
-			uiEndTurn.interactable = false;
-			txtTurn.text = "Their turn";
-		}
+			if (Input.GetKeyDown(KeyCode.F1)) {
+				Application.LoadLevel("net-test");
+			}
 
-		if (Input.GetKeyDown(KeyCode.F1)) {
-			Application.LoadLevel("net-test");
-		}
-
-		if (Input.GetKeyDown(KeyCode.P) && !goLocalNetPlayer) {
-			goLocalNetPlayer = (GameObject)PhotonNetwork.Instantiate("NetPlayer", Vector3.zero, Quaternion.identity, 0);
+			if (Input.GetKeyDown(KeyCode.P) && !goLocalNetPlayer) {
+				goLocalNetPlayer = (GameObject)PhotonNetwork.Instantiate("NetPlayer", Vector3.zero, Quaternion.identity, 0);
+			}
 		}
 	}
 
