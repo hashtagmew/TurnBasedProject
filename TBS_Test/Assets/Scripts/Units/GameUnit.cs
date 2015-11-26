@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using System.Linq;
 using System.IO;
 
-public class GameUnit : MonoBehaviour, ISelectable {
+public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 	public UNIT_FACTION iFaction;
 
@@ -52,7 +52,7 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	public int tileX;
 	public int tileY;
 
-	public TileMap map {
+	public NetPathMap pathmap {
 		get;
 		private set;
 	}
@@ -77,6 +77,10 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	public Sprite texDirSpriteUL;
 	public Sprite texDirSpriteDL;
 
+	//Net stuff
+	private Vector3 vCorrectPos;
+	private Quaternion qCorrectRot;
+
 	// Use this for initialization
 	void Start () {
 		l_abilities = new List<Ability>();
@@ -99,13 +103,18 @@ public class GameUnit : MonoBehaviour, ISelectable {
 
 		LoadUnitStats(sName);
 
-		this.map = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
+		this.pathmap = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<NetPathMap> ();
 		myRend = this.GetComponentInChildren<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		PathfindingUpdate();
+		if (!photonView.isMine) {
+			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
+			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
+		} else {
+			PathfindingUpdate ();
+		}
 	}
 
 	void PathfindingUpdate() {
@@ -158,9 +167,9 @@ public class GameUnit : MonoBehaviour, ISelectable {
 			
 			while( currNode < currentPath.Count-1 ) {
 				
-				Vector3 start = map.TileCoordToWorldCoord( currentPath[currNode].x, currentPath[currNode].y ) + 
+				Vector3 start = pathmap.TileCoordToWorldCoord( currentPath[currNode].x, currentPath[currNode].y ) + 
 					new Vector3(0, -0.5f, 0) ;
-				Vector3 end   = map.TileCoordToWorldCoord( currentPath[currNode+1].x, currentPath[currNode+1].y )  + 
+				Vector3 end   = pathmap.TileCoordToWorldCoord( currentPath[currNode+1].x, currentPath[currNode+1].y )  + 
 					new Vector3(0, -0.5f, 0) ;
 				
 				Debug.DrawLine(start, end, Color.red);
@@ -182,18 +191,18 @@ public class GameUnit : MonoBehaviour, ISelectable {
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
 		//Debug.Log (transform.position);
-		if (map == null) {
+		if (pathmap == null) {
 			Debug.Log ("OH GOID");
 		} else {
 			//Debug.Log ("YEA");
 		}
 		
-		if (Vector3.Distance (transform.position, map.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
+		if (Vector3.Distance (transform.position, pathmap.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
 			AdvancePathing();
 		}
 		
 		// Smoothly animate towards the correct map tile.
-		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileY ), 5f * Time.deltaTime);
+		transform.position = Vector3.Lerp(transform.position, pathmap.TileCoordToWorldCoord( tileX, tileY ), 5f * Time.deltaTime);
 	}
 
 	// Advances our pathfinding progress by one tile.
@@ -206,10 +215,10 @@ public class GameUnit : MonoBehaviour, ISelectable {
 		
 		// Teleport us to our correct "current" position, in case we
 		// haven't finished the animation yet.
-		transform.position = map.TileCoordToWorldCoord( tileX, tileY );
+		transform.position = pathmap.TileCoordToWorldCoord( tileX, tileY );
 		
 		// Get cost from current tile to next tile
-		remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y );
+		remainingMovement -= pathmap.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y );
 		
 		// Move us to the next tile in the sequence
 		tileX = currentPath[1].x;
@@ -227,9 +236,9 @@ public class GameUnit : MonoBehaviour, ISelectable {
 	}
 	
 	public void EndTurn(){
-		map.selectedUnit.GetComponent<Unit>().currentPath = null;
+		pathmap.selectedUnit.GetComponent<Unit>().currentPath = null;
 		//remainingMovement = resetMovement;
-		map.selectedUnit.GetComponent<Unit> ().remainingMovement = map.selectedUnit.GetComponent<Unit> ().resetMovement;
+		pathmap.selectedUnit.GetComponent<Unit> ().remainingMovement = pathmap.selectedUnit.GetComponent<Unit> ().resetMovement;
 	}
 	
 	// The "Next Turn" button calls this.
@@ -340,5 +349,18 @@ public class GameUnit : MonoBehaviour, ISelectable {
 
 	public void LoadUnitAbilities(string path) {
 		//
+	}
+
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+		if (stream.isWriting) {
+			//Local player
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
+		}
+		else {
+			//Net player
+			this.vCorrectPos = (Vector3)stream.ReceiveNext();
+			this.qCorrectRot = (Quaternion)stream.ReceiveNext();
+		}
 	}
 }
