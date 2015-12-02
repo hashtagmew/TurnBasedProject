@@ -63,6 +63,9 @@ public class NetGameManager : MonoBehaviour {
 			tempunit2.tileY = (int)tempunit2.transform.position.y;
 		}
 	}
+	public void DeployUnit(){
+
+	}
 
 	public void NetEndTurn() {
 		int newturn = PhotonNetwork.otherPlayers[0].ID;
