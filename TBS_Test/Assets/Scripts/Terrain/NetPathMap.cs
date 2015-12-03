@@ -4,7 +4,7 @@ using System.Linq;
 
 public class NetPathMap : MonoBehaviour {
 
-	int[,] tiles;
+	public int[,] tiles;
 	Node[,] graph;
 	public TileType[] tileTypes;
 

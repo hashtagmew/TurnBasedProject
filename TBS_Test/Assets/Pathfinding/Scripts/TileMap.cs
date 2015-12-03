@@ -11,12 +11,12 @@ public class TileMap : MonoBehaviour {
 
 	public TileType[] tileTypes;
 
-	int[,] tiles;
+	public int[,] tiles;
 	Node[,] graph;
 
 
-	int mapSizeX = 20;
-	int mapSizeY = 20;
+	int mapSizeX = 25;
+	int mapSizeY = 25;
 
 	void Start() {
 		// Setup the selectedUnit's variable
@@ -47,24 +47,79 @@ public class TileMap : MonoBehaviour {
 		}
 
 		// Make a big swamp area
-		for(x=3; x <= 5; x++) {
-			for(y=0; y < 4; y++) {
-				tiles[x,y] = 1;
-			}
-		}
+//		for(x=3; x <= 5; x++) {
+//			for(y=0; y < 4; y++) {
+//				tiles[x,y] = 1;
+//			}
+//		}
 		
-		// Let's make a u-shaped mountain range
-		tiles[4, 4] = 2;
-		tiles[5, 4] = 2;
+		// Let's make a  mountain range
+		tiles[2, 5] = 2;
+		tiles[2, 6] = 2;
+		tiles[1, 7] = 2;
+		tiles[1, 9] = 2;
+		tiles[1, 10] = 2;
+		tiles[0, 10] = 2;
+		tiles[0, 12] = 2;
+		tiles[0, 13] = 2;
+		tiles[0, 16] = 2;
+		tiles[0, 17] = 2;
+		tiles[1, 18] = 2;
+		tiles[2, 19] = 2;
+
+		//mountain right
+
+		
+		//trees right
+		tiles[20, 2] = 2;
+		tiles[20, 3] = 2;
+		tiles[21, 3] = 2;
+		tiles[21, 4] = 2;
+		tiles[21, 5] = 2;
+		tiles[22, 6] = 2;
+		tiles[22, 7] = 2;
+		tiles[22, 8] = 2;
+		tiles[22, 9] = 2;
+		tiles[22, 10] = 2;
+		tiles[22, 11] = 2;
+		tiles[22, 12] = 2;
+		tiles[22, 13] = 2;
+		tiles[22, 14] = 2;
+		tiles[21, 15] = 2;
+		tiles[21, 16] = 2;
+		tiles[20, 17] = 2;
+		tiles[19, 19] = 2;
+		tiles[19, 20] = 2;
+		tiles[18, 20] = 2;
+		tiles[18, 21] = 2;
+		
+		//trees
+		tiles[6, 3] = 2;
+		tiles[7, 3] = 2;
 		tiles[6, 4] = 2;
-		tiles[7, 4] = 2;
-		tiles[8, 4] = 2;
-
-		tiles[4, 5] = 2;
+		tiles[5, 5] = 2;
 		tiles[4, 6] = 2;
-		tiles[8, 5] = 2;
-		tiles[8, 6] = 2;
+		tiles[3, 7] = 2;
+		tiles[2, 8] = 2;
+		tiles[2, 10] = 2;
+		tiles[2, 11] = 2;
+		tiles[1, 12] = 2;
+		tiles[2, 13] = 2;
+		tiles[2, 14] = 2;
+		tiles[2, 15] = 2;
+		tiles[2, 16] = 2;
+		tiles[3, 16] = 2;
+		tiles[3, 17] = 2;
+		tiles[4, 17] = 2;
+		tiles[4, 18] = 2;
+		tiles[5, 18] = 2;
+		tiles[5, 19] = 2;
 
+		//fence
+		tiles[4, 21] = 2;
+		tiles[5, 21] = 2;
+		tiles[6, 21] = 2;
+		tiles[7, 21] = 2;
 	}
 
 	public float CostToEnterTile(int sourceX, int sourceY, int targetX, int targetY) {

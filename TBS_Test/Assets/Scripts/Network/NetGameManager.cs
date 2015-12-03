@@ -18,7 +18,21 @@ public class NetGameManager : MonoBehaviour {
 	//public GameObject protoUnit;
 	
 	void Start() {
-		//
+		for (int y = 0; y < map.iMapVertSize; y++) {
+			for (int x = 0; x < map.iMapHorzSize; x++) {
+				if (map.GetTile(x, y).l_tfFeatures.Count > 0) {
+					if (map.GetTile(x, y).l_tfFeatures[0].iType == FEATURE_TYPE.TREE) {
+						pathmap.tiles[x, y] = 2;
+					}
+					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.MOUNTAIN){
+						pathmap.tiles[x,y] = 2;
+					}
+					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.WALL){
+						pathmap.tiles[x,y] = 2;
+					}
+				}
+			}
+		}
 	}
 	
 	// Update is called once per frame
