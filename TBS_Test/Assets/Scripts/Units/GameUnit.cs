@@ -112,15 +112,11 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	
 	// Update is called once per frame
 	void Update () {
-		if (photonView != null) {
-			if (!photonView.isMine) {
-				transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
-				transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
-			} else {
-				PathfindingUpdate ();
-			}
+		if (!photonView.isMine) {
+			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
+			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
 		} else {
-			Debug.Log ("NO PHOTON");
+			PathfindingUpdate ();
 		}
 	}
 
@@ -243,9 +239,9 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	}
 	
 	public void EndTurn(){
-//		pathmap.selectedUnit.GetComponent<Unit>().currentPath = null;
-//		//remainingMovement = resetMovement;
-//		pathmap.selectedUnit.GetComponent<Unit> ().remainingMovement = pathmap.selectedUnit.GetComponent<Unit> ().resetMovement;
+		//pathmap.selectedUnit.GetComponent<Unit>().currentPath = null;
+		//remainingMovement = resetMovement;
+		//pathmap.selectedUnit.GetComponent<Unit> ().remainingMovement = pathmap.selectedUnit.GetComponent<Unit> ().resetMovement;
 	}
 	
 	// The "Next Turn" button calls this.

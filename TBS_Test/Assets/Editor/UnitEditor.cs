@@ -46,6 +46,8 @@ public class UnitEditor : EditorWindow {
 	static private float s_fMovement = 6.0f;
 	static private float s_fVision = 2.0f;
 
+	static private float s_fDeployCost = 1.0f;
+
 	static private float s_fAttack = 1.0f;
 //	static private float s_fPhysAttack = 4.0f;
 //	static private float s_fRangAttack = 4.0f;
@@ -54,8 +56,8 @@ public class UnitEditor : EditorWindow {
 	static private float s_fResistance = 2.0f;
 	static private float s_fDefence = 3.0f;
 
-	static private string s_sSpriteFilename;
-	static private string s_sSoundsetFilename;
+	static private string s_sSpriteFilename = "tile";
+	static private string s_sSoundsetFilename = "none";
 
 	//Window
 	[MenuItem("Window/Unit Editor %&u")]
@@ -123,15 +125,21 @@ public class UnitEditor : EditorWindow {
 		GUILayout.Space(15);
 
 		//Tier
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Tier", EditorStyles.boldLabel);
-		s_iLevel = EditorGUILayout.IntField(s_iLevel, GUILayout.Width(200));
-		GUILayout.EndHorizontal();
+//		GUILayout.BeginHorizontal();
+//		GUILayout.Label("Tier", EditorStyles.boldLabel);
+//		s_iLevel = EditorGUILayout.IntField(s_iLevel, GUILayout.Width(200));
+//		GUILayout.EndHorizontal();
 
 		//AP
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("AP", EditorStyles.boldLabel);
 		s_fAP = EditorGUILayout.FloatField(s_fAP, GUILayout.Width(200));
+		GUILayout.EndHorizontal();
+
+		//Deploy Cost
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Deploy Cost", EditorStyles.boldLabel);
+		s_fDeployCost = EditorGUILayout.FloatField(s_fDeployCost, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
 		GUILayout.EndVertical();
@@ -150,15 +158,15 @@ public class UnitEditor : EditorWindow {
 		GUILayout.EndHorizontal();
 
 		//Mana
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Mana", EditorStyles.boldLabel);
-		s_fMana = EditorGUILayout.FloatField(s_fMana, GUILayout.Width(200));
-		GUILayout.EndHorizontal();
-
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Max Mana", EditorStyles.boldLabel);
-		s_fMaxMana = EditorGUILayout.FloatField(s_fMaxMana, GUILayout.Width(200));
-		GUILayout.EndHorizontal();
+//		GUILayout.BeginHorizontal();
+//		GUILayout.Label("Mana", EditorStyles.boldLabel);
+//		s_fMana = EditorGUILayout.FloatField(s_fMana, GUILayout.Width(200));
+//		GUILayout.EndHorizontal();
+//
+//		GUILayout.BeginHorizontal();
+//		GUILayout.Label("Max Mana", EditorStyles.boldLabel);
+//		s_fMaxMana = EditorGUILayout.FloatField(s_fMaxMana, GUILayout.Width(200));
+//		GUILayout.EndHorizontal();
 
 		GUILayout.Space(15);
 
@@ -172,6 +180,18 @@ public class UnitEditor : EditorWindow {
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Vision", EditorStyles.boldLabel);
 		s_fVision = EditorGUILayout.FloatField(s_fVision, GUILayout.Width(200));
+		GUILayout.EndHorizontal();
+
+		//Sprite
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Sprite", EditorStyles.boldLabel);
+		s_sSpriteFilename = GUILayout.TextField(s_sSpriteFilename, 128, GUILayout.Width(200));
+		GUILayout.EndHorizontal();
+
+		//Sound
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Soundset", EditorStyles.boldLabel);
+		s_sSoundsetFilename = GUILayout.TextField(s_sSoundsetFilename, 128, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
 		GUILayout.EndVertical();
@@ -282,6 +302,9 @@ public class UnitEditor : EditorWindow {
 				else if (xlayer1.Name == "ap") {
 					s_fAP = float.Parse(xlayer1.Value);
 				}
+				else if (xlayer1.Name == "deploycost") {
+					s_fDeployCost = float.Parse(xlayer1.Value);
+				}
 				else if (xlayer1.Name == "health") {
 					s_fHealth = float.Parse(xlayer1.Value);
 				}
@@ -358,16 +381,23 @@ public class UnitEditor : EditorWindow {
 		writer.WriteWhitespace("\n");
 
 		//Level
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("level");
-		writer.WriteValue(s_iLevel);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
+//		writer.WriteWhitespace("\t");
+//		writer.WriteStartElement("level");
+//		writer.WriteValue(s_iLevel);
+//		writer.WriteEndElement();
+//		writer.WriteWhitespace("\n");
 
 		//AP
 		writer.WriteWhitespace("\t");
 		writer.WriteStartElement("ap");
 		writer.WriteValue(s_fAP);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Deploy cost
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("deploycost");
+		writer.WriteValue(s_fDeployCost);
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
@@ -385,17 +415,17 @@ public class UnitEditor : EditorWindow {
 		writer.WriteWhitespace("\n");
 
 		//Mana
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("mana");
-		writer.WriteValue(s_fMana);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
-		
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("maxmana");
-		writer.WriteValue(s_fMaxMana);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
+//		writer.WriteWhitespace("\t");
+//		writer.WriteStartElement("mana");
+//		writer.WriteValue(s_fMana);
+//		writer.WriteEndElement();
+//		writer.WriteWhitespace("\n");
+//		
+//		writer.WriteWhitespace("\t");
+//		writer.WriteStartElement("maxmana");
+//		writer.WriteValue(s_fMaxMana);
+//		writer.WriteEndElement();
+//		writer.WriteWhitespace("\n");
 
 		//Move
 		writer.WriteWhitespace("\t");
