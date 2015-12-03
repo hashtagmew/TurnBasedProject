@@ -15,10 +15,24 @@ public class NetGameManager : MonoBehaviour {
 
 	public List<GameUnit> l_guUnits;
 
-	public GameObject protoUnit;
+	//public GameObject protoUnit;
 	
 	void Start() {
-		//
+		for (int y = 0; y < map.iMapVertSize; y++) {
+			for (int x = 0; x < map.iMapHorzSize; x++) {
+				if (map.GetTile(x, y).l_tfFeatures.Count > 0) {
+					if (map.GetTile(x, y).l_tfFeatures[0].iType == FEATURE_TYPE.TREE) {
+						pathmap.tiles[x, y] = 2;
+					}
+					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.MOUNTAIN){
+						pathmap.tiles[x,y] = 2;
+					}
+					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.WALL){
+						pathmap.tiles[x,y] = 2;
+					}
+				}
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -57,8 +71,14 @@ public class NetGameManager : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Alpha1)) {
 			Vector3 vectemp = new Vector3(0.0f, 0.0f, 0.0f);
 			GameObject tempunit = (GameObject)PhotonNetwork.Instantiate("NetGameUnit", vectemp, Quaternion.identity, 0);
-			l_guUnits.Add(tempunit.GetComponent<GameUnit>());
+			GameUnit tempunit2 = tempunit.GetComponent<GameUnit>();
+			l_guUnits.Add(tempunit2);
+			tempunit2.tileX = (int)tempunit2.transform.position.x;
+			tempunit2.tileY = (int)tempunit2.transform.position.y;
 		}
+	}
+	public void DeployUnit(){
+
 	}
 
 	public void NetEndTurn() {
