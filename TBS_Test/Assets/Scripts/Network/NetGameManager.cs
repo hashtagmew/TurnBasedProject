@@ -12,6 +12,7 @@ public class NetGameManager : MonoBehaviour {
 
 	public NetPathMap pathmap;
 	public NetGameMap map;
+	//public TileMap Tmap;
 
 	public List<GameUnit> l_guUnits;
 
@@ -22,13 +23,13 @@ public class NetGameManager : MonoBehaviour {
 			for (int x = 0; x < map.iMapHorzSize; x++) {
 				if (map.GetTile(x, y).l_tfFeatures.Count > 0) {
 					if (map.GetTile(x, y).l_tfFeatures[0].iType == FEATURE_TYPE.TREE) {
-						pathmap.tiles[x, y] = 2;
+						pathmap.tiles[x, y] = 1;
 					}
 					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.MOUNTAIN){
-						pathmap.tiles[x,y] = 2;
+						pathmap.tiles[x,y] = 1;
 					}
 					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.WALL){
-						pathmap.tiles[x,y] = 2;
+						pathmap.tiles[x,y] = 1;
 					}
 				}
 			}
@@ -78,7 +79,12 @@ public class NetGameManager : MonoBehaviour {
 		}
 	}
 	public void DeployUnit(){
-
+		Vector3 vectemp = new Vector3(0.0f, 0.0f, 0.0f);
+		GameObject tempunit = (GameObject)PhotonNetwork.Instantiate("NetGameUnit", vectemp, Quaternion.identity, 0);
+		GameUnit tempunit2 = tempunit.GetComponent<GameUnit>();
+		l_guUnits.Add(tempunit2);
+		tempunit2.tileX = (int)tempunit2.transform.position.x;
+		tempunit2.tileY = (int)tempunit2.transform.position.y;
 	}
 
 	public void NetEndTurn() {

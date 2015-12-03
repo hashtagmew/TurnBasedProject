@@ -52,23 +52,23 @@ public class NetPathMap : MonoBehaviour {
 		}
 		
 		// Make a big swamp area
-		for(x = 3; x <= 5; x++) {
-			for(y = 0; y < 4; y++) {
-				tiles[x, y] = 1;
-			}
-		}
+//		for(x = 3; x <= 5; x++) {
+//			for(y = 0; y < 4; y++) {
+//				tiles[x, y] = 1;
+//			}
+//		}
 		
 		// Let's make a u-shaped mountain range
-		tiles[4, 4] = 2;
-		tiles[5, 4] = 2;
-		tiles[6, 4] = 2;
-		tiles[7, 4] = 2;
-		tiles[8, 4] = 2;
-		
-		tiles[4, 5] = 2;
-		tiles[4, 6] = 2;
-		tiles[8, 5] = 2;
-		tiles[8, 6] = 2;
+//		tiles[4, 4] = 2;
+//		tiles[5, 4] = 2;
+//		tiles[6, 4] = 2;
+//		tiles[7, 4] = 2;
+//		tiles[8, 4] = 2;
+//		
+//		tiles[4, 5] = 2;
+//		tiles[4, 6] = 2;
+//		tiles[8, 5] = 2;
+//		tiles[8, 6] = 2;
 	}
 
 	void GeneratePathfindingGraph() {

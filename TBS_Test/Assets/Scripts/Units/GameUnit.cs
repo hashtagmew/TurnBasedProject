@@ -104,6 +104,9 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		LoadUnitStats(sName);
 
 		this.pathmap = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<NetPathMap> ();
+		if (pathmap == null) {
+			Debug.Log ("Path map is null");
+		}
 		myRend = this.GetComponentInChildren<SpriteRenderer> ();
 	}
 	
