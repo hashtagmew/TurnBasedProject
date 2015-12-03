@@ -109,11 +109,15 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!photonView.isMine) {
-			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
-			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
+		if (photonView != null) {
+			if (!photonView.isMine) {
+				transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
+				transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
+			} else {
+				PathfindingUpdate ();
+			}
 		} else {
-			PathfindingUpdate ();
+			Debug.Log ("NO PHOTON");
 		}
 	}
 
