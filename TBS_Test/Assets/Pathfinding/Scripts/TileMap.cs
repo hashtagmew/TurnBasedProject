@@ -53,7 +53,7 @@ public class TileMap : MonoBehaviour {
 //			}
 //		}
 		
-		// Let's make a  mountain range
+		// mountain left
 		tiles[2, 5] = 2;
 		tiles[2, 6] = 2;
 		tiles[1, 7] = 2;
@@ -68,8 +68,20 @@ public class TileMap : MonoBehaviour {
 		tiles[2, 19] = 2;
 
 		//mountain right
+		tiles[23, 5] = 2;
+		tiles[23, 6] = 2;
+		tiles[23, 7] = 2;
+		tiles[24, 7] = 2;
+		tiles[24, 8] = 2;
+		tiles[24, 9] = 2;
+		tiles[24, 10] = 2;
+		tiles[24, 11] = 2;
+		tiles[24, 12] = 2;
+		tiles[24, 13] = 2;
+		tiles[23, 14] = 2;
+		tiles[23, 16] = 2;
+		tiles[22, 17] = 2;
 
-		
 		//trees right
 		tiles[20, 2] = 2;
 		tiles[20, 3] = 2;
@@ -93,7 +105,7 @@ public class TileMap : MonoBehaviour {
 		tiles[18, 20] = 2;
 		tiles[18, 21] = 2;
 		
-		//trees
+		//trees left
 		tiles[6, 3] = 2;
 		tiles[7, 3] = 2;
 		tiles[6, 4] = 2;
