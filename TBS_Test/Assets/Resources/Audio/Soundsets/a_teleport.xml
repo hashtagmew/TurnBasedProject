@@ -1,0 +1,6 @@
+<Soundset>
+	<type>3</type>
+	<cast>Teleport Start</cast>
+	<execute>null</execute>
+	<finish>Teleport Reappear</finish>
+</Soundset>
