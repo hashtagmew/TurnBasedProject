@@ -52,7 +52,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	public int tileX;
 	public int tileY;
 
-	public NetPathMap pathmap {
+	public TileMap map {
 		get;
 		private set;
 	}
@@ -103,26 +103,25 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 		LoadUnitStats(sName);
 
-		this.pathmap = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<NetPathMap> ();
-		if (pathmap == null) {
+		this.map = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
+		if (map == null) {
 			Debug.Log ("Path map is null");
 		}
 		myRend = this.GetComponentInChildren<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
+
 		if (!photonView.isMine) {
 			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
 			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
 		} else {
-			PathfindingUpdate ();
+			Debug.Log("nullPhoton");
 		}
-	}
 
-	void PathfindingUpdate() {
-		
-		//		//End turn
+
+		//End turn
 		
 		
 		//Finding Direction the Unit is moving in so that the sprite can be changed
@@ -170,9 +169,9 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			
 			while( currNode < currentPath.Count-1 ) {
 				
-				Vector3 start = pathmap.TileCoordToWorldCoord( currentPath[currNode].x, currentPath[currNode].y ) + 
+				Vector3 start = map.TileCoordToWorldCoord( currentPath[currNode].x, currentPath[currNode].y ) + 
 					new Vector3(0, -0.5f, 0) ;
-				Vector3 end   = pathmap.TileCoordToWorldCoord( currentPath[currNode+1].x, currentPath[currNode+1].y )  + 
+				Vector3 end   = map.TileCoordToWorldCoord( currentPath[currNode+1].x, currentPath[currNode+1].y )  + 
 					new Vector3(0, -0.5f, 0) ;
 				
 				Debug.DrawLine(start, end, Color.red);
@@ -194,18 +193,18 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
 		//Debug.Log (transform.position);
-		if (pathmap == null) {
+		if (map == null) {
 			Debug.Log ("OH GOID");
 		} else {
 			//Debug.Log ("YEA");
 		}
 		
-		if (Vector3.Distance (transform.position, pathmap.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
+		if (Vector3.Distance (transform.position, map.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
 			AdvancePathing();
 		}
 		
 		// Smoothly animate towards the correct map tile.
-		transform.position = Vector3.Lerp(transform.position, pathmap.TileCoordToWorldCoord( tileX, tileY ), 5f * Time.deltaTime);
+		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileY ), 5f * Time.deltaTime);
 	}
 
 	// Advances our pathfinding progress by one tile.
@@ -218,10 +217,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		
 		// Teleport us to our correct "current" position, in case we
 		// haven't finished the animation yet.
-		transform.position = pathmap.TileCoordToWorldCoord( tileX, tileY );
+		transform.position = map.TileCoordToWorldCoord( tileX, tileY );
 		
 		// Get cost from current tile to next tile
-		remainingMovement -= pathmap.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y );
+		remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y );
 		
 		// Move us to the next tile in the sequence
 		tileX = currentPath[1].x;
