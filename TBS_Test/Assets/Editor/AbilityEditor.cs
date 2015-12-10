@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
 using System.Linq;
+using System.IO;
 
 using UnityEngine.UI;
 
@@ -40,6 +41,26 @@ public class AbilityEditor : EditorWindow {
 	//Bits
 	static private string s_sName = "Goggles";
 	static private ABILITY_TYPE s_iType = ABILITY_TYPE.NONE;
+	static private Dictionary<string, bool> s_dEffects;
+
+	static private GameObject s_psCast;
+	static private GameObject s_psExecute;
+	static private GameObject s_psFinish;
+
+	static private bool s_bGuaranteedHit = false;
+	static private bool s_bRangedHitChance = false;
+	static private int s_iRange = 1;
+	static private float s_fCastDelay = 0.5f;
+	static private float s_fExecuteDelay = 0.0f;
+	static private float s_fFinishDelay = 1.0f;
+	static private int s_iAreaAttackRadius = 1;
+	static private EFFECT_TARGET s_eTarget = EFFECT_TARGET.NONE;
+	static private string s_sDescription = "Does a thing.";
+
+	static private Dictionary<string, Effect> s_dEffectsActivation = new Dictionary<string, Effect>();
+	static private Dictionary<string, Effect> s_dEffectsResolution = new Dictionary<string, Effect>();
+
+	static private float s_fAccuracyBonus = 0.0f;
 
 	//Window
 	[MenuItem("Window/Ability Editor %&a")]
@@ -100,6 +121,10 @@ public class AbilityEditor : EditorWindow {
 		s_sName = GUILayout.TextField(s_sName, 28, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
+		//Desc
+		GUILayout.Label("Description", EditorStyles.boldLabel);
+		s_sDescription = GUILayout.TextArea(s_sDescription, GUILayout.Width(200));
+
 		//Type
 		GUILayout.BeginHorizontal("box");
 		GUILayout.Label("Type", EditorStyles.boldLabel);
@@ -108,17 +133,107 @@ public class AbilityEditor : EditorWindow {
 
 		if (s_iType != ABILITY_TYPE.NONE) {
 			if (s_iType == ABILITY_TYPE.ACTIVE) {
+				GUILayout.BeginVertical("box");
+
+				s_bGuaranteedHit = GUILayout.Toggle(s_bGuaranteedHit, "Guaranteed Hit");
+				s_bRangedHitChance = GUILayout.Toggle(s_bRangedHitChance, "Use Ranged Hit Calc");
+				s_fAccuracyBonus = EditorGUILayout.FloatField("Accuracy Bonus", s_fAccuracyBonus);
+
+				s_iRange = EditorGUILayout.IntField("Ability Range", s_iRange);
+				s_eTarget = (EFFECT_TARGET)EditorGUILayout.EnumPopup("Target(s)", s_eTarget);
+				if (s_eTarget == EFFECT_TARGET.AREA) {
+					s_iAreaAttackRadius = EditorGUILayout.IntField("Radius", s_iAreaAttackRadius);
+				}
+
+				GUILayout.EndVertical();
+
 				//OnActivation
-				GUILayout.BeginHorizontal("box");
+				GUILayout.BeginVertical("box");
 				GUILayout.Label("On Activation", EditorStyles.boldLabel);
-				//
+
+				s_fCastDelay = EditorGUILayout.FloatField("Delay", s_fCastDelay);
+
+				GUILayout.BeginHorizontal();
+				GUILayout.Label("Casting Particle Effect");
+				s_psCast = (GameObject)EditorGUILayout.ObjectField(s_psCast, typeof(GameObject), false);
+				if (s_psCast != null) {
+					if (!IsPrefabAParticleEffect(s_psCast.name)) {
+						Debug.LogWarning("WARNING! " + s_psCast.name + " ISN'T A PARTICLE EFFECT!");
+					}
+				}
 				GUILayout.EndHorizontal();
 
-				//OnResolution
-				GUILayout.BeginHorizontal("box");
-				GUILayout.Label("On Resolution", EditorStyles.boldLabel);
-				//
+				GUILayout.Label("Current Effects:", EditorStyles.boldLabel);
+				if (s_dEffectsActivation.Count > 0) {
+					foreach (KeyValuePair<string, Effect> pair in s_dEffectsActivation) {
+						GUILayout.BeginHorizontal();
+
+						GUILayout.Label(pair.Key);
+						if (pair.Value.bAdjustable) {
+							GUILayout.BeginHorizontal("box");
+							GUILayout.Label(pair.Value.sAdjustName);
+							pair.Value.fAdjustFloat = EditorGUILayout.FloatField(pair.Value.fAdjustFloat);
+							GUILayout.EndHorizontal();
+		                }
+
+						GUILayout.EndHorizontal();
+					}
+				}
+
+				GUILayout.EndVertical();
+
+				//Execute
+				GUILayout.BeginVertical("box");
+				GUILayout.Label("On Execute", EditorStyles.boldLabel);
+
+
+				s_fExecuteDelay = EditorGUILayout.FloatField("Delay", s_fExecuteDelay);
+
+				GUILayout.BeginHorizontal();
+				GUILayout.Label("Executing Particle Effect");
+				s_psExecute = (GameObject)EditorGUILayout.ObjectField(s_psExecute, typeof(GameObject), false);
+				if (s_psExecute != null) {
+					if (!IsPrefabAParticleEffect(s_psExecute.name)) {
+						Debug.LogWarning("WARNING! " + s_psExecute.name + " ISN'T A PARTICLE EFFECT!");
+					}
+				}
 				GUILayout.EndHorizontal();
+				GUILayout.EndVertical();
+
+				//OnResolution
+				GUILayout.BeginVertical("box");
+				GUILayout.Label("On Resolution", EditorStyles.boldLabel);
+
+				s_fFinishDelay = EditorGUILayout.FloatField("Delay", s_fFinishDelay);
+
+				GUILayout.BeginHorizontal();
+				GUILayout.Label("Finished Particle Effect");
+				s_psFinish = (GameObject)EditorGUILayout.ObjectField(s_psFinish, typeof(GameObject), false);
+				if (s_psFinish != null) {
+					if (!IsPrefabAParticleEffect(s_psFinish.name)) {
+						Debug.LogWarning("WARNING! " + s_psFinish.name + " ISN'T A PARTICLE EFFECT!");
+					}
+				}
+				GUILayout.EndHorizontal();
+
+				GUILayout.Label("Current Effects:", EditorStyles.boldLabel);
+				if (s_dEffectsResolution.Count > 0) {
+					foreach (KeyValuePair<string, Effect> pair in s_dEffectsResolution) {
+						GUILayout.BeginHorizontal();
+
+						GUILayout.Label(pair.Key);
+						if (pair.Value.bAdjustable) {
+							GUILayout.BeginHorizontal("box");
+							GUILayout.Label(pair.Value.sAdjustName);
+							pair.Value.fAdjustFloat = EditorGUILayout.FloatField(pair.Value.fAdjustFloat);
+							GUILayout.EndHorizontal();
+						}
+
+						GUILayout.EndHorizontal();
+					}
+				}
+
+				GUILayout.EndVertical();
 			}
 			else {
 				//Passive Effect
@@ -145,7 +260,31 @@ public class AbilityEditor : EditorWindow {
 			
 			if (s_bShowActivationEffects) {
 				s_vActivationEffectScrollPos = GUILayout.BeginScrollView(s_vActivationEffectScrollPos);
-				GUILayout.Label(new GUIContent("Coming soon", "Tooltip"));
+				foreach (KeyValuePair<string, Effect> pair in EffectBox.s_dEffectLookup) {
+					if (pair.Value.iType == EFFECT_TYPE.ACTIVATION) {
+						GUILayout.BeginHorizontal();
+
+						if (GUILayout.Button("+", GUILayout.MaxWidth(20.0f))) {
+							if (!s_dEffectsActivation.ContainsKey(pair.Key)) {
+								s_dEffectsActivation.Add(pair.Key, pair.Value);
+							}
+							else {
+								Debug.LogError("That key already exists!");
+							}
+						}
+						if (GUILayout.Button("-", GUILayout.MaxWidth(20.0f))) {
+							if (s_dEffectsActivation.ContainsKey(pair.Key)) {
+								s_dEffectsActivation.Remove(pair.Key);
+							}
+							else {
+								Debug.LogError("That key doesn't exist!");
+							}
+						}
+						GUILayout.Label(pair.Key);
+
+						GUILayout.EndHorizontal();
+					}
+				}
 				GUILayout.EndScrollView();
 			}
 			//=========== GUI END	ACTIVE Effects
@@ -159,7 +298,31 @@ public class AbilityEditor : EditorWindow {
 			
 			if (s_bShowResolutionEffects) {
 				s_vResolutionEffectScrollPos = GUILayout.BeginScrollView(s_vResolutionEffectScrollPos);
-				GUILayout.Label(new GUIContent("Coming soon", "Tooltip"));
+				foreach (KeyValuePair<string, Effect> pair in EffectBox.s_dEffectLookup) {
+					if (pair.Value.iType == EFFECT_TYPE.RESOLUTION) {
+						GUILayout.BeginHorizontal();
+						
+						if (GUILayout.Button("+", GUILayout.MaxWidth(20.0f))) {
+							if (!s_dEffectsResolution.ContainsKey(pair.Key)) {
+								s_dEffectsResolution.Add(pair.Key, pair.Value);
+							}
+							else {
+								Debug.LogError("That key already exists!");
+							}
+						}
+						if (GUILayout.Button("-", GUILayout.MaxWidth(20.0f))) {
+							if (s_dEffectsResolution.ContainsKey(pair.Key)) {
+								s_dEffectsResolution.Remove(pair.Key);
+							}
+							else {
+								Debug.LogError("That key doesn't exist!");
+							}
+						}
+						GUILayout.Label(pair.Key);
+						
+						GUILayout.EndHorizontal();
+					}
+				}
 				GUILayout.EndScrollView();
 			}
 			GUILayout.EndVertical();
@@ -189,11 +352,318 @@ public class AbilityEditor : EditorWindow {
 	}
 
 	static public void LoadAbilityFile(string path) {
-		//
+		s_xmlDoc = XDocument.Load(path);
+
+		s_dEffectsActivation.Clear();
+		s_dEffectsResolution.Clear();
+
+//		XDocument s_xmlDoc = new XDocument();
+//
+//		Debug.Log(path);
+//		TextAsset taAbility = Resources.Load<TextAsset>(path);
+//		XmlDocument xdoc = new XmlDocument();
+//		xdoc.LoadXml(taAbility.text);
+//		
+//		if (taAbility == null) {
+//			Debug.LogError("Failed to load level " + path + "!");
+//		}
+//		
+//		//Convert XmlDocument to XDocument
+//		using (MemoryStream memStream = new MemoryStream()) {
+//			using (XmlWriter tempwrite = XmlWriter.Create(memStream)) {
+//				xdoc.WriteContentTo(tempwrite);
+//			}
+//			memStream.Seek(0, SeekOrigin.Begin);
+//			using (XmlReader tempread = XmlReader.Create(memStream)) {
+//				s_xmlDoc = XDocument.Load(tempread);
+//			}
+//		}
+//		
+//		if (s_xmlDoc == null) {
+//			Debug.LogError("Failed to load xml " + path + "!");
+//		}
+		
+		foreach (XElement xroot in s_xmlDoc.Elements()) {
+			//Debug.Log(xroot.Name);
+			foreach (XElement xlayer1 in xroot.Elements()) {
+				if (xlayer1.Name == "name") {
+					s_sName = xlayer1.Value;
+				}
+				else if (xlayer1.Name == "description") {
+					s_sDescription = xlayer1.Value;
+				}
+				else if (xlayer1.Name == "type") {
+					s_iType = (ABILITY_TYPE)int.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "guaranteed_hit") {
+					if (xlayer1.Value == "0") {
+						s_bGuaranteedHit = false;
+					}
+					else {
+						s_bGuaranteedHit = true;
+					}
+				}
+				else if (xlayer1.Name == "use_ranged_calc") {
+					if (xlayer1.Value == "0") {
+						s_bRangedHitChance = false;
+					}
+					else {
+						s_bRangedHitChance = true;
+					}
+				}
+				else if (xlayer1.Name == "accuracy_bonus") {
+					s_fAccuracyBonus = float.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "range") {
+					s_iRange = int.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "target") {
+					s_eTarget = (EFFECT_TARGET)int.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "area") {
+					s_iAreaAttackRadius = int.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "activation_delay") {
+					s_fCastDelay = float.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "activation_particle") {
+					s_psCast = (GameObject)Resources.Load("Particle Effects/" + xlayer1.Value);
+				}
+				else if (xlayer1.Name == "execution_delay") {
+					s_fExecuteDelay = float.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "execution_particle") {
+					s_psExecute = (GameObject)Resources.Load("Particle Effects/" + xlayer1.Value);
+				}
+				else if (xlayer1.Name == "resolution_delay") {
+					s_fFinishDelay = float.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "resolution_particle") {
+					s_psFinish = (GameObject)Resources.Load("Particle Effects/" + xlayer1.Value);
+				}
+				
+				if (xlayer1.Name == "activation_effects") {
+					ReloadEffects();
+					
+					foreach (XElement xlayer2 in xlayer1.Elements()) {
+						if (EffectBox.s_dEffectLookup.ContainsKey(xlayer2.Value)) {
+							s_dEffectsActivation.Add(xlayer2.Value, EffectBox.s_dEffectLookup[xlayer2.Value]);
+
+							if (EffectBox.s_dEffectLookup[xlayer2.Value].bAdjustable) {
+								s_dEffectsActivation[xlayer2.Value].fAdjustFloat = float.Parse(xlayer2.FirstAttribute.Value);
+							}
+						}
+					}
+				}
+
+				if (xlayer1.Name == "resolution_effects") {
+					ReloadEffects();
+					
+					foreach (XElement xlayer2 in xlayer1.Elements()) {
+						if (EffectBox.s_dEffectLookup.ContainsKey(xlayer2.Value)) {
+							s_dEffectsResolution.Add(xlayer2.Value, EffectBox.s_dEffectLookup[xlayer2.Value]);
+							
+							if (EffectBox.s_dEffectLookup[xlayer2.Value].bAdjustable) {
+								s_dEffectsResolution[xlayer2.Value].fAdjustFloat = float.Parse(xlayer2.FirstAttribute.Value);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	static public void SaveAbilityFile(string path) {
-		//
+		XmlWriterSettings xsettings = new XmlWriterSettings();
+		xsettings.Encoding = Encoding.ASCII;
+		xsettings.OmitXmlDeclaration = true;
+		
+		XmlWriter writer = XmlWriter.Create(s_sLastFile, xsettings);
+		
+		writer.WriteStartDocument();
+		writer.WriteStartElement("Ability");
+		writer.WriteWhitespace("\n");
+		
+		//Name
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("name");
+		writer.WriteValue(s_sName);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		//Description
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("description");
+		writer.WriteValue(s_sDescription);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Type
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("type");
+		writer.WriteValue((int)s_iType);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		writer.WriteWhitespace("\n");
+		
+		//Guaranteed Hit
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("guaranteed_hit");
+		if (s_bGuaranteedHit) {
+			writer.WriteValue(1);
+		}
+		else {
+			writer.WriteValue(0);
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Ranged
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("use_ranged_calc");
+		if (s_bRangedHitChance) {
+			writer.WriteValue(1);
+		}
+		else {
+			writer.WriteValue(0);
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Accuracy Bonus
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("accuracy_bonus");
+		writer.WriteValue(s_fAccuracyBonus);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Range
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("range");
+		writer.WriteValue(s_iRange);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Target
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("target");
+		writer.WriteValue((int)s_eTarget);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		if (s_eTarget == EFFECT_TARGET.AREA) {
+			//Area
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("area");
+			writer.WriteValue(s_iAreaAttackRadius);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+		}
+
+		//Activation Delay
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("activation_delay");
+		writer.WriteValue(s_fCastDelay);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Execute Delay
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("execution_delay");
+		writer.WriteValue(s_fExecuteDelay);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Resolve Delay
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("resolution_delay");
+		writer.WriteValue(s_fFinishDelay);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Activation Particle
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("activation_particle");
+		if (s_psCast != null) {
+			writer.WriteValue(s_psCast.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Execute Particle
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("execution_particle");
+		if (s_psExecute != null) {
+			writer.WriteValue(s_psExecute.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Resolve Particle
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("resolution_particle");
+		if (s_psFinish != null) {
+			writer.WriteValue(s_psFinish.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		writer.WriteWhitespace("\n");
+		
+		//Activation Effects
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("activation_effects");
+		writer.WriteWhitespace("\n");
+		
+		foreach (KeyValuePair<string, Effect> pair in s_dEffectsActivation) {
+			writer.WriteWhitespace("\t\t");
+			writer.WriteStartElement("effect");
+			if (s_dEffectsActivation[pair.Key].bAdjustable) {
+				writer.WriteAttributeString("power", s_dEffectsActivation[pair.Key].fAdjustFloat.ToString());
+			}
+			writer.WriteValue(pair.Key);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+		}
+		
+		writer.WriteWhitespace("\t");
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Resolution Effects
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("resolution_effects");
+		writer.WriteWhitespace("\n");
+		
+		foreach (KeyValuePair<string, Effect> pair in s_dEffectsResolution) {
+			writer.WriteWhitespace("\t\t");
+			writer.WriteStartElement("effect");
+			if (s_dEffectsResolution[pair.Key].bAdjustable) {
+				writer.WriteAttributeString("power", s_dEffectsResolution[pair.Key].fAdjustFloat.ToString());
+			}
+			writer.WriteValue(pair.Key);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+		}
+		
+		writer.WriteWhitespace("\t");
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+		
+		writer.WriteEndElement();
+		writer.WriteEndDocument();
+		
+		writer.Close();
 	}
 
 	public static void ReloadEffects() {
@@ -233,5 +703,14 @@ public class AbilityEditor : EditorWindow {
 //			s_dEffectToggles.Add(abilpair.Key, false);
 //			s_dEffectPower.Add(abilpair.Key, 0.0f);
 //		}
+	}
+
+	public bool IsPrefabAParticleEffect(string name) {
+		GameObject go = (GameObject)Resources.Load("Particle Effects/" + name);
+		if (go != null) {
+			return true;
+		}
+
+		return false;
 	}
 }

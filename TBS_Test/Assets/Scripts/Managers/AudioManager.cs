@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour {
 	public Dictionary<string, AudioClip> d_acSounds;
 	
 	void Start() {
-		Object[] loadin = Resources.LoadAll("Audio/SFX/");
+		Object[] loadin = Resources.LoadAll("Audio/", typeof(AudioClip));
 
 		d_acSounds = new Dictionary<string, AudioClip>();
 
