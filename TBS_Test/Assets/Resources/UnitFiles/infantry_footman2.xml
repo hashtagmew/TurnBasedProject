@@ -1,25 +1,22 @@
 <TBSUnit>
 	<name>Magiclaw</name>
-	<type>INFANTRY</type>
-	<race>Human</race>
+	<description>A unit that does things.</description>
+	<faction>3</faction>
 
-	<level>1</level>
-	<xp>0</xp>
-
+	<ap>3</ap>
+	<deploycost>1</deploycost>
 	<health>80</health>
+	<maxhealth>50</maxhealth>
 	<move>6</move>
 	<vision>2</vision>
-	
 	<attack>5</attack>
-	<physattack>2</physattack>
-	<rangattack>3</rangattack>
-	<magattack>4</magattack>
-	
+	<magic>4</magic>
 	<defence>2</defence>
 	<resistance>4</resistance>
 
 	<abilities>
-		<ability strength="12">Melee Strike</ability>
+		<ability>laserGun</ability>
+		<ability>Melee Strike</ability>
 		<ability>Guard</ability>
 		<ability>Infantry</ability>
 		<ability>Human</ability>
