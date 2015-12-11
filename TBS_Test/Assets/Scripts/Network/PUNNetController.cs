@@ -39,6 +39,7 @@ public class PUNNetController : PunBehaviour {
 		//m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
 		m_PropertiesHash.Add("Ready", false);
 		m_PropertiesHash.Add("Faction", 1);
+		m_PropertiesHash.Add("ReadyDep", false);
 
 		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
 
@@ -188,6 +189,7 @@ public class PUNNetController : PunBehaviour {
 		m_PropertiesHash.Clear();
 		m_PropertiesHash.Add("Turn", PhotonNetwork.player.ID);
 		m_PropertiesHash.Add("Map", "janette_map_1");
+		m_PropertiesHash.Add("Mode", "deploy");
 		PhotonNetwork.room.SetCustomProperties(m_PropertiesHash);
 	}
 

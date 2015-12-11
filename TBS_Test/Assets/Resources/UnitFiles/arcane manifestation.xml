@@ -5,8 +5,8 @@
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
-	<health>80</health>
-	<maxhealth>50</maxhealth>
+	<health>100</health>
+	<maxhealth>100</maxhealth>
 	<move>6</move>
 	<vision>2</vision>
 	<attack>5</attack>

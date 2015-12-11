@@ -20,7 +20,7 @@ public class SelectUnit : MonoBehaviour {
 	public GameObject SlctTile;
 	public bool CanAttack;
 	public float distance;
-	private float Range = 1.1f;
+	private float Range = 6.1f;
 
 	public Text txtSelectedName;
 	public Text txtSelectedHP;
@@ -52,7 +52,7 @@ public class SelectUnit : MonoBehaviour {
 		} else
 			CanAttack = false;
 	
-		bWhyDoesThisHappen = EventSystem.current.IsPointerOverGameObject ();
+		//bWhyDoesThisHappen = EventSystem.current.IsPointerOverGameObject ();
 
 		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -98,8 +98,8 @@ public class SelectUnit : MonoBehaviour {
 				GameUnit temphit = rayHit.collider.transform.parent.gameObject.GetComponent<GameUnit>();
 				Debug.Log("Unit Hit: " + map.selectedUnit.name);
 				temphit.fHealth -= Combat.CombatMechanics.CalculateDamage((int)attk.fPhysAttack, 0, (int)temphit.fDefence, 0);
-				map.selectedUnit.GetComponent<AudioSource>().Play();
-				map.selectedUnit.GetComponent<AudioSource>().Play();
+				//map.selectedUnit.GetComponent<AudioSource>().Play();
+
 			}
 		}
 
@@ -130,7 +130,7 @@ public class SelectUnit : MonoBehaviour {
 		}
 		else {
 			txtSelectedName.text = map.selectedUnit.GetComponent<GameUnit>().sName;
-			txtSelectedHP.text = map.selectedUnit.GetComponent<GameUnit>().fHealth.ToString() + "/\n" + map.selectedUnit.GetComponent<GameUnit>().fMaxHealth.ToString();
+			txtSelectedHP.text = map.selectedUnit.GetComponent<GameUnit>().fHealth.ToString() + "/" + map.selectedUnit.GetComponent<GameUnit>().fMaxHealth.ToString();
 			txtSelectedPhysAttack.text = map.selectedUnit.GetComponent<GameUnit>().fPhysAttack.ToString();
 			txtSelectedRangAttack.text = map.selectedUnit.GetComponent<GameUnit>().fRangAttack.ToString();
 			txtSelectedMagiAttack.text = map.selectedUnit.GetComponent<GameUnit>().fMagiAttack.ToString();
