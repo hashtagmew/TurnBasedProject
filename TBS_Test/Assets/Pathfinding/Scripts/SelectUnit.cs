@@ -38,7 +38,7 @@ public class SelectUnit : MonoBehaviour {
 
 	void Update () {
 
-		distance = Vector3.Distance (unit0.transform.position, unit1.transform.position);
+//		distance = Vector3.Distance (unit0.transform.position, unit1.transform.position);
 
 		if (map.selectedUnit != null) {
 			SlctTile.transform.position = (map.selectedUnit.transform.position);
