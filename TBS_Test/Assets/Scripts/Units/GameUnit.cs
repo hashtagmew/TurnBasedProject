@@ -52,6 +52,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	public int tileX;
 	public int tileY;
 
+	public NetGameManager netman;
 	public TileMap map {
 		get;
 		private set;
@@ -113,15 +114,19 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	// Update is called once per frame
 	void Update() {
 
+
+
 		if (!photonView.isMine) {
+			foreach (GameUnit unittemp in netman.l_guUnits) {
+				unittemp.GetComponent<GameUnit>().tileX = (int)unittemp.transform.position.x;
+				unittemp.GetComponent<GameUnit>().tileY = (int)unittemp.transform.position.z;
+			}
+
 			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
 			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
 		} else {
 			Debug.Log ("nullPhoton");
-
-
-		
-
+	
 
 			//End turn
 		
