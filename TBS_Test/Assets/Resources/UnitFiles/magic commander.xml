@@ -1,0 +1,22 @@
+<TBSUnit>
+	<name>Magic Commander</name>
+	<description>Commander of the magical army.
+Wields power beyond imagination.</description>
+	<faction>3</faction>
+
+	<ap>3</ap>
+	<deploycost>1</deploycost>
+	<health>200</health>
+	<maxhealth>200</maxhealth>
+	<move>6</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>swordArc2</ability>
+		<ability>teleport</ability>
+	</abilities>
+</TBSUnit>

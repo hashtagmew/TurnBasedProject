@@ -1,0 +1,24 @@
+<TBSUnit>
+	<name>Arcane Manifestation</name>
+	<description>A unit that does things.</description>
+	<faction>3</faction>
+
+	<ap>3</ap>
+	<deploycost>1</deploycost>
+	<health>80</health>
+	<maxhealth>50</maxhealth>
+	<move>6</move>
+	<vision>2</vision>
+	<attack>5</attack>
+	<magic>4</magic>
+	<defence>2</defence>
+	<resistance>4</resistance>
+
+	<abilities>
+		<ability>claw swipe</ability>
+		<ability>Melee Strike</ability>
+		<ability>Guard</ability>
+		<ability>Infantry</ability>
+		<ability>Human</ability>
+	</abilities>
+</TBSUnit>

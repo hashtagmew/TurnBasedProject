@@ -59,6 +59,8 @@ public class UnitEditor : EditorWindow {
 	static private string s_sSpriteFilename = "tile";
 	static private string s_sSoundsetFilename = "none";
 
+	static private UNIT_FACTION s_eFaction = UNIT_FACTION.NONE;
+
 	//Window
 	[MenuItem("Window/Unit Editor %&u")]
 	static void Init() {
@@ -142,6 +144,12 @@ public class UnitEditor : EditorWindow {
 		s_fDeployCost = EditorGUILayout.FloatField(s_fDeployCost, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
+		//Faction
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Faction", EditorStyles.boldLabel);
+		s_eFaction = (UNIT_FACTION)EditorGUILayout.EnumPopup(s_eFaction);
+		GUILayout.EndHorizontal();
+
 		GUILayout.EndVertical();
 
 		//HP
@@ -177,14 +185,14 @@ public class UnitEditor : EditorWindow {
 		GUILayout.EndHorizontal();
 
 		//Vision
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Vision", EditorStyles.boldLabel);
-		s_fVision = EditorGUILayout.FloatField(s_fVision, GUILayout.Width(200));
-		GUILayout.EndHorizontal();
+//		GUILayout.BeginHorizontal();
+//		GUILayout.Label("Vision", EditorStyles.boldLabel);
+//		s_fVision = EditorGUILayout.FloatField(s_fVision, GUILayout.Width(200));
+//		GUILayout.EndHorizontal();
 
 		//Sprite
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Sprite", EditorStyles.boldLabel);
+		GUILayout.Label("Sprite NOT YET", EditorStyles.boldLabel);
 		s_sSpriteFilename = GUILayout.TextField(s_sSpriteFilename, 128, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
@@ -230,6 +238,7 @@ public class UnitEditor : EditorWindow {
 		//s_bShowAbilities = EditorGUILayout.Foldout(s_bShowAbilities, "Abilities");
 
 		if (GUILayout.Button ("Refresh")) {
+			AbilityBox.ReloadAbilites();
 			ReloadAbilities();
 		}
 		//GUILayout.EndHorizontal();
@@ -304,6 +313,9 @@ public class UnitEditor : EditorWindow {
 				else if (xlayer1.Name == "description") {
 					s_sDescription = xlayer1.Value;
 				}
+				else if (xlayer1.Name == "faction") {
+					s_eFaction = (UNIT_FACTION)int.Parse(xlayer1.Value);
+				}
 				else if (xlayer1.Name == "level") {
 					s_iLevel = int.Parse(xlayer1.Value);
 				}
@@ -366,6 +378,7 @@ public class UnitEditor : EditorWindow {
 		xsettings.Encoding = Encoding.ASCII;
 		xsettings.OmitXmlDeclaration = true;
 
+		//!!
 		XmlWriter writer = XmlWriter.Create(s_sLastFile, xsettings);
 
 		writer.WriteStartDocument();
@@ -383,6 +396,13 @@ public class UnitEditor : EditorWindow {
 		writer.WriteWhitespace("\t");
 		writer.WriteStartElement("description");
 		writer.WriteValue(s_sDescription);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Description
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("faction");
+		writer.WriteValue((int)s_eFaction);
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 

@@ -1,0 +1,28 @@
+<Ability>
+	<name>Arcane Force</name>
+	<description>Deals 20 damage. Pushed units / terrain 5 tiles away.</description>
+	<type>1</type>
+
+	<magicalattack>1</magicalattack>
+	<setdamage_user>0</setdamage_user>
+	<setdamage_target>0</setdamage_target>
+	<guaranteed_hit>0</guaranteed_hit>
+	<use_ranged_calc>1</use_ranged_calc>
+	<accuracy_bonus>65</accuracy_bonus>
+	<range>20</range>
+	<target>11</target>
+	<feature_restriction>3</feature_restriction>
+	<activation_delay>0.3</activation_delay>
+	<execution_delay>0</execution_delay>
+	<resolution_delay>1</resolution_delay>
+	<activation_particle>Arcane Force</activation_particle>
+	<execution_particle>null</execution_particle>
+	<resolution_particle>null</resolution_particle>
+
+	<activation_effects>
+	</activation_effects>
+	<resolution_effects>
+		<effect power="5">Push Mountain</effect>
+		<effect power="20">Damage</effect>
+	</resolution_effects>
+</Ability>

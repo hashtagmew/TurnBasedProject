@@ -1,0 +1,6 @@
+<Soundset>
+	<type>3</type>
+	<cast>null</cast>
+	<execute>Load_Unload Units</execute>
+	<finish>null</finish>
+</Soundset>

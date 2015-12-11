@@ -1,0 +1,7 @@
+<Soundset>
+	<type>2</type>
+	<select>Magician Select</select>
+	<move>Magician Movement</move>
+	<attack>Magician Attack</attack>
+	<footstep>Magician Walking</footstep>
+</Soundset>

@@ -1,0 +1,7 @@
+<Soundset>
+	<type>2</type>
+	<select>Mech Commander Select</select>
+	<move>Mech Commander Movement</move>
+	<attack>null</attack>
+	<footstep>null</footstep>
+</Soundset>

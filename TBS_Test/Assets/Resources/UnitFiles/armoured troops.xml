@@ -1,0 +1,21 @@
+<TBSUnit>
+	<name>Armoured Troops</name>
+	<description>sdfs</description>
+	<faction>4</faction>
+
+	<ap>3</ap>
+	<deploycost>1</deploycost>
+	<health>100</health>
+	<maxhealth>100</maxhealth>
+	<move>6</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>grenades</ability>
+		<ability>laserGun</ability>
+	</abilities>
+</TBSUnit>

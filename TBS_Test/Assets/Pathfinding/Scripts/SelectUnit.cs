@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SelectUnit : MonoBehaviour {
 
 	public TileMap map;
+	public NetGameManager netman;
 
 	public Unit unit;
 	public bool bSelected = false;
@@ -30,6 +31,8 @@ public class SelectUnit : MonoBehaviour {
 	public Text txtSelectedDefence;
 	public Text txtSelectedResistance;
 
+	public bool bWhyDoesThisHappen;
+
 	public UIManager uiMng;
 
 	void Start () {
@@ -48,6 +51,8 @@ public class SelectUnit : MonoBehaviour {
 			CanAttack = true;
 		} else
 			CanAttack = false;
+	
+		bWhyDoesThisHappen = EventSystem.current.IsPointerOverGameObject ();
 
 		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);

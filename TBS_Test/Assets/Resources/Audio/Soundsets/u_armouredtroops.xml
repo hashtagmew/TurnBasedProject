@@ -2,4 +2,6 @@
 	<type>2</type>
 	<select>Armoured Troops Select</select>
 	<move>Armoured Troops Movement</move>
+	<attack>null</attack>
+	<footstep>null</footstep>
 </Soundset>
