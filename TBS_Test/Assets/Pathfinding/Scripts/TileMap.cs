@@ -20,16 +20,19 @@ public class TileMap : MonoBehaviour {
 	int mapSizeY = 25;
 
 	void Start() {
+
+		selectedUnit = null;
+		
 		// Setup the selectedUnit's variable
-		selectedUnit.GetComponent<GameUnit>().tileX = (int)selectedUnit.transform.position.x;
-		selectedUnit.GetComponent<GameUnit>().tileY = (int)selectedUnit.transform.position.z;
+//		selectedUnit.GetComponent<GameUnit>().tileX = (int)selectedUnit.transform.position.x;
+//		selectedUnit.GetComponent<GameUnit>().tileY = (int)selectedUnit.transform.position.z;
 //		selectedUnit.GetComponent<Unit>().map = this;
 
 
-		if (gameObject.tag == "Unit") {
-			this.gameObject.GetComponent<GameUnit>().tileX = (int)selectedUnit.transform.position.x;
-			this.gameObject.GetComponent<GameUnit>().tileY = (int)selectedUnit.transform.position.z;
-		}
+//		if (gameObject.tag == "Unit") {
+//			this.gameObject.GetComponent<GameUnit>().tileX = (int)selectedUnit.transform.position.x;
+//			this.gameObject.GetComponent<GameUnit>().tileY = (int)selectedUnit.transform.position.z;
+//		}
 		
 		GenerateMapData();
 		GeneratePathfindingGraph();
@@ -50,6 +53,12 @@ public class TileMap : MonoBehaviour {
 //						}
 //					}
 //				}
+	}
+
+	void Update(){
+		if (selectedUnit == null) {
+			Debug.Log("No unit selected");
+		}
 	}
 
 	void GenerateMapData() {
@@ -258,7 +267,9 @@ public class TileMap : MonoBehaviour {
 
 	public void GeneratePathTo(int x, int y) {
 		// Clear out our unit's old path.
-		selectedUnit.GetComponent<GameUnit>().currentPath = null;
+		if (selectedUnit != null) {
+			selectedUnit.GetComponent<GameUnit> ().currentPath = null;
+		}
 
 		if (UnitCanEnterTile (x, y) == false) {
 			// We probably clicked on a mountain or something, so just quit out.
@@ -276,6 +287,7 @@ public class TileMap : MonoBehaviour {
 		                    selectedUnit.GetComponent<GameUnit>().tileY
 		                    ];
 		
+
 		Node target = graph[
 		                    x, 
 		                    y

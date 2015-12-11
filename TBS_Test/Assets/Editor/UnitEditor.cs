@@ -230,6 +230,7 @@ public class UnitEditor : EditorWindow {
 		//s_bShowAbilities = EditorGUILayout.Foldout(s_bShowAbilities, "Abilities");
 
 		if (GUILayout.Button ("Refresh")) {
+			AbilityBox.ReloadAbilites();
 			ReloadAbilities();
 		}
 		//GUILayout.EndHorizontal();

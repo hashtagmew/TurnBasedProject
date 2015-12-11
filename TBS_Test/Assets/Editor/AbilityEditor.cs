@@ -724,11 +724,13 @@ public class AbilityEditor : EditorWindow {
 		}
 
 		//Soundset
-		writer.WriteWhitespace("\t");
-		writer.WriteStartElement("soundset");
-		writer.WriteValue(s_taSoundset.name);
-		writer.WriteEndElement();
-		writer.WriteWhitespace("\n");
+		if (s_taSoundset != null) {
+			writer.WriteWhitespace ("\t");
+			writer.WriteStartElement ("soundset");
+			writer.WriteValue (s_taSoundset.name);
+			writer.WriteEndElement ();
+			writer.WriteWhitespace ("\n");
+		}
 
 		//Activation Delay
 		writer.WriteWhitespace("\t");
