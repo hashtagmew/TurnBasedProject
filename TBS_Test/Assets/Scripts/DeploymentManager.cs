@@ -61,17 +61,20 @@ public class DeploymentManager : MonoBehaviour {
 		txtDeployPoints.text = "Deploy Points: " + iDeployPoints.ToString ();
 
 		txtTotalUnits.text = "";
+		int i = 0;
 		//Magical
 		if (sldFaction.value == 1f) {
 			foreach (KeyValuePair<string, int> str in plyprefs.l_sMagicalUnits) {
-				txtTotalUnits.text += str.Key;
+				i++;
+				txtTotalUnits.text += i.ToString() + ") " + str.Key;
 				txtTotalUnits.text += "\t";
 			}
 		}
 		//Mech
 		if (sldFaction.value == 2f) {
 			foreach (KeyValuePair<string, int> str in plyprefs.l_sMechanicalUnits) {
-				txtTotalUnits.text += str.Key;
+				i++;
+				txtTotalUnits.text += i.ToString() + ") " + str.Key;
 				txtTotalUnits.text += "\t";
 			}
 		}
@@ -87,12 +90,14 @@ public class DeploymentManager : MonoBehaviour {
 		if (sldFaction.value == 1f) {
 			foreach (KeyValuePair<string, int> pair in plyprefs.l_sMagicalUnits) {
 				iDeployPoints -= pair.Value;
+				Debug.Log("-" + pair.Value.ToString());
 			}
 		}
 		//Mech
 		if (sldFaction.value == 2f) {
 			foreach (KeyValuePair<string, int> pair in plyprefs.l_sMechanicalUnits) {
 				iDeployPoints -= pair.Value;
+				Debug.Log("-" + pair.Value.ToString());
 			}
 		}
 	}
