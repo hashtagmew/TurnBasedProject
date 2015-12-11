@@ -1,0 +1,23 @@
+<TBSUnit>
+	<name>Mechanical Commander</name>
+	<description>Commander of the mechanical army.
+Wields weapons of extroadinary power.</description>
+
+	<ap>3</ap>
+	<deploycost>1</deploycost>
+	<health>200</health>
+	<maxhealth>200</maxhealth>
+	<move>6</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>boostedJetJumping</ability>
+		<ability>gatlingLaserGun</ability>
+		<ability>missilePod</ability>
+		<ability>sword</ability>
+	</abilities>
+</TBSUnit>
