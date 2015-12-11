@@ -98,7 +98,7 @@ public class PUNNetController : PunBehaviour {
 				{
 					if (!m_bCounting)
 					{
-						Debug.Log("Not Counting");
+						//Debug.Log("Not Counting");
 						m_StartTimer = 0.0f;
 						m_bCounting = true;
 						if (!m_GameTimerDisplay.IsActive())
@@ -114,7 +114,7 @@ public class PUNNetController : PunBehaviour {
 						}
 						else
 						{
-							Debug.Log("Counting");
+							//Debug.Log("Counting");
 							m_StartTimer += Time.deltaTime;
 							m_GameTimerDisplay.text = string.Format("Time until Start\n{0}", decimal.Round((decimal)(6.0f - m_StartTimer), 2));
 						}
@@ -123,7 +123,7 @@ public class PUNNetController : PunBehaviour {
 				}
 				else
 				{
-					Debug.Log("Not All Players Are Ready...");
+					//Debug.Log("Not All Players Are Ready...");
 					m_StartTimer = 0.0f;
 					m_bCounting = false;
 //					if (m_GameTimerDisplay.IsActive())
@@ -134,7 +134,7 @@ public class PUNNetController : PunBehaviour {
 			}
 			else
 			{
-				Debug.Log("Waiting on " + (MAX_PLAYERS - PhotonNetwork.playerList.Length) + " players...");
+				//Debug.Log("Waiting on " + (MAX_PLAYERS - PhotonNetwork.playerList.Length) + " players...");
 			}
 			
 		}
@@ -308,17 +308,17 @@ public class PUNNetController : PunBehaviour {
 			}
 			if (readyCount >= MAX_PLAYERS)
 			{
-				Debug.Log("All Players Are Connected And Ready!");
+				//Debug.Log("All Players Are Connected And Ready!");
 				PhotonNetwork.LoadLevel("netplayer");
 			}
 			else
 			{
-				Debug.Log("Not All Players Are Ready...");
+				//Debug.Log("Not All Players Are Ready...");
 			}
 		}
 		else
 		{
-			Debug.Log("Waiting on " + (MAX_PLAYERS - PhotonNetwork.playerList.Length) + " players...");
+			//Debug.Log("Waiting on " + (MAX_PLAYERS - PhotonNetwork.playerList.Length) + " players...");
 		}
 
 	}

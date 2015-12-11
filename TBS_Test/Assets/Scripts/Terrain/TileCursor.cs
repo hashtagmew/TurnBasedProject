@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class TileCursor : MonoBehaviour {
@@ -19,7 +20,7 @@ public class TileCursor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))) {

@@ -33,9 +33,12 @@ public class DeploymentManager : MonoBehaviour {
 	public float fResistance = 0.0f;
 
 	public float fDeployCost = 0.0f;
+
+	public List<TextAsset> l_sUnitNames = new List<TextAsset>();
 	
 	void Start() {
-		LoadUnitStats("infantry_footman");
+		ReloadUnitList ();
+		//LoadUnitStats("infantry_footman");
 	}
 
 	void Update() {
@@ -46,6 +49,12 @@ public class DeploymentManager : MonoBehaviour {
 		//txtUnitSlot1.text = sName;
 		//txtUnitySlot2.text = sName;
 		//txtUnitySlot3.text = sName;
+	}
+
+	public void ReloadUnitList() {
+		TextAsset[] names = Resources.LoadAll<TextAsset> ("UnitFiles/");
+
+		l_sUnitNames.AddRange (names);
 	}
 
 	public void PrevItem(int slot) {
