@@ -12,6 +12,7 @@
 	<range>20</range>
 	<target>5</target>
 	<area>4</area>
+	<soundset>a_firebomb</soundset>
 	<activation_delay>0.3</activation_delay>
 	<execution_delay>0</execution_delay>
 	<resolution_delay>1</resolution_delay>

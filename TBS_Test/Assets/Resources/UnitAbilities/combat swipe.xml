@@ -11,6 +11,7 @@
 	<accuracy_bonus>0</accuracy_bonus>
 	<range>2</range>
 	<target>2</target>
+	<soundset>a_arcmaniclawswipe</soundset>
 	<activation_delay>0.3</activation_delay>
 	<execution_delay>0</execution_delay>
 	<resolution_delay>1</resolution_delay>

@@ -12,6 +12,7 @@
 	<range>20</range>
 	<target>11</target>
 	<feature_restriction>4</feature_restriction>
+	<soundset>a_arcaneforce</soundset>
 	<activation_delay>0.3</activation_delay>
 	<execution_delay>0</execution_delay>
 	<resolution_delay>1</resolution_delay>
