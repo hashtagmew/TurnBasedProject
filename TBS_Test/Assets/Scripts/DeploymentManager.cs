@@ -15,6 +15,14 @@ public class DeploymentManager : MonoBehaviour {
 
 	public Image imgUnitPicture;
 
+	public Text DepText1;
+	public Text DepText2;
+	public Text DepText3;
+	public Text DepText4;
+	public Text DepText5;
+	public Text DepText6;
+	public Text DepText7;
+
 	public Text txtUnitStats;
 	public Text txtUnitName;
 	public Text txtUnitDeployCost;
@@ -43,7 +51,7 @@ public class DeploymentManager : MonoBehaviour {
 	public int iDeployCost = 0;
 	public int iDeployPoints = 7;
 
-
+	public bool bMenu = false;
 	
 	void Start() {
 		ReloadUnitList ();
@@ -54,30 +62,32 @@ public class DeploymentManager : MonoBehaviour {
 	}
 
 	void Update() {
-		txtUnitStats.text = "HTP: " + ((int)fMaxHealth).ToString("D3") + "\tATK: " + ((int)fPhysAttack).ToString("D3") + "\n" +
-			     			"DEF: " + ((int)fDefence).ToString("D3") + "\tRES: " + ((int)fResistance).ToString("D3");
-		txtUnitName.text = sName;
-		txtUnitDeployCost.text = "Deploy Cost: " + iDeployCost.ToString();
-		txtDeployPoints.text = "Deploy Points: " + iDeployPoints.ToString ();
+		if (bMenu) {
+			txtUnitStats.text = "HTP: " + ((int)fMaxHealth).ToString ("D3") + "\tATK: " + ((int)fPhysAttack).ToString ("D3") + "\n" +
+				"DEF: " + ((int)fDefence).ToString ("D3") + "\tRES: " + ((int)fResistance).ToString ("D3");
+			txtUnitName.text = sName;
+			txtUnitDeployCost.text = "Deploy Cost: " + iDeployCost.ToString ();
+			txtDeployPoints.text = "Deploy Points: " + iDeployPoints.ToString ();
 
-		txtTotalUnits.text = "";
-		//Magical
-		if (sldFaction.value == 1f) {
-			foreach (KeyValuePair<string, int> str in plyprefs.l_sMagicalUnits) {
-				txtTotalUnits.text += str.Key;
-				txtTotalUnits.text += "\t";
+			txtTotalUnits.text = "";
+			//Magical
+			if (sldFaction.value == 1f) {
+				foreach (KeyValuePair<string, int> str in plyprefs.l_sMagicalUnits) {
+					txtTotalUnits.text += str.Key;
+					txtTotalUnits.text += "\t";
+				}
 			}
-		}
-		//Mech
-		if (sldFaction.value == 2f) {
-			foreach (KeyValuePair<string, int> str in plyprefs.l_sMechanicalUnits) {
-				txtTotalUnits.text += str.Key;
-				txtTotalUnits.text += "\t";
+			//Mech
+			if (sldFaction.value == 2f) {
+				foreach (KeyValuePair<string, int> str in plyprefs.l_sMechanicalUnits) {
+					txtTotalUnits.text += str.Key;
+					txtTotalUnits.text += "\t";
+				}
 			}
+			//txtUnitSlot1.text = sName;
+			//txtUnitySlot2.text = sName;
+			//txtUnitySlot3.text = sName;
 		}
-		//txtUnitSlot1.text = sName;
-		//txtUnitySlot2.text = sName;
-		//txtUnitySlot3.text = sName;
 	}
 
 	public void RecalculatePoints() {
@@ -204,6 +214,17 @@ public class DeploymentManager : MonoBehaviour {
 				iDeployPoints += iDeployCost;
 			}
 		}
+	}
+
+	public void LoadDeploymentUnits(){
+		DepText1.text = l_sUnitNames [0].name.ToString();
+		DepText2.text = l_sUnitNames [1].name.ToString();
+		DepText3.text = l_sUnitNames [2].name.ToString();
+		DepText4.text = l_sUnitNames [3].name.ToString();
+		DepText5.text = l_sUnitNames [4].name.ToString();
+		DepText6.text = l_sUnitNames [5].name.ToString();
+		DepText7.text = l_sUnitNames [6].name.ToString();
+		
 	}
 
 	public bool LoadUnitStats(string path) {
