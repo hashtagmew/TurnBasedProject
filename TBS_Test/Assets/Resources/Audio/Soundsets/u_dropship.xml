@@ -1,0 +1,7 @@
+<Soundset>
+	<type>2</type>
+	<select>Dropship Select</select>
+	<move>Dropship Movement</move>
+	<attack>Dropship Attack</attack>
+	<footstep>Jet Engine</footstep>
+</Soundset>

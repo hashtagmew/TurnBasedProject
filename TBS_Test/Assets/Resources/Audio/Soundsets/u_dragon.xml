@@ -1,0 +1,7 @@
+<Soundset>
+	<type>2</type>
+	<select>Dragon Select</select>
+	<move>Dragon Movement</move>
+	<attack>Dragon Attack</attack>
+	<footstep>Dragon Flying</footstep>
+</Soundset>

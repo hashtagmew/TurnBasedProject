@@ -1,7 +1,7 @@
 <Soundset>
 	<type>2</type>
-	<select>Demon Select</select>
-	<move>Demon Movement</move>
+	<select>Colossal Walker Select</select>
+	<move>Colossal Walker Movement</move>
 	<attack>null</attack>
 	<footstep>null</footstep>
 </Soundset>

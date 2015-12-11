@@ -1,0 +1,7 @@
+<Soundset>
+	<type>2</type>
+	<select>Arcane Manifestation Select</select>
+	<move>Arcane Manifestation Movement</move>
+	<attack>Arcane Manifestation Attack</attack>
+	<footstep>Arcane Manifestations Hovering</footstep>
+</Soundset>
