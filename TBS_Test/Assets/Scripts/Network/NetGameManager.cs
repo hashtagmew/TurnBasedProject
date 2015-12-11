@@ -28,8 +28,8 @@ public class NetGameManager : MonoBehaviour {
 
 		if (PhotonNetwork.player.ID == 1) {
 			foreach (GameUnit unittemppos in l_guUnits) {
-				unittemppos.GetComponent<GameUnit> ().tileX = (int)20;
-				unittemppos.GetComponent<GameUnit> ().tileY = (int)11;
+				unittemppos.GetComponent<GameUnit> ().tileX = (int)24;
+				unittemppos.GetComponent<GameUnit> ().tileY = (int)18;
 			}
 		}
 

@@ -20,6 +20,7 @@ public class SoundSetEditor : EditorWindow {
 
 	static private AudioClip s_acUnitSelect;
 	static private AudioClip s_acUnitMove;
+	static private AudioClip s_acAttack;
 
 	static private AudioClip s_acAbilityCast;
 	static private bool s_bExecuteLoop;
@@ -44,13 +45,18 @@ public class SoundSetEditor : EditorWindow {
 
 		if (s_eType == SOUNDSET_TYPE.UNIT) {
 			GUILayout.BeginHorizontal();
-			GUILayout.Label("Unit Selected");
+			GUILayout.Label(new GUIContent("Unit Selected", "Played when the unit is selected"));
 			s_acUnitSelect = (AudioClip)EditorGUILayout.ObjectField(s_acUnitSelect, typeof(AudioClip), false);
 			GUILayout.EndHorizontal();
 
 			GUILayout.BeginHorizontal();
-			GUILayout.Label("Unit Footstep");
+			GUILayout.Label(new GUIContent("Unit Move Confirm", "Played when the unit is told to move"));
 			s_acUnitMove = (AudioClip)EditorGUILayout.ObjectField(s_acUnitMove, typeof(AudioClip), false);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label(new GUIContent("Unit Attack Confirm", "50% chance to be played when the unit attacks"));
+			s_acAttack = (AudioClip)EditorGUILayout.ObjectField(s_acAttack, typeof(AudioClip), false);
 			GUILayout.EndHorizontal();
 		}
 		else if (s_eType == SOUNDSET_TYPE.ABILITY) {
@@ -137,6 +143,18 @@ public class SoundSetEditor : EditorWindow {
 			}
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
+
+			//Attack
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("attack");
+			if (s_acAttack != null) {
+				writer.WriteValue(s_acAttack.name);
+			}
+			else {
+				writer.WriteValue("null");
+			}
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
 		}
 
 		if (s_eType == SOUNDSET_TYPE.ABILITY) {
@@ -201,6 +219,10 @@ public class SoundSetEditor : EditorWindow {
 					else if (xlayer1.Name == "move") {
 						string stemp = xlayer1.Value;
 						s_acUnitMove = Resources.Load("Audio/" + stemp) as AudioClip;
+					}
+					else if (xlayer1.Name == "attack") {
+						string stemp = xlayer1.Value;
+						s_acAttack = Resources.Load("Audio/" + stemp) as AudioClip;
 					}
 				}
 
