@@ -102,7 +102,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		fHealth = fMaxHealth;
 		fMovement = fMaxMovement;
 
-		LoadUnitStats(sName);
+		//LoadUnitStats(sName);
 
 		this.map = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
 		if (map == null) {
@@ -117,9 +117,13 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 
 		if (!photonView.isMine) {
-			foreach (GameUnit unittemp in netman.l_guUnits) {
-				unittemp.GetComponent<GameUnit>().tileX = (int)unittemp.transform.position.x;
-				unittemp.GetComponent<GameUnit>().tileY = (int)unittemp.transform.position.z;
+			if (netman.l_guUnits.Count > 0) {
+				foreach (GameUnit unittemp in netman.l_guUnits) {
+					if (unittemp != null) {
+						unittemp.GetComponent<GameUnit>().tileX = (int)unittemp.transform.position.x;
+						unittemp.GetComponent<GameUnit>().tileY = (int)unittemp.transform.position.z;
+					}
+				}
 			}
 
 			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);

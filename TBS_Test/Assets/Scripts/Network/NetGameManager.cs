@@ -21,13 +21,13 @@ public class NetGameManager : MonoBehaviour {
 	Ray ray;
 	RaycastHit rayHit;
 
-	public List<GameUnit> l_guUnits;
+	public List<GameUnit> l_guUnits = new List<GameUnit>();
 
 	//public GameObject protoUnit;
 	
 	void Start() {
 
-		Tmap.selectedUnit = null;
+		//Tmap.selectedUnit = null;
 //		if (PhotonNetwork.player.ID == 1) {
 //			foreach (GameUnit unittemppos in l_guUnits) {
 //				unittemppos.GetComponent<GameUnit> ().tileX = (int)22;
@@ -44,25 +44,27 @@ public class NetGameManager : MonoBehaviour {
 
 		DeployPanel.SetActive (false);
 
-		for (int y = 0; y < map.iMapVertSize; y++) {
-			for (int x = 0; x < map.iMapHorzSize; x++) {
-				if (map.GetTile(x, y).l_tfFeatures.Count > 0) {
-					if (map.GetTile(x, y).l_tfFeatures[0].iType == FEATURE_TYPE.TREE) {
-						pathmap.tiles[x, y] = 1;
-					}
-					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.MOUNTAIN){
-						pathmap.tiles[x,y] = 1;
-					}
-					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.WALL){
-						pathmap.tiles[x,y] = 1;
-					}
-				}
-			}
-		}
+//		for (int y = 0; y < map.iMapVertSize; y++) {
+//			for (int x = 0; x < map.iMapHorzSize; x++) {
+//				if (map.GetTile(x, y).l_tfFeatures.Count > 0) {
+//					if (map.GetTile(x, y).l_tfFeatures[0].iType == FEATURE_TYPE.TREE) {
+//						pathmap.tiles[x, y] = 1;
+//					}
+//					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.MOUNTAIN){
+//						pathmap.tiles[x,y] = 1;
+//					}
+//					if (map.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.WALL){
+//						pathmap.tiles[x,y] = 1;
+//					}
+//				}
+//			}
+//		}
 	}
 	
 	// Update is called once per frame
 	void Update() {
+
+
 //		Debug.Log (PhotonNetwork.player.ID);
 
 		//Is it our turn?
@@ -110,28 +112,32 @@ public class NetGameManager : MonoBehaviour {
 		}
 	}
 	public void DeployUnit(string unit){
-
+		
 		Vector3 vectemp = new Vector3 (0.0f, 0.0f, 0.0f);
 		GameObject tempunit = (GameObject)PhotonNetwork.Instantiate ("NetGameUnit", TileCursor.transform.position, Quaternion.identity, 0);
 		GameUnit tempunit2 = tempunit.GetComponent<GameUnit> ();
+
+		tempunit2.tileX = (int)TileCursor.transform.position.x;
+		tempunit2.tileY = (int)TileCursor.transform.position.z;
+		
 		tempunit2.LoadUnitStats (unit);
-		foreach (GameUnit unittemp in l_guUnits) {
-			tempunit2.tileX = (int)TileCursor.transform.position.x;
-			tempunit2.tileY = (int)TileCursor.transform.position.z;
-		}
+
 		l_guUnits.Add (tempunit2);
 		DeployPanel.SetActive (false);
 	}
 
 	public void UIappear(){
 		DeployPanel.SetActive (true);
+
 	}
 
 	public void NetEndTurn() {
 
-		foreach (GameUnit unittemp in l_guUnits) {
-			unittemp.GetComponent<GameUnit>().currentPath = null;
-			unittemp.GetComponent<GameUnit>().remainingMovement = unittemp.GetComponent<GameUnit>().remainingMovement;
+		if (l_guUnits.Count > 0) {
+			foreach (GameUnit unittemp in l_guUnits) {
+				unittemp.GetComponent<GameUnit> ().currentPath = null;
+				unittemp.GetComponent<GameUnit> ().remainingMovement = unittemp.GetComponent<GameUnit> ().remainingMovement;
+			}
 		}
 //		tempunit.GetComponent<Unit>().currentPath = null;
 //		tempunit.GetComponent<Unit> ().remainingMovement = tempunit.GetComponent<Unit> ().resetMovement;
