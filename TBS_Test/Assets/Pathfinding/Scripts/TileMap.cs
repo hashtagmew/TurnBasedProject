@@ -5,6 +5,7 @@ using System.Linq;
 public class TileMap : MonoBehaviour {
 
 	//public DeploymentScript D_S;
+	public NetGameMap gamemap;
 
 	public GameObject selectedUnit;
 	public GameObject deselectedUnit;
@@ -20,17 +21,35 @@ public class TileMap : MonoBehaviour {
 
 	void Start() {
 		// Setup the selectedUnit's variable
-		selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
-		selectedUnit.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
-		//selectedUnit.GetComponent<Unit>().map = this;
+		selectedUnit.GetComponent<GameUnit>().tileX = (int)selectedUnit.transform.position.x;
+		selectedUnit.GetComponent<GameUnit>().tileY = (int)selectedUnit.transform.position.z;
+//		selectedUnit.GetComponent<Unit>().map = this;
+
+
 		if (gameObject.tag == "Unit") {
-			this.gameObject.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
-			this.gameObject.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
+			this.gameObject.GetComponent<GameUnit>().tileX = (int)selectedUnit.transform.position.x;
+			this.gameObject.GetComponent<GameUnit>().tileY = (int)selectedUnit.transform.position.z;
 		}
 		
 		GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisual();
+
+//				for (int y = 0; y < mapSizeY; y++) {
+//					for (int x = 0; x < mapSizeX; x++) {
+//						if (gamemap.GetTile(x, y).l_tfFeatures.Count > 0) {
+//							if (gamemap.GetTile(x, y).l_tfFeatures[0].iType == FEATURE_TYPE.TREE) {
+//								tiles[x, y] = 1;
+//							}
+//							if (gamemap.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.MOUNTAIN){
+//								tiles[x,y] = 1;
+//							}
+//							if (gamemap.GetTile(x,y).l_tfFeatures[0].iType == FEATURE_TYPE.WALL){
+//								tiles[x,y] = 1;
+//							}
+//						}
+//					}
+//				}
 	}
 
 	void GenerateMapData() {
@@ -52,8 +71,7 @@ public class TileMap : MonoBehaviour {
 //				tiles[x,y] = 1;
 //			}
 //		}
-		
-		// mountain left
+		//mountain left
 		tiles[2, 5] = 2;
 		tiles[2, 6] = 2;
 		tiles[1, 7] = 2;
@@ -240,7 +258,7 @@ public class TileMap : MonoBehaviour {
 
 	public void GeneratePathTo(int x, int y) {
 		// Clear out our unit's old path.
-		selectedUnit.GetComponent<Unit>().currentPath = null;
+		selectedUnit.GetComponent<GameUnit>().currentPath = null;
 
 		if (UnitCanEnterTile (x, y) == false) {
 			// We probably clicked on a mountain or something, so just quit out.
@@ -254,8 +272,8 @@ public class TileMap : MonoBehaviour {
 		List<Node> unvisited = new List<Node>();
 		
 		Node source = graph[
-		                    selectedUnit.GetComponent<Unit>().tileX, 
-		                    selectedUnit.GetComponent<Unit>().tileY
+		                    selectedUnit.GetComponent<GameUnit>().tileX, 
+		                    selectedUnit.GetComponent<GameUnit>().tileY
 		                    ];
 		
 		Node target = graph[
@@ -328,7 +346,7 @@ public class TileMap : MonoBehaviour {
 
 		currentPath.Reverse();
 
-		selectedUnit.GetComponent<Unit>().currentPath = currentPath;
+		selectedUnit.GetComponent<GameUnit>().currentPath = currentPath;
 	}
 
 }
