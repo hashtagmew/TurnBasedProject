@@ -225,14 +225,14 @@ public class UnitEditor : EditorWindow {
 
 		//=========== GUI START	Abilities
 		GUILayout.BeginVertical("box");
-		GUILayout.BeginHorizontal();
+		//GUILayout.BeginHorizontal();
 		//GUILayout.Label("Abilities", EditorStyles.boldLabel);
 		//s_bShowAbilities = EditorGUILayout.Foldout(s_bShowAbilities, "Abilities");
 
-//		if (GUILayout.Button ("Refresh")) {
-//			ReloadAbilities();
-//		}
-		GUILayout.EndHorizontal();
+		if (GUILayout.Button ("Refresh")) {
+			ReloadAbilities();
+		}
+		//GUILayout.EndHorizontal();
 		
 		if (s_bShowAbilities) {
 
