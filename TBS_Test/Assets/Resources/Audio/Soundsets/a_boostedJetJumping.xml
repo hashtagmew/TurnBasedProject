@@ -1,0 +1,25 @@
+<Ability>
+	<name>Boosted Jet Jumping</name>
+	<description>Moves this unit 4 extra tiles</description>
+	<type>1</type>
+
+	<guaranteed_hit>1</guaranteed_hit>
+	<use_ranged_calc>0</use_ranged_calc>
+	<accuracy_bonus>0</accuracy_bonus>
+	<range>4</range>
+	<target>10</target>
+	<activation_delay>0.5</activation_delay>
+	<execution_delay>0</execution_delay>
+	<resolution_delay>1</resolution_delay>
+	<activation_particle>Jet Boots</activation_particle>
+	<execution_particle>null</execution_particle>
+	<resolution_particle>null</resolution_particle>
+
+	<activation_effects>
+		<effect>Hide Sprite</effect>
+	</activation_effects>
+	<resolution_effects>
+		<effect>Teleport Caster to Target</effect>
+		<effect>Show Sprite</effect>
+	</resolution_effects>
+</Ability>

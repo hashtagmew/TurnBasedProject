@@ -19,7 +19,7 @@ public class UnitEditor : EditorWindow {
 	
 	static private Vector2 s_vScrollPos;
 	static private Vector2 s_vAbilityScrollPos;
-	static private bool s_bShowAbilities = false;
+	static private bool s_bShowAbilities = true;
 
 	static private Dictionary<string, bool> s_dAbilityToggles;
 	static private Dictionary<string, float> s_dAbilityPower;
@@ -51,7 +51,7 @@ public class UnitEditor : EditorWindow {
 	static private float s_fAttack = 1.0f;
 //	static private float s_fPhysAttack = 4.0f;
 //	static private float s_fRangAttack = 4.0f;
-//	static private float s_fMagiAttack = 4.0f;
+	static private float s_fMagiAttack = 4.0f;
 	
 	static private float s_fResistance = 2.0f;
 	static private float s_fDefence = 3.0f;
@@ -203,6 +203,12 @@ public class UnitEditor : EditorWindow {
 		s_fAttack = EditorGUILayout.FloatField(s_fAttack, GUILayout.Width(200));
 		GUILayout.EndHorizontal();
 
+		//Attack
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Magic", EditorStyles.boldLabel);
+		s_fMagiAttack = EditorGUILayout.FloatField(s_fMagiAttack, GUILayout.Width(200));
+		GUILayout.EndHorizontal();
+
 		//Defence
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Defence", EditorStyles.boldLabel);
@@ -221,60 +227,62 @@ public class UnitEditor : EditorWindow {
 		GUILayout.BeginVertical("box");
 		GUILayout.BeginHorizontal();
 		//GUILayout.Label("Abilities", EditorStyles.boldLabel);
-		s_bShowAbilities = EditorGUILayout.Foldout(s_bShowAbilities, "Abilities");
+		//s_bShowAbilities = EditorGUILayout.Foldout(s_bShowAbilities, "Abilities");
 
-		if (GUILayout.Button ("Refresh")) {
-			ReloadAbilities();
-		}
+//		if (GUILayout.Button ("Refresh")) {
+//			ReloadAbilities();
+//		}
 		GUILayout.EndHorizontal();
 		
 		if (s_bShowAbilities) {
 
-
-			s_vAbilityScrollPos = GUILayout.BeginScrollView (s_vAbilityScrollPos);
+//			s_vAbilityScrollPos = GUILayout.BeginScrollView (s_vAbilityScrollPos);
 			if (s_dAbilityToggles == null) {
-				ReloadAbilities ();
+				ReloadAbilities();
 			}
 
 			if (s_dAbilityToggles != null && s_dAbilityToggles.Count != 0) {
 				foreach (KeyValuePair<string, Ability> abilpair in AbilityBox.s_dAbilityLookup) {
 					//Category breaks
-					if (abilpair.Key == "Melee Strike") {
-						GUILayout.Space (5.0f);
-						GUILayout.Label ("Activated");
-					}
-
-					if (abilpair.Key == "Guard") {
-						GUILayout.Space (5.0f);
-						GUILayout.Label ("Passive");
-					}
-
-					if (abilpair.Key == "Infantry") {
-						GUILayout.Space (5.0f);
-						GUILayout.Label ("Types");
-					}
-
-					if (abilpair.Key == "Human") {
-						GUILayout.Space (5.0f);
-						GUILayout.Label ("Races");
-					}
+//					if (abilpair.Key == "Melee Strike") {
+//						GUILayout.Space (5.0f);
+//						GUILayout.Label ("Activated");
+//					}
+//
+//					if (abilpair.Key == "Guard") {
+//						GUILayout.Space (5.0f);
+//						GUILayout.Label ("Passive");
+//					}
+//
+//					if (abilpair.Key == "Infantry") {
+//						GUILayout.Space (5.0f);
+//						GUILayout.Label ("Types");
+//					}
+//
+//					if (abilpair.Key == "Human") {
+//						GUILayout.Space (5.0f);
+//						GUILayout.Label ("Races");
+//					}
 
 					//Draw ability checks
-					GUILayout.BeginHorizontal ();
-					s_dAbilityToggles [abilpair.Key] = GUILayout.Toggle (s_dAbilityToggles [abilpair.Key], abilpair.Key);
+					GUILayout.BeginHorizontal();
+					s_dAbilityToggles[abilpair.Key] = GUILayout.Toggle(s_dAbilityToggles[abilpair.Key], new GUIContent(abilpair.Key, abilpair.Value.sDescription));
 					if (abilpair.Value.iType == ABILITY_TYPE.ACTIVE) {
-						s_dAbilityPower [abilpair.Key] = GUILayout.HorizontalSlider (s_dAbilityPower [abilpair.Key], 1.0f, 100.0f, GUILayout.Width (150.0f));
-						s_dAbilityPower [abilpair.Key] = EditorGUILayout.FloatField (s_dAbilityPower [abilpair.Key], GUILayout.Width (30.0f));
-					} else if (abilpair.Value.iType == ABILITY_TYPE.PASSIVE) {
-						if (abilpair.Value.fIntensity > 0) {
-							s_dAbilityPower [abilpair.Key] = GUILayout.HorizontalSlider (s_dAbilityPower [abilpair.Key], 1.0f, 100.0f, GUILayout.Width (150.0f));
-							s_dAbilityPower [abilpair.Key] = EditorGUILayout.FloatField (s_dAbilityPower [abilpair.Key], GUILayout.Width (30.0f));
-						}
+						GUILayout.Label("(ACTIVE)");
+					} 
+					else if (abilpair.Value.iType == ABILITY_TYPE.PASSIVE) {
+						GUILayout.Label("(PASSIVE)");
 					}
-					GUILayout.EndHorizontal ();
+					else if (abilpair.Value.iType == ABILITY_TYPE.RACE) {
+						GUILayout.Label("(RACE)");
+					}
+					else if (abilpair.Value.iType == ABILITY_TYPE.UNIT_TYPE) {
+						GUILayout.Label("(TYPE)");
+					}
+					GUILayout.EndHorizontal();
 				}
 			}
-			GUILayout.EndScrollView ();
+			//GUILayout.EndScrollView ();
 		}
 		GUILayout.EndVertical();
 		//=========== GUI END	Abilities
@@ -326,6 +334,9 @@ public class UnitEditor : EditorWindow {
 				else if (xlayer1.Name == "attack") {
 					s_fAttack = float.Parse(xlayer1.Value);
 				}
+				else if (xlayer1.Name == "magic") {
+					s_fMagiAttack = float.Parse(xlayer1.Value);
+				}
 				else if (xlayer1.Name == "defence") {
 					s_fDefence = float.Parse(xlayer1.Value);
 				}
@@ -341,12 +352,9 @@ public class UnitEditor : EditorWindow {
 					ReloadAbilities();
 
 					foreach (XElement xlayer2 in xlayer1.Elements()) {
-						if (AbilityBox.s_dAbilityLookup.ContainsKey(xlayer2.Value)) {
+						//if (AbilityBox.s_dAbilityLookup.ContainsKey(xlayer2.Value)) {
 							s_dAbilityToggles[xlayer2.Value] = true;
-							if (AbilityBox.s_dAbilityLookup[xlayer2.Value].fIntensity > 0) {
-								s_dAbilityPower[xlayer2.Value] = float.Parse(xlayer2.FirstAttribute.Value);
-							}
-						}
+						//}
 					}
 				}
 			}
@@ -448,6 +456,13 @@ public class UnitEditor : EditorWindow {
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
+		//Magic
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("magic");
+		writer.WriteValue(s_fMagiAttack);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
 		//Defence
 		writer.WriteWhitespace("\t");
 		writer.WriteStartElement("defence");
@@ -473,9 +488,6 @@ public class UnitEditor : EditorWindow {
 			if (pair.Value == true) {
 				writer.WriteWhitespace("\t\t");
 				writer.WriteStartElement("ability");
-				if (s_dAbilityPower[pair.Key] > 0) {
-					writer.WriteAttributeString("strength", s_dAbilityPower[pair.Key].ToString());
-				}
 				writer.WriteValue(pair.Key);
 				writer.WriteEndElement();
 				writer.WriteWhitespace("\n");
@@ -497,16 +509,16 @@ public class UnitEditor : EditorWindow {
 			s_dAbilityToggles = new Dictionary<string, bool>();
 		}
 
-		if (s_dAbilityPower == null) {
-			s_dAbilityPower = new Dictionary<string, float>();
-		}
+//		if (s_dAbilityPower == null) {
+//			s_dAbilityPower = new Dictionary<string, float>();
+//		}
 
 		s_dAbilityToggles.Clear();
-		s_dAbilityPower.Clear();
+		//s_dAbilityPower.Clear();
 
 		foreach (KeyValuePair<string, Ability> abilpair in AbilityBox.s_dAbilityLookup) {
 			s_dAbilityToggles.Add(abilpair.Key, false);
-			s_dAbilityPower.Add(abilpair.Key, 0.0f);
+			//s_dAbilityPower.Add(abilpair.Key, 0.0f);
 		}
 	}
 }

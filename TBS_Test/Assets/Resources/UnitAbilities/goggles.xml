@@ -3,21 +3,25 @@
 	<description>Does a thing.</description>
 	<type>1</type>
 
+	<magicalattack>0</magicalattack>
 	<guaranteed_hit>0</guaranteed_hit>
 	<use_ranged_calc>1</use_ranged_calc>
 	<accuracy_bonus>35</accuracy_bonus>
 	<range>4</range>
-	<target>2</target>
+	<target>11</target>
+	<feature_restriction>0</feature_restriction>
+	<soundset>a_slash</soundset>
 	<activation_delay>0.5</activation_delay>
 	<execution_delay>0</execution_delay>
 	<resolution_delay>1</resolution_delay>
-	<activation_particle>Cyclone</activation_particle>
+	<activation_particle>null</activation_particle>
 	<execution_particle>null</execution_particle>
 	<resolution_particle>null</resolution_particle>
 
 	<activation_effects>
 		<effect>Hide Sprite</effect>
-		<effect power="0">Pan Camera to Target (A)</effect>
+		<effect power="1.2">Pan Camera to Target (A)</effect>
+		<effect path="ducks">Shoot Projectile</effect>
 	</activation_effects>
 	<resolution_effects>
 		<effect power="6">Heal</effect>
