@@ -1,13 +1,12 @@
 <TBSUnit>
-	<name>Magic Commander</name>
-	<description>Commander of the magical army.
-Wields power beyond imagination.</description>
+	<name>Magical Test</name>
+	<description>sparkles</description>
 	<faction>3</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
-	<health>200</health>
-	<maxhealth>200</maxhealth>
+	<health>50</health>
+	<maxhealth>50</maxhealth>
 	<move>6</move>
 	<vision>2</vision>
 	<attack>1</attack>
@@ -16,7 +15,6 @@ Wields power beyond imagination.</description>
 	<resistance>2</resistance>
 
 	<abilities>
-		<ability>swordArc2</ability>
-		<ability>teleport</ability>
+		<ability>arcane force</ability>
 	</abilities>
 </TBSUnit>

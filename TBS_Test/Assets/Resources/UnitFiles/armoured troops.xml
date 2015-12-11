@@ -1,6 +1,7 @@
 <TBSUnit>
 	<name>Armoured Troops</name>
 	<description>sdfs</description>
+	<faction>4</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>

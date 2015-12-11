@@ -21,6 +21,13 @@ public class DeploymentManager : MonoBehaviour {
 	public Text txtUnitSlot1;
 	public Text txtUnitySlot2;
 	public Text txtUnitySlot3;
+	public Text txtTotalUnits;
+	public Text txtDeployPoints;
+
+	public List<TextAsset> l_sUnitNames = new List<TextAsset>();
+	public int iListPos = 0;
+
+	public PlayerDeploymentPrefs plyprefs = new PlayerDeploymentPrefs();
 
 	//Unit bits
 	public string sName = "";
@@ -31,13 +38,18 @@ public class DeploymentManager : MonoBehaviour {
 //	public float fMagiAttack = 0.0f;
 	public float fDefence = 0.0f;
 	public float fResistance = 0.0f;
+	public UNIT_FACTION eFaction = UNIT_FACTION.NONE;
 
-	public float fDeployCost = 0.0f;
+	public int iDeployCost = 0;
+	public int iDeployPoints = 7;
 
-	public List<TextAsset> l_sUnitNames = new List<TextAsset>();
+
 	
 	void Start() {
 		ReloadUnitList ();
+		LoadCurrentUnitSlot ();
+		plyprefs.LoadPrefs ();
+		RecalculatePoints ();
 		//LoadUnitStats("infantry_footman");
 	}
 
@@ -45,24 +57,153 @@ public class DeploymentManager : MonoBehaviour {
 		txtUnitStats.text = "HTP: " + ((int)fMaxHealth).ToString("D3") + "\tATK: " + ((int)fPhysAttack).ToString("D3") + "\n" +
 			     			"DEF: " + ((int)fDefence).ToString("D3") + "\tRES: " + ((int)fResistance).ToString("D3");
 		txtUnitName.text = sName;
-		txtUnitDeployCost.text = fDeployCost.ToString();
+		txtUnitDeployCost.text = "Deploy Cost: " + iDeployCost.ToString();
+		txtDeployPoints.text = "Deploy Points: " + iDeployPoints.ToString ();
+
+		txtTotalUnits.text = "";
+		//Magical
+		if (sldFaction.value == 1f) {
+			foreach (KeyValuePair<string, int> str in plyprefs.l_sMagicalUnits) {
+				txtTotalUnits.text += str.Key;
+				txtTotalUnits.text += "\t";
+			}
+		}
+		//Mech
+		if (sldFaction.value == 2f) {
+			foreach (KeyValuePair<string, int> str in plyprefs.l_sMechanicalUnits) {
+				txtTotalUnits.text += str.Key;
+				txtTotalUnits.text += "\t";
+			}
+		}
 		//txtUnitSlot1.text = sName;
 		//txtUnitySlot2.text = sName;
 		//txtUnitySlot3.text = sName;
 	}
 
+	public void RecalculatePoints() {
+		iDeployPoints = 7;
+
+		//Magical
+		if (sldFaction.value == 1f) {
+			foreach (KeyValuePair<string, int> pair in plyprefs.l_sMagicalUnits) {
+				iDeployPoints -= pair.Value;
+			}
+		}
+		//Mech
+		if (sldFaction.value == 2f) {
+			foreach (KeyValuePair<string, int> pair in plyprefs.l_sMechanicalUnits) {
+				iDeployPoints -= pair.Value;
+			}
+		}
+	}
+
 	public void ReloadUnitList() {
 		TextAsset[] names = Resources.LoadAll<TextAsset> ("UnitFiles/");
 
+		iListPos = 0;
+		l_sUnitNames.Clear ();
 		l_sUnitNames.AddRange (names);
+
+		//Purge wrong faction info
+		//1 MAGICAL		2 MECH
+		if (sldFaction.value == 1) {
+			for (int i = l_sUnitNames.Count - 1; i > -1; i--) {
+				if (!l_sUnitNames[i].text.Contains("<faction>3")) {
+					if (!l_sUnitNames[i].text.Contains("<faction>6")) {
+						l_sUnitNames.RemoveAt(i);
+					}
+				}
+			}
+		} else if (sldFaction.value == 2) {
+			for (int i = l_sUnitNames.Count - 1; i > -1; i--) {
+				if (!l_sUnitNames[i].text.Contains("<faction>4")) {
+					if (!l_sUnitNames[i].text.Contains("<faction>6")) {
+						l_sUnitNames.RemoveAt(i);
+					}
+				}
+			}
+		}
+	}
+
+	public void SavePrefs() {
+		plyprefs.SavePrefs ();
+	}
+
+	public void LoadCurrentUnitSlot() {
+		XDocument xmlDoc = XDocument.Load(new StringReader(l_sUnitNames[iListPos].text));
+
+		foreach (XElement xroot in xmlDoc.Elements()) {
+			foreach (XElement xlayer1 in xroot.Elements()) {
+				if (xlayer1.Name == "name") {
+					sName = xlayer1.Value;
+				}
+				else if (xlayer1.Name == "deploycost") {
+					iDeployCost = int.Parse(xlayer1.Value);
+					Debug.Log("COST: " + iDeployCost.ToString());
+				}
+				else if (xlayer1.Name == "faction") {
+					eFaction = (UNIT_FACTION)int.Parse(xlayer1.Value);
+				}
+			}
+		}
 	}
 
 	public void PrevItem(int slot) {
-		//
+		if (slot == 0) {
+			iListPos--;
+			iListPos = Mathf.Clamp(iListPos, 0, l_sUnitNames.Count - 1);
+
+			LoadCurrentUnitSlot();
+		}
 	}
 
 	public void NextItem(int slot) {
-		//
+		if (slot == 0) {
+			iListPos++;
+			iListPos = Mathf.Clamp(iListPos, 0, l_sUnitNames.Count - 1);
+
+			LoadCurrentUnitSlot();
+		}
+	}
+
+	public void AddUnitToList() {
+		if (l_sUnitNames [iListPos].name.Contains ("Commander") || l_sUnitNames [iListPos].name.Contains ("commander")) {
+			return;
+		}
+
+		if (iDeployCost > iDeployPoints) {
+			return;
+		} else {
+			iDeployPoints -= iDeployCost;
+		}
+
+		if (sldFaction.value == 1) {
+			plyprefs.l_sMagicalUnits.Add(new KeyValuePair<string, int>(l_sUnitNames[iListPos].name, iDeployCost));
+		}
+
+		if (sldFaction.value == 2) {
+			plyprefs.l_sMechanicalUnits.Add(new KeyValuePair<string, int>(l_sUnitNames[iListPos].name, iDeployCost));
+		}
+	}
+
+	public void RemoveUnitFromList() {
+		if (l_sUnitNames [iListPos].name.Contains ("Commander") || l_sUnitNames [iListPos].name.Contains ("commander")) {
+			return;
+		}
+
+		if (sldFaction.value == 1) {
+			if (plyprefs.l_sMagicalUnits.Contains(new KeyValuePair<string, int>(l_sUnitNames[iListPos].name, iDeployCost))) {
+				plyprefs.l_sMagicalUnits.Remove(new KeyValuePair<string, int>(l_sUnitNames[iListPos].name, iDeployCost));
+				iDeployPoints += iDeployCost;
+			}
+		}
+
+		if (sldFaction.value == 2) {
+			if (plyprefs.l_sMechanicalUnits.Contains(new KeyValuePair<string, int>(l_sUnitNames[iListPos].name, iDeployCost))) {
+				plyprefs.l_sMechanicalUnits.Remove(new KeyValuePair<string, int>(l_sUnitNames[iListPos].name, iDeployCost));
+				iDeployPoints += iDeployCost;
+			}
+		}
 	}
 
 	public bool LoadUnitStats(string path) {
@@ -92,7 +233,7 @@ public class DeploymentManager : MonoBehaviour {
 					fMaxHealth = fHealth;
 				}
 				else if (xlayer1.Name == "deploycost") {
-					fDeployCost = float.Parse(xlayer1.Value);
+					iDeployCost = int.Parse(xlayer1.Value);
 				}
 //				else if (xlayer1.Name == "move") {
 //					fMovement = float.Parse(xlayer1.Value);

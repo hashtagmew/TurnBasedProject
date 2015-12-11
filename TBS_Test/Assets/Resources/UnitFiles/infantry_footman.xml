@@ -1,25 +1,20 @@
 <TBSUnit>
 	<name>Footsoldier</name>
-	<type>INFANTRY</type>
-	<race>Human</race>
+	<description>sdfs</description>
 
-	<level>1</level>
-	<xp>0</xp>
-
+	<ap>3</ap>
+	<deploycost>2</deploycost>
 	<health>90</health>
+	<maxhealth>100</maxhealth>
 	<move>6</move>
 	<vision>2</vision>
-	
 	<attack>4</attack>
-	<physattack>3</physattack>
-	<rangattack>1</rangattack>
-	<magattack>1</magattack>
-	
+	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>1</resistance>
 
 	<abilities>
-		<ability strength="12">Melee Strike</ability>
+		<ability>Melee Strike</ability>
 		<ability>Guard</ability>
 		<ability>Infantry</ability>
 		<ability>Human</ability>

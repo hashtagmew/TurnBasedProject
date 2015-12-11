@@ -2,6 +2,7 @@
 	<name>Mechanical Commander</name>
 	<description>Commander of the mechanical army.
 Wields weapons of extroadinary power.</description>
+	<faction>4</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>

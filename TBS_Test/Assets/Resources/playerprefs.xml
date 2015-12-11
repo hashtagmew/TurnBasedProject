@@ -1,0 +1,10 @@
+<TBSPlayer>
+	<name>Default</name>
+
+	<magical>
+		<unit cost="1">magic commander</unit>
+	</magical>
+	<mechanical>
+		<unit cost="1">mechanicalCommander</unit>
+	</mechanical>
+</TBSPlayer>
