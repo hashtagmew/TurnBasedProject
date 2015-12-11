@@ -10,6 +10,7 @@ public class NetGameManager : MonoBehaviour {
 	public Button uiEndTurn;
 	public GameObject DeployPanel;
 //	public string CurDeployed;
+	public GameObject TileCursor;
 
 	//public GameObject goLocalNetPlayer;
 
@@ -26,19 +27,20 @@ public class NetGameManager : MonoBehaviour {
 	
 	void Start() {
 
-		if (PhotonNetwork.player.ID == 1) {
-			foreach (GameUnit unittemppos in l_guUnits) {
-				unittemppos.GetComponent<GameUnit> ().tileX = (int)24;
-				unittemppos.GetComponent<GameUnit> ().tileY = (int)18;
-			}
-		}
-
-		if (PhotonNetwork.player.ID == 2) {
-			foreach (GameUnit unittemppos in l_guUnits) {
-				unittemppos.GetComponent<GameUnit> ().tileX = (int)2;
-				unittemppos.GetComponent<GameUnit> ().tileY = (int)2;
-			}
-		}
+		Tmap.selectedUnit = null;
+//		if (PhotonNetwork.player.ID == 1) {
+//			foreach (GameUnit unittemppos in l_guUnits) {
+//				unittemppos.GetComponent<GameUnit> ().tileX = (int)22;
+//				unittemppos.GetComponent<GameUnit> ().tileY = (int)22;
+//			}
+//		}
+//
+//		if (PhotonNetwork.player.ID == 2) {
+//			foreach (GameUnit unittemppos in l_guUnits) {
+//				unittemppos.GetComponent<GameUnit> ().tileX = (int)2;
+//				unittemppos.GetComponent<GameUnit> ().tileY = (int)2;
+//			}
+//		}
 
 		DeployPanel.SetActive (false);
 
@@ -61,7 +63,7 @@ public class NetGameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		Debug.Log (PhotonNetwork.player.ID);
+//		Debug.Log (PhotonNetwork.player.ID);
 
 		//Is it our turn?
 //		if (PhotonNetwork.room == null) {
@@ -108,13 +110,16 @@ public class NetGameManager : MonoBehaviour {
 		}
 	}
 	public void DeployUnit(string unit){
-		Vector3 vectemp = new Vector3(0.0f, 0.0f, 0.0f);
-		GameObject tempunit = (GameObject)PhotonNetwork.Instantiate("NetGameUnit", vectemp, Quaternion.identity, 0);
-		GameUnit tempunit2 = tempunit.GetComponent<GameUnit>();
+
+		Vector3 vectemp = new Vector3 (0.0f, 0.0f, 0.0f);
+		GameObject tempunit = (GameObject)PhotonNetwork.Instantiate ("NetGameUnit", TileCursor.transform.position, Quaternion.identity, 0);
+		GameUnit tempunit2 = tempunit.GetComponent<GameUnit> ();
 		tempunit2.LoadUnitStats (unit);
-//		tempunit2.tileX = (int)tempunit2.transform.position.x;
-//		tempunit2.tileY = (int)tempunit2.transform.position.z;
-		l_guUnits.Add(tempunit2);
+		foreach (GameUnit unittemp in l_guUnits) {
+			tempunit2.tileX = (int)TileCursor.transform.position.x;
+			tempunit2.tileY = (int)TileCursor.transform.position.z;
+		}
+		l_guUnits.Add (tempunit2);
 		DeployPanel.SetActive (false);
 	}
 
