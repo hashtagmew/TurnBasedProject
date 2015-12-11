@@ -81,6 +81,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	//Net stuff
 	private Vector3 vCorrectPos;
 	private Quaternion qCorrectRot;
+	private float fCorrectHealth;
+	private float fCorrectMaxHealth;
 
 	// Use this for initialization
 	void Start () {
@@ -117,7 +119,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 
 		if (!photonView.isMine) {
-			if (netman.l_guUnits.Count > 0) {
+			if (netman.l_guUnits != null && netman.l_guUnits.Count > 0) {
 				foreach (GameUnit unittemp in netman.l_guUnits) {
 					if (unittemp != null) {
 						unittemp.GetComponent<GameUnit>().tileX = (int)unittemp.transform.position.x;
@@ -128,6 +130,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
 			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
+
 		} else {
 			Debug.Log ("nullPhoton");
 	
@@ -367,11 +370,15 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			//Local player
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
+			stream.SendNext (fHealth);
+			stream.SendNext (fMaxHealth);
 		}
 		else {
 			//Net player
 			this.vCorrectPos = (Vector3)stream.ReceiveNext();
 			this.qCorrectRot = (Quaternion)stream.ReceiveNext();
+			this.fCorrectHealth = (float)stream.ReceiveNext();
+			this.fCorrectMaxHealth = (float)stream.ReceiveNext();
 		}
 	}
 }

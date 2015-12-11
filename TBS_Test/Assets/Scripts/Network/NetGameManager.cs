@@ -9,8 +9,19 @@ public class NetGameManager : MonoBehaviour {
 	public Text txtTurn;
 	public Button uiEndTurn;
 	public GameObject DeployPanel;
+	public GameObject DeploBut;
+	public GameObject ReadyBut;
 //	public string CurDeployed;
 	public GameObject TileCursor;
+
+	public Button depbut1;
+	public Button depbut2;
+	public Button depbut3;
+	public Button depbut4;
+	public Button depbut5;
+	public Button depbut6;
+	public Button depbut7;
+
 
 	//public GameObject goLocalNetPlayer;
 
@@ -23,10 +34,12 @@ public class NetGameManager : MonoBehaviour {
 
 	public List<GameUnit> l_guUnits = new List<GameUnit>();
 
+	public PlayerDeploymentPrefs plyprefs = new PlayerDeploymentPrefs();
+
 	//public GameObject protoUnit;
 	
 	void Start() {
-
+		plyprefs.LoadPrefs ();
 		//Tmap.selectedUnit = null;
 //		if (PhotonNetwork.player.ID == 1) {
 //			foreach (GameUnit unittemppos in l_guUnits) {
@@ -63,8 +76,29 @@ public class NetGameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
+	
+		if (Input.GetKeyDown(KeyCode.F1)) {
+			Application.LoadLevel("net-test");
+		}
 
-
+		if ((int)PhotonNetwork.player.customProperties ["Faction"] == 1) {
+			depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[0].Key;
+			depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[1].Key;
+			depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[2].Key;
+			depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[3].Key;
+			depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[4].Key;
+			depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[5].Key;
+			depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[6].Key;
+		} else {
+			depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[0].Key;
+			depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[1].Key;
+			depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[2].Key;
+			depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[3].Key;
+			depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[4].Key;
+			depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[5].Key;
+			depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[6].Key;
+		}
+		
 //		Debug.Log (PhotonNetwork.player.ID);
 
 		//Is it our turn?
@@ -78,8 +112,19 @@ public class NetGameManager : MonoBehaviour {
 //			}
 //		}
 
+		if ((bool)PhotonNetwork.player.customProperties ["ReadyDep"] == true) {
+			if ((bool)PhotonNetwork.otherPlayers [0].customProperties ["ReadyDep"] == true) {
+				DeploBut.SetActive(false);
+				ReadyBut.SetActive(false);
+
+				ExitGames.Client.Photon.Hashtable m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
+				m_PropertiesHash.Add("Mode", "play");
+				PhotonNetwork.room.SetCustomProperties(m_PropertiesHash);
+			}
+		}
+
 		if (PhotonNetwork.room != null) {
-			if ((int)PhotonNetwork.room.customProperties["Turn"] == PhotonNetwork.player.ID) {
+			if ((int)PhotonNetwork.room.customProperties["Turn"] == PhotonNetwork.player.ID && (string)PhotonNetwork.room.customProperties["Mode"] == "play") {
 				uiEndTurn.interactable = true;
 				txtTurn.text = "My turn";
 			}
@@ -94,9 +139,7 @@ public class NetGameManager : MonoBehaviour {
 		}
 
 		//Debug
-		if (Input.GetKeyDown(KeyCode.F1)) {
-			Application.LoadLevel("net-test");
-		}
+
 
 		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -124,6 +167,29 @@ public class NetGameManager : MonoBehaviour {
 
 		l_guUnits.Add (tempunit2);
 		DeployPanel.SetActive (false);
+	}
+
+	public void DeployUnit(int num) {
+		int fac = 0;
+		if ((int)PhotonNetwork.player.customProperties["Faction"] == 1) {
+			fac = 1;
+		} else {
+			fac = 2;
+		}
+
+		if (fac == 1) {
+			DeployUnit(plyprefs.l_sMagicalUnits[num].Key);
+		}
+
+		if (fac == 2) {
+			DeployUnit(plyprefs.l_sMechanicalUnits[num].Key);
+		}
+	}
+
+	public void SetReady(){
+		ExitGames.Client.Photon.Hashtable m_PropertiesHash = PhotonNetwork.player.customProperties;
+		m_PropertiesHash ["ReadyDep"] = true;
+		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
 	}
 
 	public void UIappear(){
