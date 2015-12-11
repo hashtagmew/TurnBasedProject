@@ -24,9 +24,9 @@ public class AbilityEditor : EditorWindow {
 	static private Vector2 s_vPassiveEffectScrollPos;
 	static private string s_sLastFile;
 
-	static private bool s_bShowActivationEffects;
-	static private bool s_bShowResolutionEffects;
-	static private bool s_bShowPassiveEffects;
+	static private bool s_bShowActivationEffects = true;
+	static private bool s_bShowResolutionEffects = true;
+	static private bool s_bShowPassiveEffects = false;
 
 //	static private Dictionary<string, bool> s_dActivationEffectToggles;
 //	static private Dictionary<string, bool> s_dResolutionEffectToggles;
@@ -49,6 +49,7 @@ public class AbilityEditor : EditorWindow {
 
 	static private bool s_bGuaranteedHit = false;
 	static private bool s_bRangedHitChance = false;
+	static private bool s_bMagical = false;
 	static private int s_iRange = 1;
 	static private float s_fCastDelay = 0.5f;
 	static private float s_fExecuteDelay = 0.0f;
@@ -56,6 +57,13 @@ public class AbilityEditor : EditorWindow {
 	static private int s_iAreaAttackRadius = 1;
 	static private EFFECT_TARGET s_eTarget = EFFECT_TARGET.NONE;
 	static private string s_sDescription = "Does a thing.";
+	static private bool s_bStopOnCollide = false;
+	static private TextAsset s_taSoundset;
+	static private FEATURE_TYPE s_eFeatureTarget = FEATURE_TYPE.NONE;
+	static private bool s_bSetDamageUser = false;
+	static private bool s_bSetDamageTarget = false;
+
+	static private int s_iEditorRangedDist = 1;
 
 	static private Dictionary<string, Effect> s_dEffectsActivation = new Dictionary<string, Effect>();
 	static private Dictionary<string, Effect> s_dEffectsResolution = new Dictionary<string, Effect>();
@@ -106,9 +114,9 @@ public class AbilityEditor : EditorWindow {
 			}
 		}
 
-		if (GUILayout.Button("R", GUILayout.Width(25))) {
-			ReloadEffects();
-		}
+//		if (GUILayout.Button("R", GUILayout.Width(25))) {
+//			ReloadEffects();
+//		}
 		GUILayout.EndHorizontal();
 		GUILayout.EndVertical();
 
@@ -135,15 +143,52 @@ public class AbilityEditor : EditorWindow {
 			if (s_iType == ABILITY_TYPE.ACTIVE) {
 				GUILayout.BeginVertical("box");
 
+				s_bMagical = GUILayout.Toggle(s_bMagical, "Magical");
+				s_bSetDamageUser = EditorGUILayout.Toggle("Ignore Caster Attack", s_bSetDamageUser);
+				s_bSetDamageTarget = EditorGUILayout.Toggle("Ignore Enemy Defence", s_bSetDamageTarget);
 				s_bGuaranteedHit = GUILayout.Toggle(s_bGuaranteedHit, "Guaranteed Hit");
 				s_bRangedHitChance = GUILayout.Toggle(s_bRangedHitChance, "Use Ranged Hit Calc");
 				s_fAccuracyBonus = EditorGUILayout.FloatField("Accuracy Bonus", s_fAccuracyBonus);
 
+				GUILayout.BeginVertical("Test data", "box");
+				GUILayout.Label("Hit Chance: " + 
+				                Combat.CombatMechanics.ChanceToHit(s_iEditorRangedDist, (int)s_fAccuracyBonus, 0, s_bGuaranteedHit, s_bRangedHitChance).ToString() + "%");
+
+				GUILayout.BeginHorizontal();
+
+				GUILayout.Label("Distance: ");
+				s_iEditorRangedDist = EditorGUILayout.IntSlider(s_iEditorRangedDist, 0, 99);
+
+				GUILayout.EndHorizontal();
+
+//				if (GUILayout.Button("Recalculate")) {
+//					Repaint();
+//				}
+
+				GUILayout.EndVertical();
+
 				s_iRange = EditorGUILayout.IntField("Ability Range", s_iRange);
 				s_eTarget = (EFFECT_TARGET)EditorGUILayout.EnumPopup("Target(s)", s_eTarget);
-				if (s_eTarget == EFFECT_TARGET.AREA) {
+				if (s_eTarget == EFFECT_TARGET.AREA || s_eTarget == EFFECT_TARGET.CONE) {
 					s_iAreaAttackRadius = EditorGUILayout.IntField("Radius", s_iAreaAttackRadius);
 				}
+				else if (s_eTarget == EFFECT_TARGET.LINE) {
+					s_iAreaAttackRadius = EditorGUILayout.IntField("Length", s_iAreaAttackRadius);
+					s_bStopOnCollide = EditorGUILayout.Toggle("Stop On Collision", s_bStopOnCollide);
+				}
+				else if (s_eTarget == EFFECT_TARGET.SINGLE_FEATURE_TILE) {
+					s_eFeatureTarget = (FEATURE_TYPE)EditorGUILayout.EnumPopup("Restriction: ", s_eFeatureTarget);
+				}
+
+				GUILayout.BeginHorizontal();
+				GUILayout.Label("Ability Soundset");
+				s_taSoundset = (TextAsset)EditorGUILayout.ObjectField(s_taSoundset, typeof(TextAsset), false);
+				if (s_taSoundset != null) {
+					if (s_taSoundset.text.Substring(0, 10) != "<Soundset>") {
+						Debug.LogWarning("WARNING! " + s_taSoundset.name + " ISN'T A VALID SOUNDSET!");
+					}
+				}
+				GUILayout.EndHorizontal();
 
 				GUILayout.EndVertical();
 
@@ -172,7 +217,12 @@ public class AbilityEditor : EditorWindow {
 						if (pair.Value.bAdjustable) {
 							GUILayout.BeginHorizontal("box");
 							GUILayout.Label(pair.Value.sAdjustName);
-							pair.Value.fAdjustFloat = EditorGUILayout.FloatField(pair.Value.fAdjustFloat);
+							if (!pair.Value.bAdjustableString) {
+								pair.Value.fAdjustFloat = EditorGUILayout.FloatField(pair.Value.fAdjustFloat);
+							}
+							else {
+								pair.Value.sAdjustString = EditorGUILayout.TextField(pair.Value.sAdjustString);
+							}
 							GUILayout.EndHorizontal();
 		                }
 
@@ -225,7 +275,12 @@ public class AbilityEditor : EditorWindow {
 						if (pair.Value.bAdjustable) {
 							GUILayout.BeginHorizontal("box");
 							GUILayout.Label(pair.Value.sAdjustName);
-							pair.Value.fAdjustFloat = EditorGUILayout.FloatField(pair.Value.fAdjustFloat);
+							if (!pair.Value.bAdjustableString) {
+								pair.Value.fAdjustFloat = EditorGUILayout.FloatField(pair.Value.fAdjustFloat);
+							}
+							else {
+								pair.Value.sAdjustString = EditorGUILayout.TextField(pair.Value.sAdjustString);
+							}
 							GUILayout.EndHorizontal();
 						}
 
@@ -395,6 +450,33 @@ public class AbilityEditor : EditorWindow {
 				else if (xlayer1.Name == "type") {
 					s_iType = (ABILITY_TYPE)int.Parse(xlayer1.Value);
 				}
+				else if (xlayer1.Name == "feature_restriction") {
+					s_eFeatureTarget = (FEATURE_TYPE)int.Parse(xlayer1.Value);
+				}
+				else if (xlayer1.Name == "magicalattack") {
+					if (xlayer1.Value == "0") {
+						s_bMagical = false;
+					}
+					else {
+						s_bMagical = true;
+					}
+				}
+				else if (xlayer1.Name == "setdamage_user") {
+					if (xlayer1.Value == "0") {
+						s_bSetDamageUser = false;
+					}
+					else {
+						s_bSetDamageUser = true;
+					}
+				}
+				else if (xlayer1.Name == "setdamage_target") {
+					if (xlayer1.Value == "0") {
+						s_bSetDamageTarget = false;
+					}
+					else {
+						s_bSetDamageTarget = true;
+					}
+				}
 				else if (xlayer1.Name == "guaranteed_hit") {
 					if (xlayer1.Value == "0") {
 						s_bGuaranteedHit = false;
@@ -423,6 +505,17 @@ public class AbilityEditor : EditorWindow {
 				else if (xlayer1.Name == "area") {
 					s_iAreaAttackRadius = int.Parse(xlayer1.Value);
 				}
+				else if (xlayer1.Name == "stoponcollide") {
+					if (int.Parse(xlayer1.Value) == 0) {
+						s_bStopOnCollide = false;
+					}
+					else {
+						s_bStopOnCollide = true;
+					}
+				}
+				else if (xlayer1.Name == "soundset") {
+					s_taSoundset = (TextAsset)Resources.Load("Audio/Soundsets/" + xlayer1.Value);
+				}
 				else if (xlayer1.Name == "activation_delay") {
 					s_fCastDelay = float.Parse(xlayer1.Value);
 				}
@@ -450,7 +543,12 @@ public class AbilityEditor : EditorWindow {
 							s_dEffectsActivation.Add(xlayer2.Value, EffectBox.s_dEffectLookup[xlayer2.Value]);
 
 							if (EffectBox.s_dEffectLookup[xlayer2.Value].bAdjustable) {
-								s_dEffectsActivation[xlayer2.Value].fAdjustFloat = float.Parse(xlayer2.FirstAttribute.Value);
+								if (!EffectBox.s_dEffectLookup[xlayer2.Value].bAdjustableString) {
+									s_dEffectsActivation[xlayer2.Value].fAdjustFloat = float.Parse(xlayer2.FirstAttribute.Value);
+								}
+								else {
+									s_dEffectsActivation[xlayer2.Value].sAdjustString = xlayer2.FirstAttribute.Value;
+								}
 							}
 						}
 					}
@@ -462,9 +560,14 @@ public class AbilityEditor : EditorWindow {
 					foreach (XElement xlayer2 in xlayer1.Elements()) {
 						if (EffectBox.s_dEffectLookup.ContainsKey(xlayer2.Value)) {
 							s_dEffectsResolution.Add(xlayer2.Value, EffectBox.s_dEffectLookup[xlayer2.Value]);
-							
+
 							if (EffectBox.s_dEffectLookup[xlayer2.Value].bAdjustable) {
-								s_dEffectsResolution[xlayer2.Value].fAdjustFloat = float.Parse(xlayer2.FirstAttribute.Value);
+								if (!EffectBox.s_dEffectLookup[xlayer2.Value].bAdjustableString) {
+									s_dEffectsResolution[xlayer2.Value].fAdjustFloat = float.Parse(xlayer2.FirstAttribute.Value);
+								}
+								else {
+									s_dEffectsResolution[xlayer2.Value].sAdjustString = xlayer2.FirstAttribute.Value;
+								}
 							}
 						}
 					}
@@ -505,6 +608,42 @@ public class AbilityEditor : EditorWindow {
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 		
+		writer.WriteWhitespace("\n");
+
+		//Magical
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("magicalattack");
+		if (s_bMagical) {
+			writer.WriteValue(1);
+		}
+		else {
+			writer.WriteValue(0);
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Ignore user attack
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("setdamage_user");
+		if (s_bSetDamageUser) {
+			writer.WriteValue(1);
+		}
+		else {
+			writer.WriteValue(0);
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//Ignore target def
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("setdamage_target");
+		if (s_bSetDamageTarget) {
+			writer.WriteValue(1);
+		}
+		else {
+			writer.WriteValue(0);
+		}
+		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 		
 		//Guaranteed Hit
@@ -552,7 +691,7 @@ public class AbilityEditor : EditorWindow {
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
-		if (s_eTarget == EFFECT_TARGET.AREA) {
+		if (s_eTarget == EFFECT_TARGET.AREA || s_eTarget == EFFECT_TARGET.CONE || s_eTarget == EFFECT_TARGET.LINE) {
 			//Area
 			writer.WriteWhitespace("\t");
 			writer.WriteStartElement("area");
@@ -560,6 +699,36 @@ public class AbilityEditor : EditorWindow {
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
 		}
+
+		if (s_eTarget == EFFECT_TARGET.LINE) {
+			//Stop on hit
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("stoponcollide");
+			if (s_bStopOnCollide) {
+				writer.WriteValue(1);
+			}
+			else {
+				writer.WriteValue(0);
+			}
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+		}
+
+		if (s_eTarget == EFFECT_TARGET.SINGLE_FEATURE_TILE) {
+			//Feature restriction
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("feature_restriction");
+			writer.WriteValue((int)s_eFeatureTarget);
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
+		}
+
+		//Soundset
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("soundset");
+		writer.WriteValue(s_taSoundset.name);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
 
 		//Activation Delay
 		writer.WriteWhitespace("\t");
@@ -629,7 +798,12 @@ public class AbilityEditor : EditorWindow {
 			writer.WriteWhitespace("\t\t");
 			writer.WriteStartElement("effect");
 			if (s_dEffectsActivation[pair.Key].bAdjustable) {
-				writer.WriteAttributeString("power", s_dEffectsActivation[pair.Key].fAdjustFloat.ToString());
+				if (!s_dEffectsActivation[pair.Key].bAdjustableString) {
+					writer.WriteAttributeString("power", s_dEffectsActivation[pair.Key].fAdjustFloat.ToString());
+				}
+				else {
+					writer.WriteAttributeString("path", s_dEffectsActivation[pair.Key].sAdjustString);
+				}
 			}
 			writer.WriteValue(pair.Key);
 			writer.WriteEndElement();
@@ -649,7 +823,12 @@ public class AbilityEditor : EditorWindow {
 			writer.WriteWhitespace("\t\t");
 			writer.WriteStartElement("effect");
 			if (s_dEffectsResolution[pair.Key].bAdjustable) {
-				writer.WriteAttributeString("power", s_dEffectsResolution[pair.Key].fAdjustFloat.ToString());
+				if (!s_dEffectsResolution[pair.Key].bAdjustableString) {
+					writer.WriteAttributeString("power", s_dEffectsResolution[pair.Key].fAdjustFloat.ToString());
+				}
+				else {
+					writer.WriteAttributeString("power", s_dEffectsResolution[pair.Key].sAdjustString);
+				}
 			}
 			writer.WriteValue(pair.Key);
 			writer.WriteEndElement();

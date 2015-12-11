@@ -23,6 +23,7 @@ public static class EffectBox {
 		//Sprite Effects
 		s_dEffectLookup.Add("Hide Sprite", new Effect("Hide Sprite", EFFECT_TYPE.ACTIVATION, false));
 		s_dEffectLookup.Add("Show Sprite", new Effect("Show Sprite", EFFECT_TYPE.RESOLUTION, false));
+		s_dEffectLookup.Add("Shoot Projectile", new Effect("Shoot Projectile", EFFECT_TYPE.ACTIVATION, true, "Prefab name", true));
 
 		//Movement
 		s_dEffectLookup.Add("Teleport Caster to Target", new Effect("Teleport", EFFECT_TYPE.RESOLUTION, false));
