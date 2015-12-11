@@ -1,0 +1,7 @@
+<Soundset>
+	<type>2</type>
+	<select>Skimmer Select</select>
+	<move>Skimmer Movement</move>
+	<attack>Skimmer Attack</attack>
+	<footstep>Jet Engine</footstep>
+</Soundset>
