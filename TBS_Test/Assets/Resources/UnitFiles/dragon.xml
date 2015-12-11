@@ -1,0 +1,20 @@
+<TBSUnit>
+	<name>Dragon</name>
+	<description>A powerful beast that reigns death upon its enemies.</description>
+
+	<ap>5</ap>
+	<deploycost>2</deploycost>
+	<health>500</health>
+	<maxhealth>500</maxhealth>
+	<move>20</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>claw swipe</ability>
+		<ability>firebomb</ability>
+	</abilities>
+</TBSUnit>

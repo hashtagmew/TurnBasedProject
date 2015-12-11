@@ -1,0 +1,21 @@
+<TBSUnit>
+	<name>Magicians</name>
+	<description>Can mimick the powers of the commander
+</description>
+
+	<ap>3</ap>
+	<deploycost>1</deploycost>
+	<health>100</health>
+	<maxhealth>100</maxhealth>
+	<move>6</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>rayOfArcane</ability>
+		<ability>swordArc</ability>
+	</abilities>
+</TBSUnit>

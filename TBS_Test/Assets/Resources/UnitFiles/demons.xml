@@ -1,0 +1,21 @@
+<TBSUnit>
+	<name>Demons</name>
+	<description>something</description>
+
+	<ap>3</ap>
+	<deploycost>1</deploycost>
+	<health>120</health>
+	<maxhealth>120</maxhealth>
+	<move>7</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>daemonic sword</ability>
+		<ability>hellfire</ability>
+		<ability>teleport</ability>
+	</abilities>
+</TBSUnit>
