@@ -1,6 +1,7 @@
 <TBSUnit>
 	<name>Demons</name>
-	<description>something</description>
+	<description>Close combat unit</description>
+	<faction>3</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
@@ -12,6 +13,10 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
+	<spriteUL>DemonColouredBackView</spriteUL>
+	<spriteUR>DemonColouredBackView</spriteUR>
+	<spriteDL>DemonColouredFrontView</spriteDL>
+	<spriteDR>DemonColouredFrontView</spriteDR>
 
 	<abilities>
 		<ability>daemonic sword</ability>

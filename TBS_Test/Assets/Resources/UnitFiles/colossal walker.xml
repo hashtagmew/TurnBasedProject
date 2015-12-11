@@ -1,7 +1,7 @@
 <TBSUnit>
 	<name>Colossal Walker</name>
-	<description>A giant motherfucker
-</description>
+	<description>A huge powerful unit</description>
+	<faction>4</faction>
 
 	<ap>5</ap>
 	<deploycost>2</deploycost>
@@ -13,6 +13,10 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
+	<spriteUL>ColossalWalkerUL</spriteUL>
+	<spriteUR>ColossalWalkerUR</spriteUR>
+	<spriteDL>ColossalWalkerColouredDL</spriteDL>
+	<spriteDR>ColossalWalkerColouredDR</spriteDR>
 
 	<abilities>
 		<ability>beamCannon</ability>

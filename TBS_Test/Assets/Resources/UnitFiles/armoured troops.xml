@@ -1,6 +1,6 @@
 <TBSUnit>
 	<name>Armoured Troops</name>
-	<description>sdfs</description>
+	<description>Basic Troop</description>
 	<faction>4</faction>
 
 	<ap>3</ap>
@@ -13,9 +13,14 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
+	<spriteUL>ArmouredTroopColouredUL</spriteUL>
+	<spriteUR>ArmouredTroopColouredUR</spriteUR>
+	<spriteDL>ArmouredTroopColouredDL</spriteDL>
+	<spriteDR>ArmouredTroopColouredDR</spriteDR>
 
 	<abilities>
 		<ability>grenades</ability>
+		<ability>laser gun</ability>
 		<ability>laserGun</ability>
 	</abilities>
 </TBSUnit>

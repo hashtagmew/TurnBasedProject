@@ -5,14 +5,18 @@
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
-	<health>80</health>
-	<maxhealth>50</maxhealth>
+	<health>100</health>
+	<maxhealth>100</maxhealth>
 	<move>6</move>
 	<vision>2</vision>
 	<attack>5</attack>
 	<magic>4</magic>
 	<defence>2</defence>
 	<resistance>4</resistance>
+	<spriteUL>ArcaneManifestationFrontView</spriteUL>
+	<spriteUR>ArcaneManifestatoin_Idle</spriteUR>
+	<spriteDL>ArcaneManifestatoinBackView</spriteDL>
+	<spriteDR>ArcaneManifestatoin_Idle</spriteDR>
 
 	<abilities>
 		<ability>claw swipe</ability>

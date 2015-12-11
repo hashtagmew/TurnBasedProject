@@ -2,6 +2,7 @@
 	<name>Mechanical Commander</name>
 	<description>Commander of the mechanical army.
 A huge arsesnal of weaponry makes her both powerful and versitile. </description>
+	<faction>4</faction>
 
 	<ap>9</ap>
 	<deploycost>1</deploycost>
@@ -13,11 +14,15 @@ A huge arsesnal of weaponry makes her both powerful and versitile. </description
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
+	<spriteUL>MechanicalCommanderColouredBackView</spriteUL>
+	<spriteUR>MechanicalCommanderColouredBackView</spriteUR>
+	<spriteDL>MechanicalCommanderColouredFrontView</spriteDL>
+	<spriteDR>MechanicalCommanderColouredFrontView</spriteDR>
 
 	<abilities>
+		<ability>sword</ability>
 		<ability>boostedJetJumping</ability>
 		<ability>gatlingLaserGun</ability>
 		<ability>missilePod</ability>
-		<ability>sword</ability>
 	</abilities>
 </TBSUnit>
