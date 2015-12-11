@@ -1,0 +1,28 @@
+<Ability>
+	<name>Grenade Launcher</name>
+	<description>Deals 50 damage</description>
+	<type>1</type>
+
+	<magicalattack>0</magicalattack>
+	<setdamage_user>0</setdamage_user>
+	<setdamage_target>0</setdamage_target>
+	<guaranteed_hit>0</guaranteed_hit>
+	<use_ranged_calc>1</use_ranged_calc>
+	<accuracy_bonus>71</accuracy_bonus>
+	<range>15</range>
+	<target>5</target>
+	<area>3</area>
+	<activation_delay>0.3</activation_delay>
+	<execution_delay>0</execution_delay>
+	<resolution_delay>0.5</resolution_delay>
+	<activation_particle>Grenade</activation_particle>
+	<execution_particle>null</execution_particle>
+	<resolution_particle>Explosion</resolution_particle>
+
+	<activation_effects>
+		<effect>Hide Sprite</effect>
+	</activation_effects>
+	<resolution_effects>
+		<effect power="50">Damage</effect>
+	</resolution_effects>
+</Ability>

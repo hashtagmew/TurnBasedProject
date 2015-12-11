@@ -1,0 +1,27 @@
+<Ability>
+	<name>Firebomb</name>
+	<description>Launches a giant fireball from its mouth that explodes on impact.</description>
+	<type>1</type>
+
+	<magicalattack>0</magicalattack>
+	<setdamage_user>0</setdamage_user>
+	<setdamage_target>0</setdamage_target>
+	<guaranteed_hit>0</guaranteed_hit>
+	<use_ranged_calc>1</use_ranged_calc>
+	<accuracy_bonus>70</accuracy_bonus>
+	<range>20</range>
+	<target>5</target>
+	<area>4</area>
+	<activation_delay>0.3</activation_delay>
+	<execution_delay>0</execution_delay>
+	<resolution_delay>1</resolution_delay>
+	<activation_particle>null</activation_particle>
+	<execution_particle>Fire Bomb</execution_particle>
+	<resolution_particle>Explosion</resolution_particle>
+
+	<activation_effects>
+	</activation_effects>
+	<resolution_effects>
+		<effect power="65">Damage</effect>
+	</resolution_effects>
+</Ability>

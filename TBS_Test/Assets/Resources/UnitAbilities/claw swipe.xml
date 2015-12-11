@@ -15,7 +15,7 @@
 	<execution_delay>0</execution_delay>
 	<resolution_delay>1</resolution_delay>
 	<activation_particle>null</activation_particle>
-	<execution_particle>null</execution_particle>
+	<execution_particle>ClawSwipe</execution_particle>
 	<resolution_particle>null</resolution_particle>
 
 	<activation_effects>

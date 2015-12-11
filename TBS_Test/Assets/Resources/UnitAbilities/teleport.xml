@@ -21,5 +21,6 @@
 	<activation_effects>
 	</activation_effects>
 	<resolution_effects>
+		<effect>Teleport Caster to Target</effect>
 	</resolution_effects>
 </Ability>

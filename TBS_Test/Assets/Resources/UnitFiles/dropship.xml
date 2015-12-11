@@ -1,0 +1,20 @@
+<TBSUnit>
+	<name>Dropship</name>
+	<description>Able to carry units faster and more effectively around the battlefield.
+</description>
+
+	<ap>2</ap>
+	<deploycost>1</deploycost>
+	<health>120</health>
+	<maxhealth>120</maxhealth>
+	<move>20</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>heavyLaserGuns</ability>
+	</abilities>
+</TBSUnit>

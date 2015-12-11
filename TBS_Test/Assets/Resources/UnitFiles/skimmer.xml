@@ -1,0 +1,20 @@
+<TBSUnit>
+	<name>Skimmer</name>
+	<description>Fast moving, hovering over the battlefield.
+</description>
+
+	<ap>3</ap>
+	<deploycost>1</deploycost>
+	<health>90</health>
+	<maxhealth>90</maxhealth>
+	<move>10</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>explosiveLauncher</ability>
+	</abilities>
+</TBSUnit>

@@ -3,6 +3,9 @@
 	<description>Deals 65 damage. Has 3 strikes</description>
 	<type>1</type>
 
+	<magicalattack>0</magicalattack>
+	<setdamage_user>0</setdamage_user>
+	<setdamage_target>0</setdamage_target>
 	<guaranteed_hit>0</guaranteed_hit>
 	<use_ranged_calc>1</use_ranged_calc>
 	<accuracy_bonus>0</accuracy_bonus>
@@ -19,5 +22,6 @@
 	<activation_effects>
 	</activation_effects>
 	<resolution_effects>
+		<effect power="65">Damage</effect>
 	</resolution_effects>
 </Ability>

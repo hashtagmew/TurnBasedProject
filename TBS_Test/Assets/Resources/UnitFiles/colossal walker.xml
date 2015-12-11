@@ -1,0 +1,21 @@
+<TBSUnit>
+	<name>Colossal Walker</name>
+	<description>A giant motherfucker
+</description>
+
+	<ap>5</ap>
+	<deploycost>2</deploycost>
+	<health>500</health>
+	<maxhealth>500</maxhealth>
+	<move>6</move>
+	<vision>2</vision>
+	<attack>1</attack>
+	<magic>4</magic>
+	<defence>3</defence>
+	<resistance>2</resistance>
+
+	<abilities>
+		<ability>beamCannon</ability>
+		<ability>flamethrower(Walker)</ability>
+	</abilities>
+</TBSUnit>

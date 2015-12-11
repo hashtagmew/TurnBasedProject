@@ -3,6 +3,9 @@
 	<description>65 Damage</description>
 	<type>1</type>
 
+	<magicalattack>0</magicalattack>
+	<setdamage_user>0</setdamage_user>
+	<setdamage_target>0</setdamage_target>
 	<guaranteed_hit>0</guaranteed_hit>
 	<use_ranged_calc>1</use_ranged_calc>
 	<accuracy_bonus>0</accuracy_bonus>
@@ -14,7 +17,7 @@
 	<resolution_delay>0.5</resolution_delay>
 	<activation_particle>Fire Spray (Flamethrower)</activation_particle>
 	<execution_particle>null</execution_particle>
-	<resolution_particle>null</resolution_particle>
+	<resolution_particle>Fire</resolution_particle>
 
 	<activation_effects>
 	</activation_effects>

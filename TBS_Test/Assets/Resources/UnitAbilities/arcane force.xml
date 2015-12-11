@@ -11,13 +11,13 @@
 	<accuracy_bonus>65</accuracy_bonus>
 	<range>20</range>
 	<target>11</target>
-	<feature_restriction>3</feature_restriction>
+	<feature_restriction>4</feature_restriction>
 	<activation_delay>0.3</activation_delay>
 	<execution_delay>0</execution_delay>
 	<resolution_delay>1</resolution_delay>
-	<activation_particle>Arcane Force</activation_particle>
+	<activation_particle>null</activation_particle>
 	<execution_particle>null</execution_particle>
-	<resolution_particle>null</resolution_particle>
+	<resolution_particle>Arcane Force</resolution_particle>
 
 	<activation_effects>
 	</activation_effects>

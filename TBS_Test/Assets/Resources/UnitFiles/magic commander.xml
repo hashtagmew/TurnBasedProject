@@ -1,9 +1,9 @@
 <TBSUnit>
 	<name>Magic Commander</name>
 	<description>Commander of the magical army.
-Wields power beyond imagination.</description>
+Wields power capable of crushing mortals and the land they tread on.</description>
 
-	<ap>3</ap>
+	<ap>9</ap>
 	<deploycost>1</deploycost>
 	<health>200</health>
 	<maxhealth>200</maxhealth>
@@ -15,6 +15,7 @@ Wields power beyond imagination.</description>
 	<resistance>2</resistance>
 
 	<abilities>
+		<ability>rayOfArcane</ability>
 		<ability>swordArc2</ability>
 		<ability>teleport</ability>
 	</abilities>
