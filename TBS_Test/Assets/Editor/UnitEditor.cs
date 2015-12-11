@@ -56,7 +56,11 @@ public class UnitEditor : EditorWindow {
 	static private float s_fResistance = 2.0f;
 	static private float s_fDefence = 3.0f;
 
-	static private string s_sSpriteFilename = "tile";
+	static private Sprite s_sULSprite;
+	static private Sprite s_sURSprite;
+	static private Sprite s_sDLSprite;
+	static private Sprite s_sDRSprite;
+
 	static private string s_sSoundsetFilename = "none";
 
 	static private UNIT_FACTION s_eFaction = UNIT_FACTION.NONE;
@@ -192,8 +196,23 @@ public class UnitEditor : EditorWindow {
 
 		//Sprite
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Sprite NOT YET", EditorStyles.boldLabel);
-		s_sSpriteFilename = GUILayout.TextField(s_sSpriteFilename, 128, GUILayout.Width(200));
+		GUILayout.Label("Sprite UL", EditorStyles.boldLabel);
+		s_sULSprite = (Sprite)EditorGUILayout.ObjectField(s_sULSprite, typeof(Sprite), false);
+		GUILayout.EndHorizontal();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Sprite UR", EditorStyles.boldLabel);
+		s_sURSprite = (Sprite)EditorGUILayout.ObjectField(s_sURSprite, typeof(Sprite), false);
+		GUILayout.EndHorizontal();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Sprite DL", EditorStyles.boldLabel);
+		s_sDLSprite = (Sprite)EditorGUILayout.ObjectField(s_sDLSprite, typeof(Sprite), false);
+		GUILayout.EndHorizontal();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Sprite DR", EditorStyles.boldLabel);
+		s_sDRSprite = (Sprite)EditorGUILayout.ObjectField(s_sDRSprite, typeof(Sprite), false);
 		GUILayout.EndHorizontal();
 
 		//Sound
@@ -355,6 +374,23 @@ public class UnitEditor : EditorWindow {
 				else if (xlayer1.Name == "resistance") {
 					s_fResistance = float.Parse(xlayer1.Value);
 				}
+				//sprites
+				else if (xlayer1.Name == "spriteUL") {
+					string stemp = xlayer1.Value;
+					s_sULSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+				}
+				else if (xlayer1.Name == "spriteUR") {
+					string stemp = xlayer1.Value;
+					s_sURSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+				}
+				else if (xlayer1.Name == "spriteDL") {
+					string stemp = xlayer1.Value;
+					s_sDLSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+				}
+				else if (xlayer1.Name == "spriteDR") {
+					string stemp = xlayer1.Value;
+					s_sDRSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+				}
 
 				if (xlayer1.Name == "abilities") {
 					//Make sure only the in-use ones are ticked
@@ -494,6 +530,54 @@ public class UnitEditor : EditorWindow {
 		writer.WriteWhitespace("\t");
 		writer.WriteStartElement("resistance");
 		writer.WriteValue(s_fResistance);
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//SpriteUL
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("spriteUL");
+		if (s_sULSprite != null) {
+			writer.WriteValue(s_sULSprite.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//SpriteUR
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("spriteUR");
+		if (s_sURSprite != null) {
+			writer.WriteValue(s_sURSprite.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//SpriteDL
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("spriteDL");
+		if (s_sDLSprite != null) {
+			writer.WriteValue(s_sDLSprite.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
+		//SpriteDR
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("spriteDR");
+		if (s_sDRSprite != null) {
+			writer.WriteValue(s_sDRSprite.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
