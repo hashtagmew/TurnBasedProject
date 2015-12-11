@@ -21,6 +21,7 @@ public class SoundSetEditor : EditorWindow {
 	static private AudioClip s_acUnitSelect;
 	static private AudioClip s_acUnitMove;
 	static private AudioClip s_acAttack;
+	static private AudioClip s_acFootstep;
 
 	static private AudioClip s_acAbilityCast;
 	static private bool s_bExecuteLoop;
@@ -57,6 +58,11 @@ public class SoundSetEditor : EditorWindow {
 			GUILayout.BeginHorizontal();
 			GUILayout.Label(new GUIContent("Unit Attack Confirm", "50% chance to be played when the unit attacks"));
 			s_acAttack = (AudioClip)EditorGUILayout.ObjectField(s_acAttack, typeof(AudioClip), false);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label(new GUIContent("Unit Footstep", "Played when unit moves"));
+			s_acFootstep = (AudioClip)EditorGUILayout.ObjectField(s_acFootstep, typeof(AudioClip), false);
 			GUILayout.EndHorizontal();
 		}
 		else if (s_eType == SOUNDSET_TYPE.ABILITY) {
@@ -155,6 +161,18 @@ public class SoundSetEditor : EditorWindow {
 			}
 			writer.WriteEndElement();
 			writer.WriteWhitespace("\n");
+
+			//Footstep
+			writer.WriteWhitespace("\t");
+			writer.WriteStartElement("footstep");
+			if (s_acAttack != null) {
+				writer.WriteValue(s_acFootstep.name);
+			}
+			else {
+				writer.WriteValue("null");
+			}
+			writer.WriteEndElement();
+			writer.WriteWhitespace("\n");
 		}
 
 		if (s_eType == SOUNDSET_TYPE.ABILITY) {
@@ -223,6 +241,10 @@ public class SoundSetEditor : EditorWindow {
 					else if (xlayer1.Name == "attack") {
 						string stemp = xlayer1.Value;
 						s_acAttack = Resources.Load("Audio/" + stemp) as AudioClip;
+					}
+					else if (xlayer1.Name == "footstep") {
+						string stemp = xlayer1.Value;
+						s_acFootstep = Resources.Load("Audio/" + stemp) as AudioClip;
 					}
 				}
 
