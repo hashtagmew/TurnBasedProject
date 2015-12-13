@@ -1,0 +1,2 @@
+Player1: Main menu > multiplayer > set a room name > choose a faction and player name > ready
+Player2: Main menu > multiplayer > enter the same room name > choose a faction and player name > ready
