@@ -2,6 +2,7 @@
 	<name>Magic Commander</name>
 	<description>Commander of the magical army.
 Wields power capable of crushing mortals and the land they tread on.</description>
+	<faction>4</faction>
 
 	<ap>9</ap>
 	<deploycost>1</deploycost>
@@ -13,10 +14,14 @@ Wields power capable of crushing mortals and the land they tread on.</descriptio
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
+	<spriteUL>MagicCommanderColouredBackView</spriteUL>
+	<spriteUR>MagicCommanderColouredBackView</spriteUR>
+	<spriteDL>MagicCommanderColouredFrontView</spriteDL>
+	<spriteDR>MagicCommanderColouredFrontView</spriteDR>
 
 	<abilities>
+		<ability>teleport</ability>
 		<ability>rayOfArcane</ability>
 		<ability>swordArc2</ability>
-		<ability>teleport</ability>
 	</abilities>
 </TBSUnit>

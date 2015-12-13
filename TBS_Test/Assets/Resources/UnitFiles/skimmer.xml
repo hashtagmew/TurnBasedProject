@@ -2,6 +2,7 @@
 	<name>Skimmer</name>
 	<description>Fast moving, hovering over the battlefield.
 </description>
+	<faction>4</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
@@ -13,8 +14,13 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
+	<spriteUL>SkimmerColouredUL</spriteUL>
+	<spriteUR>SkimmerColouredUR</spriteUR>
+	<spriteDL>SkimmerColouredDL</spriteDL>
+	<spriteDR>SkimmerColouredDR</spriteDR>
 
 	<abilities>
+		<ability>explosive launcher</ability>
 		<ability>explosiveLauncher</ability>
 	</abilities>
 </TBSUnit>
