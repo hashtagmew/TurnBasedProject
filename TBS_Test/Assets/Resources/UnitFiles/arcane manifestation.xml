@@ -1,6 +1,6 @@
 <TBSUnit>
 	<name>Arcane Manifestation</name>
-	<description>A unit that does things.</description>
+	<description>Beings of living magicial energy.</description>
 	<faction>3</faction>
 
 	<ap>3</ap>
@@ -13,10 +13,10 @@
 	<magic>4</magic>
 	<defence>2</defence>
 	<resistance>4</resistance>
-	<spriteUL>ArcaneManifestationFrontView</spriteUL>
-	<spriteUR>ArcaneManifestatoin_Idle</spriteUR>
-	<spriteDL>ArcaneManifestatoinBackView</spriteDL>
-	<spriteDR>ArcaneManifestatoin_Idle</spriteDR>
+	<spriteUL>arcman_idle_ul</spriteUL>
+	<spriteUR>arcman_idle_ur</spriteUR>
+	<spriteDL>arcman_idle_dl</spriteDL>
+	<spriteDR>arcman_idle_dr</spriteDR>
 
 	<abilities>
 		<ability>claw swipe</ability>

@@ -1,6 +1,6 @@
 <TBSUnit>
 	<name>Armoured Troops</name>
-	<description>Basic Troop</description>
+	<description>Mechanically enhanced super soldier.</description>
 	<faction>4</faction>
 
 	<ap>3</ap>
@@ -15,8 +15,8 @@
 	<resistance>2</resistance>
 	<spriteUL>ArmouredTroopColouredUL</spriteUL>
 	<spriteUR>ArmouredTroopColouredUR</spriteUR>
-	<spriteDL>ArmouredTroopColouredDL</spriteDL>
-	<spriteDR>ArmouredTroopColouredDR</spriteDR>
+	<spriteDL>ArmouredTroopColouredDR</spriteDL>
+	<spriteDR>ArmouredTroopColouredDL</spriteDR>
 
 	<abilities>
 		<ability>grenades</ability>
