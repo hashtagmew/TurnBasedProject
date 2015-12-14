@@ -9,7 +9,7 @@ public class ClickableTile : MonoBehaviour {
 	public TileMap map;
 
 	void OnMouseUp() {
-		Debug.Log ("Click!");
+		//Debug.Log ("Click!");
 
 		if(EventSystem.current.IsPointerOverGameObject())
 			return;

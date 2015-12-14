@@ -2,7 +2,7 @@
 	<name>Magicians</name>
 	<description>Can mimick the powers of the commander
 </description>
-	<faction>4</faction>
+	<faction>3</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
@@ -18,6 +18,7 @@
 	<spriteUR>MagicianColouredBackView</spriteUR>
 	<spriteDL>MagicianColouredFrontView</spriteDL>
 	<spriteDR>MagicianColouredFrontView</spriteDR>
+	<soundset>u_magician</soundset>
 
 	<abilities>
 		<ability>rayOfArcane</ability>

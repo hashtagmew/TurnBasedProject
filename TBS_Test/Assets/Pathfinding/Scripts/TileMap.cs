@@ -57,7 +57,7 @@ public class TileMap : MonoBehaviour {
 
 	void Update(){
 		if (selectedUnit == null) {
-			Debug.Log("No unit selected");
+			//Debug.Log("No unit selected");
 		}
 	}
 

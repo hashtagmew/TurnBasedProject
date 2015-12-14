@@ -22,6 +22,7 @@ public class NetGameManager : MonoBehaviour {
 	public Button depbut6;
 	public Button depbut7;
 
+	public UNIT_FACTION eLocalFaction = UNIT_FACTION.NONE;
 
 	//public GameObject goLocalNetPlayer;
 
@@ -39,7 +40,15 @@ public class NetGameManager : MonoBehaviour {
 	//public GameObject protoUnit;
 	
 	void Start() {
-		plyprefs.LoadPrefs ();
+		plyprefs.LoadPrefs();
+
+		if ((int)PhotonNetwork.player.customProperties["Faction"] == 1) {
+			eLocalFaction = UNIT_FACTION.MAGICAL;
+		}
+		else {
+			eLocalFaction = UNIT_FACTION.TECHNOLOGICAL;
+		}
+
 		//Tmap.selectedUnit = null;
 //		if (PhotonNetwork.player.ID == 1) {
 //			foreach (GameUnit unittemppos in l_guUnits) {
@@ -78,27 +87,8 @@ public class NetGameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-	
 		if (Input.GetKeyDown(KeyCode.F1)) {
-			Application.LoadLevel("net-test");
-		}
-
-		if ((int)PhotonNetwork.player.customProperties ["Faction"] == 1) {
-			depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[0].Key;
-			depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[1].Key;
-			depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[2].Key;
-			depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[3].Key;
-			depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[4].Key;
-			depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[5].Key;
-			depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[6].Key;
-		} else {
-			depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[0].Key;
-			depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[1].Key;
-			depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[2].Key;
-			depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[3].Key;
-			depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[4].Key;
-			depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[5].Key;
-			depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[6].Key;
+			Application.LoadLevel("net-main-menu");
 		}
 		
 //		Debug.Log (PhotonNetwork.player.ID);
@@ -156,8 +146,7 @@ public class NetGameManager : MonoBehaviour {
 //			}
 		}
 	}
-	public void DeployUnit(string unit){
-		
+	public void DeployUnit(string unit){	
 		//Vector3 vectemp = new Vector3 (0.0f, 0.0f, 0.0f);
 		GameObject tempunit = (GameObject)PhotonNetwork.Instantiate ("NetGameUnit", TileCursor.transform.position, Quaternion.identity, 0);
 		GameUnit tempunit2 = tempunit.GetComponent<GameUnit> ();
@@ -172,31 +161,182 @@ public class NetGameManager : MonoBehaviour {
 	}
 
 	public void DeployUnit(int num) {
-		int fac = 0;
-		if ((int)PhotonNetwork.player.customProperties["Faction"] == 1) {
-			fac = 1;
-		} else {
-			fac = 2;
-		}
-
-		if (fac == 1) {
+		if (eLocalFaction == UNIT_FACTION.MAGICAL) {
 			DeployUnit(plyprefs.l_sMagicalUnits[num].Key);
 		}
 
-		if (fac == 2) {
+		if (eLocalFaction == UNIT_FACTION.TECHNOLOGICAL) {
 			DeployUnit(plyprefs.l_sMechanicalUnits[num].Key);
 		}
 	}
 
-	public void SetReady(){
+	public void SetReady() {
 		ExitGames.Client.Photon.Hashtable m_PropertiesHash = PhotonNetwork.player.customProperties;
-		m_PropertiesHash ["ReadyDep"] = true;
+		m_PropertiesHash["ReadyDep"] = true;
 		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
 	}
 
-	public void UIappear(){
-		DeployPanel.SetActive (true);
+	public void UIToggle() {
+		DeployPanel.SetActive(!DeployPanel.GetActive());
 
+		if (DeployPanel.GetActive()) {
+			if (eLocalFaction == UNIT_FACTION.MAGICAL) {
+				//1
+				if (plyprefs.l_sMagicalUnits.Count >= 1) {
+					depbut1.interactable = true;
+				}
+				if (depbut1.interactable) {
+					depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[0].Key;
+				}
+				else {
+					depbut1.GetComponentInChildren<Text>().text = "None";
+				}
+
+				//2
+				if (plyprefs.l_sMagicalUnits.Count >= 2) {
+					depbut2.interactable = true;
+				}
+				if (depbut2.interactable) {
+					depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[1].Key;
+				}
+				else {
+					depbut2.GetComponentInChildren<Text>().text = "None";
+				}
+
+				//3
+				if (plyprefs.l_sMagicalUnits.Count >= 3) {
+					depbut3.interactable = true;
+				}
+				if (depbut3.interactable) {
+					depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[2].Key;
+				}
+				else {
+					depbut3.GetComponentInChildren<Text>().text = "None";
+				}
+
+				//4
+				if (plyprefs.l_sMagicalUnits.Count >= 4) {
+					depbut4.interactable = true;
+				}
+				if (depbut4.interactable) {
+					depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[3].Key;
+				}
+				else {
+					depbut4.GetComponentInChildren<Text>().text = "None";
+				}
+
+				//5
+				if (plyprefs.l_sMagicalUnits.Count >= 5) {
+					depbut5.interactable = true;
+				}
+				if (depbut5.interactable) {
+					depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[4].Key;
+				}
+				else {
+					depbut5.GetComponentInChildren<Text>().text = "None";
+				}
+
+				//6
+				if (plyprefs.l_sMagicalUnits.Count >= 6) {
+					depbut6.interactable = true;
+				}
+				if (depbut6.interactable) {
+					depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[5].Key;
+				}
+				else {
+					depbut6.GetComponentInChildren<Text>().text = "None";
+				}
+
+				//7
+				if (plyprefs.l_sMagicalUnits.Count >= 7) {
+					depbut7.interactable = true;
+				}
+				if (depbut7.interactable) {
+					depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[6].Key;
+				}
+				else {
+					depbut7.GetComponentInChildren<Text>().text = "None";
+				}
+			} 
+			else {
+				//1
+				if (plyprefs.l_sMechanicalUnits.Count >= 1) {
+					depbut1.interactable = true;
+				}
+				if (depbut1.interactable) {
+					depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[0].Key;
+				}
+				else {
+					depbut1.GetComponentInChildren<Text>().text = "None";
+				}
+				
+				//2
+				if (plyprefs.l_sMechanicalUnits.Count >= 2) {
+					depbut2.interactable = true;
+				}
+				if (depbut2.interactable) {
+					depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[1].Key;
+				}
+				else {
+					depbut2.GetComponentInChildren<Text>().text = "None";
+				}
+				
+				//3
+				if (plyprefs.l_sMechanicalUnits.Count >= 3) {
+					depbut3.interactable = true;
+				}
+				if (depbut3.interactable) {
+					depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[2].Key;
+				}
+				else {
+					depbut3.GetComponentInChildren<Text>().text = "None";
+				}
+				
+				//4
+				if (plyprefs.l_sMechanicalUnits.Count >= 4) {
+					depbut4.interactable = true;
+				}
+				if (depbut4.interactable) {
+					depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[3].Key;
+				}
+				else {
+					depbut4.GetComponentInChildren<Text>().text = "None";
+				}
+				
+				//5
+				if (plyprefs.l_sMechanicalUnits.Count >= 5) {
+					depbut5.interactable = true;
+				}
+				if (depbut5.interactable) {
+					depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[4].Key;
+				}
+				else {
+					depbut5.GetComponentInChildren<Text>().text = "None";
+				}
+				
+				//6
+				if (plyprefs.l_sMechanicalUnits.Count >= 6) {
+					depbut6.interactable = true;
+				}
+				if (depbut6.interactable) {
+					depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[5].Key;
+				}
+				else {
+					depbut6.GetComponentInChildren<Text>().text = "None";
+				}
+				
+				//7
+				if (plyprefs.l_sMechanicalUnits.Count >= 7) {
+					depbut7.interactable = true;
+				}
+				if (depbut7.interactable) {
+					depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[6].Key;
+				}
+				else {
+					depbut7.GetComponentInChildren<Text>().text = "None";
+				}
+			}
+		}
 	}
 
 	public void NetEndTurn() {

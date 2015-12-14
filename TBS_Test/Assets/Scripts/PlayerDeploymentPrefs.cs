@@ -21,10 +21,10 @@ public class PlayerDeploymentPrefs {
 		int iTemp = 0;
 
 		if (PlayerPrefs.HasKey("name")) {
-			Debug.Log("LOAD NAME " + PlayerPrefs.GetString("name"));
+			Debug.Log("LOAD PLY PREFS WITH NAME " + PlayerPrefs.GetString("name"));
 		}
 		else {
-			//MAke default
+			//Make default
 			PlayerPrefs.SetString("name", "default");
 
 			//Magic
@@ -43,11 +43,11 @@ public class PlayerDeploymentPrefs {
 			PlayerPrefs.SetString("magical_slot5_name", "magicians");
 			PlayerPrefs.SetInt ("magical_slot5_cost", 1);
 
-			PlayerPrefs.SetString("magical_slot6_name", "magicians");
-			PlayerPrefs.SetInt ("magical_slot6_cost", 1);
+			PlayerPrefs.SetString("magical_slot6_name", "dragon");
+			PlayerPrefs.SetInt ("magical_slot6_cost", 2);
 
-			PlayerPrefs.SetString("magical_slot7_name", "dragon");
-			PlayerPrefs.SetInt ("magical_slot7_cost", 1);
+			PlayerPrefs.SetString("magical_slot7_name", "null");
+			PlayerPrefs.SetInt ("magical_slot7_cost", 0);
 
 			//Mech
 			PlayerPrefs.SetString("mechanical_slot1_name", "mechanical commander");
@@ -62,29 +62,29 @@ public class PlayerDeploymentPrefs {
 			PlayerPrefs.SetString("mechanical_slot4_name", "skimmer");
 			PlayerPrefs.SetInt ("mechanical_slot4_cost", 1);
 			
-			PlayerPrefs.SetString("mechanical_slot5_name", "skimmer");
+			PlayerPrefs.SetString("mechanical_slot5_name", "dropship");
 			PlayerPrefs.SetInt ("mechanical_slot5_cost", 1);
 			
-			PlayerPrefs.SetString("mechanical_slot6_name", "dropship");
-			PlayerPrefs.SetInt ("mechanical_slot6_cost", 1);
+			PlayerPrefs.SetString("mechanical_slot6_name", "colossal walker");
+			PlayerPrefs.SetInt ("mechanical_slot6_cost", 2);
 			
-			PlayerPrefs.SetString("mechanical_slot7_name", "colossal walker");
-			PlayerPrefs.SetInt ("mechanical_slot7_cost", 1);
+			PlayerPrefs.SetString("mechanical_slot7_name", "null");
+			PlayerPrefs.SetInt ("mechanical_slot7_cost", 0);
 
 			PlayerPrefs.Save();
 		}
 
 		for (int i = 1; i < 8; i++) {
-			if (PlayerPrefs.HasKey("magical_slot" + i.ToString() + "_name")) {
+			if (PlayerPrefs.HasKey("magical_slot" + i.ToString() + "_name") && PlayerPrefs.GetString("magical_slot" + i.ToString() + "_name") != "null") {
 				sTemp = PlayerPrefs.GetString("magical_slot" + i.ToString() + "_name");
 				if (PlayerPrefs.HasKey("magical_slot" + i.ToString() + "_cost")) {
 					iTemp = PlayerPrefs.GetInt("magical_slot" + i.ToString() + "_cost");
 				}
-				
+
 				l_sMagicalUnits.Add(new KeyValuePair<string, int>(sTemp, iTemp));
 			}
 
-			if (PlayerPrefs.HasKey("mechanical_slot" + i.ToString() + "_name")) {
+			if (PlayerPrefs.HasKey("mechanical_slot" + i.ToString() + "_name") && PlayerPrefs.GetString("mechanical_slot" + i.ToString() + "_name") != "null") {
 				sTemp = PlayerPrefs.GetString("mechanical_slot" + i.ToString() + "_name");
 				if (PlayerPrefs.HasKey("mechanical_slot" + i.ToString() + "_cost")) {
 					iTemp = PlayerPrefs.GetInt("mechanical_slot" + i.ToString() + "_cost");

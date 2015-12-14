@@ -14,14 +14,15 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
-	<spriteUL>null</spriteUL>
-	<spriteUR>null</spriteUR>
-	<spriteDL>null</spriteDL>
-	<spriteDR>null</spriteDR>
+	<spriteUL>SkimmerColouredUL</spriteUL>
+	<spriteUR>SkimmerColouredUR</spriteUR>
+	<spriteDL>SkimmerColouredDL</spriteDL>
+	<spriteDR>SkimmerColouredDR</spriteDR>
 	<soundset>u_skimmer</soundset>
 
 	<abilities>
 		<ability>explosive launcher</ability>
+		<ability>firebomb</ability>
 		<ability>explosiveLauncher</ability>
 	</abilities>
 </TBSUnit>

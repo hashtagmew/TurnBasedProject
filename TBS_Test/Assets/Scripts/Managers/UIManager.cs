@@ -58,14 +58,26 @@ public class UIManager : MonoBehaviour {
 
 	void GetPanels() {
 		foreach (Transform tran in UIPanelManager.l_PanelList) {
-			d_Panels.Add(tran.name.Substring(6), tran);
-			Debug.Log(tran.name.Substring(6));
+			if (tran != null) {
+				d_Panels.Add(tran.name.Substring(6), tran);
+				Debug.Log("GetPanels: " + tran.name.Substring(6));
+			}
 		}
-		
-		tUnitPanel = d_Panels["UnitInfo"];
-		tTerrainPanel = d_Panels["Terrain"];
-		
-		tUnitPanel.transform.gameObject.SetActive(true);
-		tTerrainPanel.transform.gameObject.SetActive(true);
+
+		if (d_Panels.ContainsKey("UnitInfo")) {
+			tUnitPanel = d_Panels["UnitInfo"];
+		}
+
+		if (d_Panels.ContainsKey("Terrain")) {
+			tTerrainPanel = d_Panels["Terrain"];
+		}
+
+		if (tUnitPanel != null) {
+			tUnitPanel.transform.gameObject.SetActive(true);
+		}
+
+		if (tTerrainPanel != null) {
+			tTerrainPanel.transform.gameObject.SetActive(true);
+		}
 	}
 }

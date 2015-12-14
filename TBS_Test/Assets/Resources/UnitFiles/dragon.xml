@@ -1,6 +1,6 @@
 <TBSUnit>
 	<name>Dragon</name>
-	<description>A powerful beast that reigns death upon its enemies.</description>
+	<description>A powerful beast that rains death upon its enemies.</description>
 	<faction>3</faction>
 
 	<ap>5</ap>
@@ -13,10 +13,11 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
-	<spriteUL>arc_dragon_BL_grounded01</spriteUL>
-	<spriteUR>arc_dragon_BR_grounded01</spriteUR>
-	<spriteDL>arc_dragon_FL_grounded01</spriteDL>
-	<spriteDR>arc_dragon_FR_grounded01</spriteDR>
+	<spriteUL>null</spriteUL>
+	<spriteUR>null</spriteUR>
+	<spriteDL>null</spriteDL>
+	<spriteDR>null</spriteDR>
+	<soundset>u_dragon</soundset>
 
 	<abilities>
 		<ability>claw swipe</ability>

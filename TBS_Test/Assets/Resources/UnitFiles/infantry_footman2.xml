@@ -1,7 +1,7 @@
 <TBSUnit>
 	<name>Magiclaw</name>
 	<description>A unit that does things.</description>
-	<faction>3</faction>
+	<faction>0</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
@@ -13,6 +13,11 @@
 	<magic>4</magic>
 	<defence>2</defence>
 	<resistance>4</resistance>
+	<spriteUL>null</spriteUL>
+	<spriteUR>null</spriteUR>
+	<spriteDL>null</spriteDL>
+	<spriteDR>null</spriteDR>
+	<soundset>null</soundset>
 
 	<abilities>
 		<ability>laserGun</ability>

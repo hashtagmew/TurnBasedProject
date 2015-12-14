@@ -149,6 +149,9 @@ public class DeploymentManager : MonoBehaviour {
 				else if (xlayer1.Name == "faction") {
 					eFaction = (UNIT_FACTION)int.Parse(xlayer1.Value);
 				}
+				else if (xlayer1.Name == "spriteDR") {
+					imgUnitPicture.sprite = Resources.Load<Sprite>("UnitSprites/" + xlayer1.Value);
+				}
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Collections.Generic;
 using System.Timers;
 using ExitGames.Client;
 using Photon;
@@ -32,9 +32,15 @@ public class PUNNetController : PunBehaviour {
 
 	bool m_bCounting = false;
 
+	public Slider uiMapSlider;
+	public Text uiMapText;
+	public List<string> l_sMaps = new List<string>();
+
 	// Use this for initialization
 	void Start () {
 		m_CurrentState = ControllerState.NOCONNECTION;
+
+
 
 		//m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
 		m_PropertiesHash.Add("Ready", false);
@@ -109,7 +115,7 @@ public class PUNNetController : PunBehaviour {
 					}
 					else
 					{
-						if (m_StartTimer >= 6.0f)
+						if (m_StartTimer >= 3.0f)
 						{
 							PhotonNetwork.LoadLevel("netplayer");
 						}
@@ -117,7 +123,7 @@ public class PUNNetController : PunBehaviour {
 						{
 							//Debug.Log("Counting");
 							m_StartTimer += Time.deltaTime;
-							m_GameTimerDisplay.text = string.Format("Time until Start\n{0}", decimal.Round((decimal)(6.0f - m_StartTimer), 2));
+							m_GameTimerDisplay.text = string.Format("Time until Start\n{0}", decimal.Round((decimal)(3.0f - m_StartTimer), 2));
 						}
 					}
 					
@@ -172,6 +178,20 @@ public class PUNNetController : PunBehaviour {
 		UIPanelManager.OpenPanel("ClientConnected");
 		UIPanelManager.getUIElementOnPanel("MenuDescription").GetComponentInChildren<Text>().text = PhotonNetwork.room.name + " Room";
 
+		//Only let host pick the map
+		if (PhotonNetwork.isMasterClient) {
+			TextAsset[] maptemp = Resources.LoadAll<TextAsset>("Maps/");
+			
+			foreach(TextAsset ta in maptemp) {
+				l_sMaps.Add(ta.name);
+			}
+			
+			uiMapSlider.maxValue = (float)(l_sMaps.Count - 1);
+		}
+		else {
+			uiMapSlider.interactable = false;
+			uiMapText.text = "Host's pick";
+		}
 	}
 
 	public override void OnDisconnectedFromPhoton()
@@ -284,8 +304,14 @@ public class PUNNetController : PunBehaviour {
 		PhotonNetwork.playerName = UIPanelManager.getUIElementOnPanel("PlayerName").GetComponent<InputField>().text;
 	}
 
-	public void setRoomReady(bool ready)
-	{
+	public void setRoomMap() {
+		ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+		hash.Add("Map", l_sMaps[(int)uiMapSlider.value]);
+		PhotonNetwork.room.SetCustomProperties(hash);
+		uiMapText.text = l_sMaps[(int)uiMapSlider.value];
+	}
+
+	public void setRoomReady(bool ready) {
 		m_PropertiesHash["Ready"] = ready;
 		PhotonNetwork.player.SetCustomProperties(m_PropertiesHash);
 

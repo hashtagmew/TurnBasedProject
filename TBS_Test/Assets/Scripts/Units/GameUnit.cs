@@ -40,7 +40,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	public float fResistance;
 	public float fDefence;
 
-	public List<Ability> l_abilities;
+	public Dictionary<string, Ability> d_abilities = new Dictionary<string, Ability>();
 	public Dictionary<ABILITY_ELEMENT, float> d_efElementalResistances {
 		get;
 		private set;
@@ -69,14 +69,14 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	private Vector2 CurPos;
 	private Vector2 NextPos;
 	
-	public GameObject IdleSprite;
-	
 	private SpriteRenderer myRend;
 	
 	public Sprite texDirSpriteUR;
 	public Sprite texDirSpriteDR;
 	public Sprite texDirSpriteUL;
 	public Sprite texDirSpriteDL;
+
+	public Soundset ssSoundset;
 
 	//Net stuff
 	private Vector3 vCorrectPos;
@@ -86,7 +86,6 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 	// Use this for initialization
 	void Start () {
-		l_abilities = new List<Ability>();
 		d_efElementalResistances = new Dictionary<ABILITY_ELEMENT, float>();
 
 		d_efElementalResistances.Add(ABILITY_ELEMENT.KINETIC, 1.0f);
@@ -201,17 +200,13 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			//			remainingMovement = resetMovement;
 			//		}
 		
-			// Have we moved our visible piece close enough to the target tile that we can
-			// advance to the next step in our pathfinding?
-			//Debug.Log (transform.position);
+			// Have we moved our visible piece close enough to the target tile that we can advance to the next step in our pathfinding?
 			if (map == null) {
-				Debug.Log ("OH GOID");
-			} else {
-				//Debug.Log ("YEA");
+				Debug.Log ("GameUnit Map was null...");
 			}
 		
 			if (Vector3.Distance (transform.position, map.TileCoordToWorldCoord (tileX, tileY)) < 0.1f) {
-				AdvancePathing ();
+				AdvancePathing();
 			}
 		
 			// Smoothly animate towards the correct map tile.
@@ -221,10 +216,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 	// Advances our pathfinding progress by one tile.
 	void AdvancePathing() {
-		if(currentPath==null)
+		if (currentPath == null)
 			return;
 		
-		if(remainingMovement <= 0)
+		if (remainingMovement <= 0)
 			return;
 		
 		// Teleport us to our correct "current" position, in case we
@@ -259,13 +254,12 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	public void NextTurn() {
 		
 		// Make sure to wrap-up any outstanding movement left over.
-		while(currentPath!=null && remainingMovement > 0) {
+		while (currentPath != null && remainingMovement > 0) {
 			AdvancePathing();
-			
 		}
 		
 		// Reset our available movement points.
-		
+		//
 	}
 
 	void SetResistance(ABILITY_ELEMENT element, float resistpercent) {
@@ -302,12 +296,14 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 		foreach (XElement xroot in xmlDoc.Elements()) {
 			foreach (XElement xlayer1 in xroot.Elements()) {
+				//info
 				if (xlayer1.Name == "name") {
 					sName = xlayer1.Value;
 				}
 				else if (xlayer1.Name == "description") {
 					sDescription = xlayer1.Value;
 				}
+				//stats
 				else if (xlayer1.Name == "ap") {
 					fAP = float.Parse(xlayer1.Value);
 					fMaxAP = fAP;
@@ -323,8 +319,13 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				else if (xlayer1.Name == "vision") {
 					fVision = float.Parse(xlayer1.Value);
 				}
+				else if (xlayer1.Name == "attack") {
+					fPhysAttack = float.Parse(xlayer1.Value);
+					fAttack = fPhysAttack;
+				}
 				else if (xlayer1.Name == "physattack") {
 					fPhysAttack = float.Parse(xlayer1.Value);
+					//fAttack = fPhysAttack;
 				}
 				else if (xlayer1.Name == "rangattack") {
 					fRangAttack = float.Parse(xlayer1.Value);
@@ -338,31 +339,39 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				else if (xlayer1.Name == "resistance") {
 					fResistance = float.Parse(xlayer1.Value);
 				}
+				//sprites
+				else if (xlayer1.Name == "spriteUL") {
+					string stemp = xlayer1.Value;
+					texDirSpriteUL = Resources.Load<Sprite>("UnitSprites/" + stemp);
+				}
+				else if (xlayer1.Name == "spriteUR") {
+					string stemp = xlayer1.Value;
+					texDirSpriteUR = Resources.Load<Sprite>("UnitSprites/" + stemp);
+				}
+				else if (xlayer1.Name == "spriteDL") {
+					string stemp = xlayer1.Value;
+					texDirSpriteDL = Resources.Load<Sprite>("UnitSprites/" + stemp);
+				}
+				else if (xlayer1.Name == "spriteDR") {
+					string stemp = xlayer1.Value;
+					texDirSpriteUR = Resources.Load<Sprite>("UnitSprites/" + stemp);
+				}
+				//soundset
+				else if (xlayer1.Name == "soundset") {
+					LoadSoundset(xlayer1.Value);
+				}
 				
-//				if (xlayer1.Name == "abilities") {
-//					//Make sure only the in-use ones are ticked
-//					//					foreach (KeyValuePair<string, bool> pair in s_dAbilityToggles) {
-//					//						pair. = false;
-//					//					}
-//					ReloadAbilities();
-//					
-//					foreach (XElement xlayer2 in xlayer1.Elements()) {
-//						if (AbilityBox.s_dAbilityLookup.ContainsKey(xlayer2.Value)) {
-//							s_dAbilityToggles[xlayer2.Value] = true;
-//							if (AbilityBox.s_dAbilityLookup[xlayer2.Value].fIntensity > 0) {
-//								s_dAbilityPower[xlayer2.Value] = float.Parse(xlayer2.FirstAttribute.Value);
-//							}
-//						}
-//					}
-//				}
+				if (xlayer1.Name == "abilities") {
+					foreach (XElement xlayer2 in xlayer1.Elements()) {
+						if (AbilityBox.s_dAbilityLookup.ContainsKey(xlayer2.Value)) {
+							d_abilities.Add(xlayer2.Value, AbilityBox.s_dAbilityLookup[xlayer2.Value]);
+						}
+					}
+				}
 			}
 		}
 
 		return true;
-	}
-
-	public void LoadUnitAbilities(string path) {
-		//
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
@@ -370,8 +379,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			//Local player
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
-			stream.SendNext (fHealth);
-			stream.SendNext (fMaxHealth);
+			stream.SendNext(fHealth);
+			stream.SendNext(fMaxHealth);
 		}
 		else {
 			//Net player
@@ -383,6 +392,36 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			//Post-stream
 			this.fHealth = fCorrectHealth;
 			this.fMaxHealth = fCorrectMaxHealth;
+		}
+	}
+
+	public void LoadSoundset(string path) {
+		XDocument s_xmlDoc = XDocument.Load(path);
+		
+		foreach (XElement xroot in s_xmlDoc.Elements()) {
+			foreach (XElement xlayer1 in xroot.Elements()) {
+				if (xlayer1.Name == "type") {
+					SOUNDSET_TYPE temptype = (SOUNDSET_TYPE)(int.Parse(xlayer1.Value));
+
+					if (temptype != SOUNDSET_TYPE.UNIT) {
+						Debug.LogError("GameUnit attempted to load a non-unit soundset!");
+						return;
+					}
+				}
+
+				if (xlayer1.Name == "select") {
+					ssSoundset.AddClip("select", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
+				}
+				else if (xlayer1.Name == "move") {
+					ssSoundset.AddClip("move", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
+				}
+				else if (xlayer1.Name == "attack") {
+					ssSoundset.AddClip("attack", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
+				}
+				else if (xlayer1.Name == "footstep") {
+					ssSoundset.AddClip("footstep", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
+				}
+			}
 		}
 	}
 }
