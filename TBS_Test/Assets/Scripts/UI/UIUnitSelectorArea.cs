@@ -14,7 +14,7 @@ public class UIUnitSelectorArea : MonoBehaviour {
 
 	SortedList<int, Text> sl_txtLines;
 	SortedList<int, string> sl_sFiles;
-	SortedList<int, GameObject> sl_goUnits;
+	//SortedList<int, GameObject> sl_goUnits;
 	public Text sPage;
 	public int iPage;
 
@@ -30,7 +30,7 @@ public class UIUnitSelectorArea : MonoBehaviour {
 	void Start() {
 		sl_txtLines = new SortedList<int, Text>();
 		sl_sFiles = new SortedList<int, string>();
-		sl_goUnits = new SortedList<int, GameObject>();
+		//sl_goUnits = new SortedList<int, GameObject>();
 
 		//Load all the "line" ui texts
 		for (int i = 0; i < this.transform.childCount; i++) {

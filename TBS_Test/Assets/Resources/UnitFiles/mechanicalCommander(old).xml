@@ -2,7 +2,7 @@
 	<name>Mechanical Commander</name>
 	<description>Commander of the mechanical army.
 Wields weapons of extroadinary power.</description>
-	<faction>4</faction>
+	<faction>0</faction>
 
 	<ap>3</ap>
 	<deploycost>1</deploycost>
@@ -14,11 +14,16 @@ Wields weapons of extroadinary power.</description>
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
+	<spriteUL>null</spriteUL>
+	<spriteUR>null</spriteUR>
+	<spriteDL>null</spriteDL>
+	<spriteDR>null</spriteDR>
+	<soundset>null</soundset>
 
 	<abilities>
+		<ability>sword</ability>
 		<ability>boostedJetJumping</ability>
 		<ability>gatlingLaserGun</ability>
 		<ability>missilePod</ability>
-		<ability>sword</ability>
 	</abilities>
 </TBSUnit>

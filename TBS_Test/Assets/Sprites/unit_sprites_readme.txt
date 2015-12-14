@@ -1,0 +1,1 @@
+For unit sprites to appear in-game, they have to be in "Resources/UnitSprites"! NO subfolders!

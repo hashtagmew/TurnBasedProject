@@ -37,20 +37,20 @@ public class PlayerDeploymentPrefs {
 			PlayerPrefs.SetString("magical_slot3_name", "arcane manifestation");
 			PlayerPrefs.SetInt ("magical_slot3_cost", 1);
 
-			PlayerPrefs.SetString("magical_slot4_name", "arcane manifestation");
+			PlayerPrefs.SetString("magical_slot4_name", "demons");
 			PlayerPrefs.SetInt ("magical_slot4_cost", 1);
 
-			PlayerPrefs.SetString("magical_slot5_name", "arcane manifestation");
+			PlayerPrefs.SetString("magical_slot5_name", "magicians");
 			PlayerPrefs.SetInt ("magical_slot5_cost", 1);
 
-			PlayerPrefs.SetString("magical_slot6_name", "arcane manifestation");
+			PlayerPrefs.SetString("magical_slot6_name", "magicians");
 			PlayerPrefs.SetInt ("magical_slot6_cost", 1);
 
-			PlayerPrefs.SetString("magical_slot7_name", "arcane manifestation");
+			PlayerPrefs.SetString("magical_slot7_name", "dragon");
 			PlayerPrefs.SetInt ("magical_slot7_cost", 1);
 
 			//Mech
-			PlayerPrefs.SetString("mechanical_slot1_name", "mechanicalCommander");
+			PlayerPrefs.SetString("mechanical_slot1_name", "mechanical commander");
 			PlayerPrefs.SetInt ("mechanical_slot1_cost", 1);
 			
 			PlayerPrefs.SetString("mechanical_slot2_name", "armoured troops");
@@ -59,16 +59,16 @@ public class PlayerDeploymentPrefs {
 			PlayerPrefs.SetString("mechanical_slot3_name", "armoured troops");
 			PlayerPrefs.SetInt ("mechanical_slot3_cost", 1);
 			
-			PlayerPrefs.SetString("mechanical_slot4_name", "armoured troops");
+			PlayerPrefs.SetString("mechanical_slot4_name", "skimmer");
 			PlayerPrefs.SetInt ("mechanical_slot4_cost", 1);
 			
-			PlayerPrefs.SetString("mechanical_slot5_name", "armoured troops");
+			PlayerPrefs.SetString("mechanical_slot5_name", "skimmer");
 			PlayerPrefs.SetInt ("mechanical_slot5_cost", 1);
 			
-			PlayerPrefs.SetString("mechanical_slot6_name", "armoured troops");
+			PlayerPrefs.SetString("mechanical_slot6_name", "dropship");
 			PlayerPrefs.SetInt ("mechanical_slot6_cost", 1);
 			
-			PlayerPrefs.SetString("mechanical_slot7_name", "armoured troops");
+			PlayerPrefs.SetString("mechanical_slot7_name", "colossal walker");
 			PlayerPrefs.SetInt ("mechanical_slot7_cost", 1);
 
 			PlayerPrefs.Save();

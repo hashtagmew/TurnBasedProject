@@ -20,7 +20,7 @@ public class SelectUnit : MonoBehaviour {
 	public GameObject SlctTile;
 	public bool CanAttack;
 	public float distance;
-	private float Range = 6.1f;
+	//private float Range = 6.1f;
 
 	public Text txtSelectedName;
 	public Text txtSelectedHP;
@@ -37,6 +37,7 @@ public class SelectUnit : MonoBehaviour {
 
 	void Start () {
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Debug.Log("Unit Selector loaded... " + ray.ToString());
 	}
 
 	void Update () {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-
+//Deprecated pathfinding beta unit
 
 public class Unit : MonoBehaviour {
 
@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour {
 	public List<Node> currentPath = null;
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
-	int moveSpeed = 2;
+	//int moveSpeed = 2;
 	public float remainingMovement = 0;
 	public float resetMovement = 0;
 	public float currDirX;

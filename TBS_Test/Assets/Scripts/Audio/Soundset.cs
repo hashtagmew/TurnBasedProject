@@ -11,14 +11,14 @@ using System.Text;
 
 public class Soundset {
 
-	private Dictionary<string, AudioClip> d_sacSounds;
+	private Dictionary<string, AudioClip> d_sacSounds = new Dictionary<string, AudioClip>();
 
 	public void AddClip(string key, AudioClip clip) {
 		d_sacSounds.Add(key, clip);
 	}
 
 	public void LoadSound(string file, string key) {
-		//
+		AddClip(key, Resources.Load<AudioClip>("Audio/" + file));
 	}
 
 	public void LoadFromFile(string path) {

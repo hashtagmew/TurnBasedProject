@@ -57,6 +57,8 @@ public class NetGameManager : MonoBehaviour {
 
 		DeployPanel.SetActive (false);
 
+		Debug.Log("NetGameManager loaded... " + ray.ToString());
+
 //		for (int y = 0; y < map.iMapVertSize; y++) {
 //			for (int x = 0; x < map.iMapHorzSize; x++) {
 //				if (map.GetTile(x, y).l_tfFeatures.Count > 0) {
@@ -156,7 +158,7 @@ public class NetGameManager : MonoBehaviour {
 	}
 	public void DeployUnit(string unit){
 		
-		Vector3 vectemp = new Vector3 (0.0f, 0.0f, 0.0f);
+		//Vector3 vectemp = new Vector3 (0.0f, 0.0f, 0.0f);
 		GameObject tempunit = (GameObject)PhotonNetwork.Instantiate ("NetGameUnit", TileCursor.transform.position, Quaternion.identity, 0);
 		GameUnit tempunit2 = tempunit.GetComponent<GameUnit> ();
 

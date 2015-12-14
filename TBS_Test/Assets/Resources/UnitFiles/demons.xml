@@ -13,10 +13,11 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
-	<spriteUL>DemonColouredBackView</spriteUL>
+	<spriteUL>Demon_BL_01</spriteUL>
 	<spriteUR>DemonColouredBackView</spriteUR>
-	<spriteDL>DemonColouredFrontView</spriteDL>
-	<spriteDR>DemonColouredFrontView</spriteDR>
+	<spriteDL>Demon_FL_01</spriteDL>
+	<spriteDR>DemonColoured</spriteDR>
+	<soundset>u_demon</soundset>
 
 	<abilities>
 		<ability>daemonic sword</ability>

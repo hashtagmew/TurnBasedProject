@@ -96,7 +96,7 @@ public class NetGameMap : MonoBehaviour {
 		int tempcols = 0;
 		int temprows = 0;
 
-		GameObject goTileCheck;
+		//GameObject goTileCheck;
 
 		//Erase old map
 //		for (int i = 0; i < iMapVertSize; i++) {

@@ -18,6 +18,7 @@ A huge arsesnal of weaponry makes her both powerful and versitile. </description
 	<spriteUR>MechanicalCommanderColouredBackView</spriteUR>
 	<spriteDL>MechanicalCommanderColouredFrontView</spriteDL>
 	<spriteDR>MechanicalCommanderColouredFrontView</spriteDR>
+	<soundset>u_mechanicalcommander</soundset>
 
 	<abilities>
 		<ability>sword</ability>

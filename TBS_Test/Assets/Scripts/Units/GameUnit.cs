@@ -379,6 +379,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			this.qCorrectRot = (Quaternion)stream.ReceiveNext();
 			this.fCorrectHealth = (float)stream.ReceiveNext();
 			this.fCorrectMaxHealth = (float)stream.ReceiveNext();
+
+			//Post-stream
+			this.fHealth = fCorrectHealth;
+			this.fMaxHealth = fCorrectMaxHealth;
 		}
 	}
 }

@@ -5,18 +5,17 @@ using System.Collections.Generic;
 namespace Combat {
 	public static class CombatMechanics {
 
-		//TODO
-		public static List<int> CalculateAttackData(AttackData data, GameUnit defender) {
-			List<int> l_result = new List<int>();
-
-			int iFinalDamage = 0;
-
-			foreach (DamageData dmg in data.l_damage) {
-				//l_result.Add(CombatMechanics.CalculateDamage(dmg.fDamage, 0, defence, 0, false));
-			}
-
-			return l_result;
-		}
+//		public static List<int> CalculateAttackData(AttackData data, GameUnit defender) {
+//			List<int> l_result = new List<int>();
+//
+//			int iFinalDamage = 0;
+//
+//			foreach (DamageData dmg in data.l_damage) {
+//				l_result.Add(CombatMechanics.CalculateDamage(dmg.fDamage, 0, defence, 0, false));
+//			}
+//
+//			return l_result;
+//		}
 
 		public static int CalculateDamage(int attack, int attackbonus, int defence, int defencebonus, bool ignoredef = false) {
 			int result = 0;

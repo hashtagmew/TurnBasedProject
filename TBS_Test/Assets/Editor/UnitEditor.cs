@@ -30,18 +30,17 @@ public class UnitEditor : EditorWindow {
 	//Unit bits
 	static private string s_sName = "Noname";
 	static private string s_sDescription = "A unit that does things.";
-	//TODO: Build costs?
 	
-	static private int s_iLevel = 1;
+	//static private int s_iLevel = 1;
 	//static private float s_fXP = 0.0f;
 	//fXPtoNext = 100.0f;
 	static private float s_fAP = 3.0f;
-	static private float s_fMaxAP = 3.0f;
+	//static private float s_fMaxAP = 3.0f;
 	
 	static private float s_fHealth = 50.0f;
 	static private float s_fMaxHealth = 50.0f;
-	static private float s_fMana = 0.0f;
-	static private float s_fMaxMana = 0.0f;
+	//static private float s_fMana = 0.0f;
+	//static private float s_fMaxMana = 0.0f;
 
 	static private float s_fMovement = 6.0f;
 	static private float s_fVision = 2.0f;
@@ -61,7 +60,7 @@ public class UnitEditor : EditorWindow {
 	static private Sprite s_sDLSprite;
 	static private Sprite s_sDRSprite;
 
-	static private string s_sSoundsetFilename = "none";
+	static private TextAsset s_sSoundset;
 
 	static private UNIT_FACTION s_eFaction = UNIT_FACTION.NONE;
 
@@ -218,7 +217,7 @@ public class UnitEditor : EditorWindow {
 		//Sound
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Soundset", EditorStyles.boldLabel);
-		s_sSoundsetFilename = GUILayout.TextField(s_sSoundsetFilename, 128, GUILayout.Width(200));
+		s_sSoundset = (TextAsset)EditorGUILayout.ObjectField(s_sSoundset, typeof(TextAsset), false);
 		GUILayout.EndHorizontal();
 
 		GUILayout.EndVertical();
@@ -271,28 +270,6 @@ public class UnitEditor : EditorWindow {
 
 			if (s_dAbilityToggles != null && s_dAbilityToggles.Count != 0) {
 				foreach (KeyValuePair<string, Ability> abilpair in AbilityBox.s_dAbilityLookup) {
-					//Category breaks
-//					if (abilpair.Key == "Melee Strike") {
-//						GUILayout.Space (5.0f);
-//						GUILayout.Label ("Activated");
-//					}
-//
-//					if (abilpair.Key == "Guard") {
-//						GUILayout.Space (5.0f);
-//						GUILayout.Label ("Passive");
-//					}
-//
-//					if (abilpair.Key == "Infantry") {
-//						GUILayout.Space (5.0f);
-//						GUILayout.Label ("Types");
-//					}
-//
-//					if (abilpair.Key == "Human") {
-//						GUILayout.Space (5.0f);
-//						GUILayout.Label ("Races");
-//					}
-
-					//Draw ability checks
 					GUILayout.BeginHorizontal();
 					s_dAbilityToggles[abilpair.Key] = GUILayout.Toggle(s_dAbilityToggles[abilpair.Key], new GUIContent(abilpair.Key, abilpair.Value.sDescription));
 					if (abilpair.Value.iType == ABILITY_TYPE.ACTIVE) {
@@ -322,6 +299,7 @@ public class UnitEditor : EditorWindow {
 
 	public void LoadUnitFile(string path) {
 		s_xmlDoc = XDocument.Load(path);
+		s_sSoundset = null;
 		
 		foreach (XElement xroot in s_xmlDoc.Elements()) {
 			//Debug.Log(xroot.Name);
@@ -336,10 +314,11 @@ public class UnitEditor : EditorWindow {
 					s_eFaction = (UNIT_FACTION)int.Parse(xlayer1.Value);
 				}
 				else if (xlayer1.Name == "level") {
-					s_iLevel = int.Parse(xlayer1.Value);
+					//s_iLevel = int.Parse(xlayer1.Value);
 				}
 				else if (xlayer1.Name == "ap") {
 					s_fAP = float.Parse(xlayer1.Value);
+					//s_fMaxAP = s_fAP;
 				}
 				else if (xlayer1.Name == "deploycost") {
 					s_fDeployCost = float.Parse(xlayer1.Value);
@@ -351,10 +330,10 @@ public class UnitEditor : EditorWindow {
 					s_fMaxHealth = float.Parse(xlayer1.Value);
 				}
 				else if (xlayer1.Name == "mana") {
-					s_fMana = float.Parse(xlayer1.Value);
+					//s_fMana = float.Parse(xlayer1.Value);
 				}
 				else if (xlayer1.Name == "maxmana") {
-					s_fMaxMana = float.Parse(xlayer1.Value);
+					//s_fMaxMana = float.Parse(xlayer1.Value);
 				}
 				else if (xlayer1.Name == "move") {
 					s_fMovement = float.Parse(xlayer1.Value);
@@ -377,26 +356,27 @@ public class UnitEditor : EditorWindow {
 				//sprites
 				else if (xlayer1.Name == "spriteUL") {
 					string stemp = xlayer1.Value;
-					s_sULSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+					s_sULSprite = Resources.Load<Sprite>("UnitSprites/" + stemp);
 				}
 				else if (xlayer1.Name == "spriteUR") {
 					string stemp = xlayer1.Value;
-					s_sURSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+					s_sURSprite = Resources.Load<Sprite>("UnitSprites/" + stemp);
 				}
 				else if (xlayer1.Name == "spriteDL") {
 					string stemp = xlayer1.Value;
-					s_sDLSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+					s_sDLSprite = Resources.Load<Sprite>("UnitSprites/" + stemp);
 				}
 				else if (xlayer1.Name == "spriteDR") {
 					string stemp = xlayer1.Value;
-					s_sDRSprite = Resources.Load("Resources/UnitSprites" + stemp) as Sprite;
+					s_sDRSprite = Resources.Load<Sprite>("UnitSprites/" + stemp);
+				}
+				else if (xlayer1.Name == "soundset") {
+					string stemp = xlayer1.Value;
+					s_sSoundset = Resources.Load<TextAsset>("Audio/Soundsets/" + stemp);
 				}
 
 				if (xlayer1.Name == "abilities") {
 					//Make sure only the in-use ones are ticked
-//					foreach (KeyValuePair<string, bool> pair in s_dAbilityToggles) {
-//						pair. = false;
-//					}
 					ReloadAbilities();
 
 					foreach (XElement xlayer2 in xlayer1.Elements()) {
@@ -406,6 +386,15 @@ public class UnitEditor : EditorWindow {
 					}
 				}
 			}
+		}
+
+		//Alert designers
+		if (s_sULSprite == null || s_sURSprite == null || s_sDLSprite == null || s_sDRSprite == null) {
+			EditorUtility.DisplayDialog("Load Error", "One or more of the unit's sprites were null. Make sure the sprites are located in the Resources/UnitSprites root folder!", "OK");
+		}
+
+		if (s_sSoundset == null) {
+			Debug.LogError("Load Error: the unit's soundset was null! Make sure it is located in Resources/Audio/Soundsets or it won't load properly!");
 		}
 	}
 
@@ -581,6 +570,18 @@ public class UnitEditor : EditorWindow {
 		writer.WriteEndElement();
 		writer.WriteWhitespace("\n");
 
+		//Soundset
+		writer.WriteWhitespace("\t");
+		writer.WriteStartElement("soundset");
+		if (s_sSoundset != null) {
+			writer.WriteValue(s_sSoundset.name);
+		}
+		else {
+			writer.WriteValue("null");
+		}
+		writer.WriteEndElement();
+		writer.WriteWhitespace("\n");
+
 		writer.WriteWhitespace("\n");
 
 		//Abilities
@@ -609,20 +610,36 @@ public class UnitEditor : EditorWindow {
 	}
 
 	public static void ReloadAbilities() {
+		bool bPreserveLast = true;
+
 		if (s_dAbilityToggles == null) {
 			s_dAbilityToggles = new Dictionary<string, bool>();
+			bPreserveLast = false;
 		}
 
-//		if (s_dAbilityPower == null) {
-//			s_dAbilityPower = new Dictionary<string, float>();
-//		}
+		//Preserve the last ticked ones on refreshing
+		Dictionary<string, bool> dictemp = new Dictionary<string, bool>();
+		if (bPreserveLast) {
+			foreach (KeyValuePair<string, bool> pair in s_dAbilityToggles) {
+				if (pair.Value == true) {
+					dictemp.Add(pair.Key, true);
+				}
+			}
+		}
 
 		s_dAbilityToggles.Clear();
-		//s_dAbilityPower.Clear();
 
 		foreach (KeyValuePair<string, Ability> abilpair in AbilityBox.s_dAbilityLookup) {
 			s_dAbilityToggles.Add(abilpair.Key, false);
-			//s_dAbilityPower.Add(abilpair.Key, 0.0f);
+		}
+
+		//Reload last ticked ones
+		if (dictemp.Count > 0 && bPreserveLast) {
+			foreach (KeyValuePair<string, bool> pair in dictemp) {
+				if (s_dAbilityToggles.ContainsKey(pair.Key)) {
+					s_dAbilityToggles[pair.Key] = true;
+				}
+			}
 		}
 	}
 }
