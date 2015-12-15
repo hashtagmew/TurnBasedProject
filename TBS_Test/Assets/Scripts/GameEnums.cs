@@ -116,3 +116,11 @@ public enum SOUNDSET_TYPE {
 	UNIT,
 	ABILITY
 }
+
+public enum GAMEPLAY_STATE {
+	NONE = 0,
+	DEPLOYING,
+	IDLE,
+	SELECT_TARGET,
+	WAIT
+}

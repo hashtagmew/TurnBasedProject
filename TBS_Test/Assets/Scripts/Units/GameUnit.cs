@@ -131,6 +131,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				}
 			}
 
+			//Post-stream
+			this.fHealth = fCorrectHealth;
+			this.fMaxHealth = fCorrectMaxHealth;
+
 			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
 			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
 
@@ -289,6 +293,15 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		return (Mathf.Abs(a - b) < tolerance);
 	}
 
+	[PunRPC]
+	public void LoadUnitStatsRemote(string path) {
+		netman = GameObject.FindGameObjectWithTag ("Managers").GetComponent<NetGameManager> ();
+
+		Debug.Log ("REMOTE CALL" + path);
+		LoadUnitStats (path);
+		netman.l_guUnits.Add (this);
+	}
+
 	public bool LoadUnitStats(string path) {
 		TextAsset taUnit = (TextAsset)Resources.Load<TextAsset>("UnitFiles/" + path);
 
@@ -390,6 +403,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			stream.SendNext(transform.rotation);
 			stream.SendNext(fHealth);
 			stream.SendNext(fMaxHealth);
+			stream.SendNext(sName);
 		}
 		else {
 			//Net player
@@ -398,9 +412,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			this.fCorrectHealth = (float)stream.ReceiveNext();
 			this.fCorrectMaxHealth = (float)stream.ReceiveNext();
 
-			//Post-stream
-			this.fHealth = fCorrectHealth;
-			this.fMaxHealth = fCorrectMaxHealth;
+
 		}
 	}
 

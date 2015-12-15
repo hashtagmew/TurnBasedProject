@@ -7,6 +7,11 @@ public class ClickableTile : MonoBehaviour {
 	public int tileX;
 	public int tileY;
 	public TileMap map;
+	public NetGameManager mngNetGame;
+
+	void Start() {
+		mngNetGame = GameObject.FindGameObjectWithTag ("Managers").GetComponent<NetGameManager> ();
+	}
 
 	void OnMouseUp() {
 		//Debug.Log ("Click!");
@@ -14,8 +19,11 @@ public class ClickableTile : MonoBehaviour {
 		if(EventSystem.current.IsPointerOverGameObject())
 			return;
 
+		//Should we move?
 		if (map.selectedUnit != null) {
-			map.GeneratePathTo (tileX, tileY);
+			if (mngNetGame.eLocalState == GAMEPLAY_STATE.IDLE && mngNetGame.IsLocalTurn()) {
+				map.GeneratePathTo (tileX, tileY);
+			}
 		}
 	}
 

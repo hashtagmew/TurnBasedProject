@@ -330,7 +330,7 @@ public class PUNNetController : PunBehaviour {
 			int readyCount = 0;
 			foreach (PhotonPlayer player in PhotonNetwork.playerList)
 			{
-				if ((bool)(player.customProperties["ready"]) == true)
+				if ((bool)(player.customProperties["Ready"]) == true)
 				{
 					readyCount += 1;
 				}

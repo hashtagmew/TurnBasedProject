@@ -22,6 +22,8 @@ public class NetGameManager : MonoBehaviour {
 	public Button depbut6;
 	public Button depbut7;
 
+	public GAMEPLAY_STATE eLocalState = GAMEPLAY_STATE.WAIT;
+
 	public UNIT_FACTION eLocalFaction = UNIT_FACTION.NONE;
 
 	//public GameObject goLocalNetPlayer;
@@ -65,7 +67,7 @@ public class NetGameManager : MonoBehaviour {
 //		}
 
 		DeployPanel.SetActive (false);
-
+		eLocalState = GAMEPLAY_STATE.DEPLOYING;
 		Debug.Log("NetGameManager loaded... " + ray.ToString());
 
 //		for (int y = 0; y < map.iMapVertSize; y++) {
@@ -83,6 +85,14 @@ public class NetGameManager : MonoBehaviour {
 //				}
 //			}
 //		}
+	}
+
+	public bool IsLocalTurn() {
+		if ((int)PhotonNetwork.room.customProperties ["Turn"] == PhotonNetwork.player.ID) {
+			return true;
+		}
+
+		return false;
 	}
 	
 	// Update is called once per frame
@@ -105,14 +115,17 @@ public class NetGameManager : MonoBehaviour {
 //			}
 //		}
 
-		if ((bool)PhotonNetwork.player.customProperties ["ReadyDep"] == true) {
-			if ((bool)PhotonNetwork.otherPlayers [0].customProperties ["ReadyDep"] == true) {
-				DeploBut.SetActive(false);
-				ReadyBut.SetActive(false);
+		if ((string)PhotonNetwork.player.customProperties ["Mode"] == "deploy") {
+			if ((bool)PhotonNetwork.player.customProperties ["ReadyDep"] == true) {
+				if ((bool)PhotonNetwork.otherPlayers [0].customProperties ["ReadyDep"] == true) {
+					DeploBut.SetActive (false);
+					ReadyBut.SetActive (false);
 
-				ExitGames.Client.Photon.Hashtable m_PropertiesHash = new ExitGames.Client.Photon.Hashtable();
-				m_PropertiesHash.Add("Mode", "play");
-				PhotonNetwork.room.SetCustomProperties(m_PropertiesHash);
+					ExitGames.Client.Photon.Hashtable m_PropertiesHash = new ExitGames.Client.Photon.Hashtable ();
+					m_PropertiesHash.Add ("Mode", "play");
+					PhotonNetwork.room.SetCustomProperties (m_PropertiesHash);
+					eLocalState = GAMEPLAY_STATE.IDLE;
+				}
 			}
 		}
 
@@ -147,6 +160,7 @@ public class NetGameManager : MonoBehaviour {
 //			}
 		}
 	}
+
 	public void DeployUnit(string unit){	
 		//Vector3 vectemp = new Vector3 (0.0f, 0.0f, 0.0f);
 		GameObject tempunit = (GameObject)PhotonNetwork.Instantiate ("NetGameUnit", TileCursor.transform.position, Quaternion.identity, 0);
@@ -156,6 +170,7 @@ public class NetGameManager : MonoBehaviour {
 		tempunit2.tileY = (int)TileCursor.transform.position.z;
 		
 		tempunit2.LoadUnitStats(unit);
+		tempunit2.photonView.RPC("LoadUnitStatsRemote", PhotonTargets.Others, unit);
 		tempunit2.eGridDirection = UNIT_DIR.DOWN_RIGHT;
 
 		l_guUnits.Add(tempunit2);
