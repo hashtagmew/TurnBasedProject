@@ -183,8 +183,8 @@ public class NetGameManager : MonoBehaviour {
 		if (DeployPanel.GetActive()) {
 			if (eLocalFaction == UNIT_FACTION.MAGICAL) {
 				//1
-				if (plyprefs.l_sMagicalUnits.Count >= 1) {
-					depbut1.interactable = true;
+				if (plyprefs.l_sMagicalUnits[0].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut1.interactable) {
 					depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[0].Key;
@@ -194,8 +194,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 
 				//2
-				if (plyprefs.l_sMagicalUnits.Count >= 2) {
-					depbut2.interactable = true;
+				if (plyprefs.l_sMagicalUnits[1].Key == "null") {
+					depbut2.interactable = false;
 				}
 				if (depbut2.interactable) {
 					depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[1].Key;
@@ -205,8 +205,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 
 				//3
-				if (plyprefs.l_sMagicalUnits.Count >= 3) {
-					depbut3.interactable = true;
+				if (plyprefs.l_sMagicalUnits[2].Key == "null") {
+					depbut3.interactable = false;
 				}
 				if (depbut3.interactable) {
 					depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[2].Key;
@@ -216,8 +216,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 
 				//4
-				if (plyprefs.l_sMagicalUnits.Count >= 4) {
-					depbut4.interactable = true;
+				if (plyprefs.l_sMagicalUnits[3].Key == "null") {
+					depbut4.interactable = false;
 				}
 				if (depbut4.interactable) {
 					depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[3].Key;
@@ -227,8 +227,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 
 				//5
-				if (plyprefs.l_sMagicalUnits.Count >= 5) {
-					depbut5.interactable = true;
+				if (plyprefs.l_sMagicalUnits[4].Key == "null") {
+					depbut5.interactable = false;
 				}
 				if (depbut5.interactable) {
 					depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[4].Key;
@@ -238,8 +238,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 
 				//6
-				if (plyprefs.l_sMagicalUnits.Count >= 6) {
-					depbut6.interactable = true;
+				if (plyprefs.l_sMagicalUnits[5].Key == "null") {
+					depbut6.interactable = false;
 				}
 				if (depbut6.interactable) {
 					depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[5].Key;
@@ -261,8 +261,8 @@ public class NetGameManager : MonoBehaviour {
 			} 
 			else {
 				//1
-				if (plyprefs.l_sMechanicalUnits.Count >= 1) {
-					depbut1.interactable = true;
+				if (plyprefs.l_sMechanicalUnits[0].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut1.interactable) {
 					depbut1.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[0].Key;
@@ -272,8 +272,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 				
 				//2
-				if (plyprefs.l_sMechanicalUnits.Count >= 2) {
-					depbut2.interactable = true;
+				if (plyprefs.l_sMechanicalUnits[1].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut2.interactable) {
 					depbut2.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[1].Key;
@@ -283,8 +283,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 				
 				//3
-				if (plyprefs.l_sMechanicalUnits.Count >= 3) {
-					depbut3.interactable = true;
+				if (plyprefs.l_sMechanicalUnits[2].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut3.interactable) {
 					depbut3.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[2].Key;
@@ -294,8 +294,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 				
 				//4
-				if (plyprefs.l_sMechanicalUnits.Count >= 4) {
-					depbut4.interactable = true;
+				if (plyprefs.l_sMechanicalUnits[3].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut4.interactable) {
 					depbut4.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[3].Key;
@@ -305,8 +305,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 				
 				//5
-				if (plyprefs.l_sMechanicalUnits.Count >= 5) {
-					depbut5.interactable = true;
+				if (plyprefs.l_sMechanicalUnits[4].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut5.interactable) {
 					depbut5.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[4].Key;
@@ -316,8 +316,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 				
 				//6
-				if (plyprefs.l_sMechanicalUnits.Count >= 6) {
-					depbut6.interactable = true;
+				if (plyprefs.l_sMechanicalUnits[5].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut6.interactable) {
 					depbut6.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[5].Key;
@@ -327,8 +327,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 				
 				//7
-				if (plyprefs.l_sMechanicalUnits.Count >= 7) {
-					depbut7.interactable = true;
+				if (plyprefs.l_sMechanicalUnits[6].Key == "null") {
+					depbut1.interactable = false;
 				}
 				if (depbut7.interactable) {
 					depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMechanicalUnits[6].Key;

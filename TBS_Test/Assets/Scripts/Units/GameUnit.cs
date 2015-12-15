@@ -401,6 +401,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 	public void LoadSoundset(string path) {
 		TextAsset taSoundset = Resources.Load<TextAsset>("Audio/Soundsets/" + path);
+		AudioClip tempclip;
 
 		XDocument xmlDoc = XDocument.Load(new StringReader(taSoundset.text));
 		
@@ -414,8 +415,13 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 						return;
 					}
 				}
-				else if (Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value) == null) {
-					Debug.LogError("Can't find sound: Audio/" + xlayer1.Value);
+				else {
+					if (Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value) == null) {
+						Debug.LogError("Can't find sound: Audio/" + xlayer1.Value);
+					}
+					else {
+						Debug.Log("Audio/" + xlayer1.Value);
+					}
 				}
 
 				if (xlayer1.Name == "select") {
