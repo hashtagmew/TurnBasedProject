@@ -155,10 +155,11 @@ public class NetGameManager : MonoBehaviour {
 		tempunit2.tileX = (int)TileCursor.transform.position.x;
 		tempunit2.tileY = (int)TileCursor.transform.position.z;
 		
-		tempunit2.LoadUnitStats (unit);
+		tempunit2.LoadUnitStats(unit);
+		tempunit2.eGridDirection = UNIT_DIR.DOWN_RIGHT;
 
-		l_guUnits.Add (tempunit2);
-		DeployPanel.SetActive (false);
+		l_guUnits.Add(tempunit2);
+		DeployPanel.SetActive(false);
 	}
 
 	public void DeployUnit(int num) {

@@ -76,7 +76,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	public Sprite texDirSpriteUL;
 	public Sprite texDirSpriteDL;
 
-	public Soundset ssSoundset;
+	public Soundset ssSoundset = new Soundset();
 
 	//Net stuff
 	private Vector3 vCorrectPos;
@@ -110,6 +110,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			Debug.Log ("Path map is null");
 		}
 		myRend = this.GetComponentInChildren<SpriteRenderer> ();
+
+		if (myRend == null) {
+			Debug.LogWarning("myRend was null!");
+		}
 	}
 	
 	// Update is called once per frame
@@ -130,10 +134,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
 			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);
 
-		} else {
-			Debug.Log ("nullPhoton");
-	
-
+		} 
+		else {
 			//End turn
 		
 		
@@ -156,6 +158,9 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				eGridDirection = UNIT_DIR.UP_LEFT;
 			} else if (currDirX == 1 && currDirY == 0) {
 				eGridDirection = UNIT_DIR.DOWN_LEFT;
+			}
+			else {
+				eGridDirection = UNIT_DIR.DOWN_RIGHT;
 			}
 		
 			//Changing sprite based on direction
@@ -358,7 +363,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				}
 				else if (xlayer1.Name == "spriteDR") {
 					string stemp = xlayer1.Value;
-					texDirSpriteUR = Resources.Load<Sprite>("UnitSprites/" + stemp);
+					texDirSpriteDR = Resources.Load<Sprite>("UnitSprites/" + stemp);
 				}
 				//soundset
 				else if (xlayer1.Name == "soundset") {
@@ -401,7 +406,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 	public void LoadSoundset(string path) {
 		TextAsset taSoundset = Resources.Load<TextAsset>("Audio/Soundsets/" + path);
-		AudioClip tempclip;
+		//AudioClip tempclip;
 
 		XDocument xmlDoc = XDocument.Load(new StringReader(taSoundset.text));
 		
@@ -416,24 +421,24 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 					}
 				}
 				else {
-					if (Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value) == null) {
-						Debug.LogError("Can't find sound: Audio/" + xlayer1.Value);
+					if (Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value) == null  && xlayer1.Value != "null") {
+						Debug.Log("Can't find sound: Audio/" + xlayer1.Value);
 					}
 					else {
-						Debug.Log("Audio/" + xlayer1.Value);
+						Debug.Log("Loaded Audio/" + xlayer1.Value);
 					}
 				}
 
-				if (xlayer1.Name == "select") {
+				if (xlayer1.Name == "select" && xlayer1.Value != "null") {
 					ssSoundset.AddClip("select", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
 				}
-				else if (xlayer1.Name == "move") {
+				else if (xlayer1.Name == "move" && xlayer1.Value != "null") {
 					ssSoundset.AddClip("move", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
 				}
-				else if (xlayer1.Name == "attack") {
+				else if (xlayer1.Name == "attack" && xlayer1.Value != "null") {
 					ssSoundset.AddClip("attack", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
 				}
-				else if (xlayer1.Name == "footstep") {
+				else if (xlayer1.Name == "footstep" && xlayer1.Value != "null") {
 					ssSoundset.AddClip("footstep", Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value));
 				}
 			}
