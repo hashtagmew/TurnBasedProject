@@ -118,18 +118,18 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	
 	// Update is called once per frame
 	void Update() {
-
-
-
 		if (!photonView.isMine) {
-			if (netman.l_guUnits != null && netman.l_guUnits.Count > 0) {
-				foreach (GameUnit unittemp in netman.l_guUnits) {
-					if (unittemp != null) {
-						unittemp.GetComponent<GameUnit>().tileX = (int)unittemp.transform.position.x;
-						unittemp.GetComponent<GameUnit>().tileY = (int)unittemp.transform.position.z;
-					}
-				}
-			}
+//			if (netman.l_guUnits != null && netman.l_guUnits.Count > 0) {
+//				foreach (GameUnit unittemp in netman.l_guUnits) {
+//					if (unittemp != null) {
+//						unittemp.GetComponent<GameUnit>().tileX = (int)unittemp.transform.position.x;
+//						unittemp.GetComponent<GameUnit>().tileY = (int)unittemp.transform.position.z;
+//					}
+//				}
+//			}
+
+			//tileX = (int)transform.position.x;
+			//tileY = (int)transform.position.z;
 
 			//Post-stream
 			this.fHealth = fCorrectHealth;
@@ -140,11 +140,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 		} 
 		else {
-			//End turn
-		
-		
 			//Finding Direction the Unit is moving in so that the sprite can be changed
-		
 			if (currentPath != null && currentPath.Count > 1) {
 				CurPos = new Vector2 (tileX, tileY);
 				NextPos = new Vector2 (currentPath [1].x, currentPath [1].y);
@@ -169,16 +165,24 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		
 			//Changing sprite based on direction
 			if (eGridDirection == UNIT_DIR.UP_RIGHT) {
-				myRend.sprite = texDirSpriteUR;
+				if (myRend.sprite != texDirSpriteUR) {
+					myRend.sprite = texDirSpriteUR;
+				}
 			}
 			if (eGridDirection == UNIT_DIR.DOWN_RIGHT) {
-				myRend.sprite = texDirSpriteDR;
+				if (myRend.sprite != texDirSpriteDR) {
+					myRend.sprite = texDirSpriteDR;
+				}
 			}
 			if (eGridDirection == UNIT_DIR.UP_LEFT) {
-				myRend.sprite = texDirSpriteUL;
+				if (myRend.sprite != texDirSpriteUL) {
+					myRend.sprite = texDirSpriteUL;
+				}
 			}
 			if (eGridDirection == UNIT_DIR.DOWN_LEFT) {
-				myRend.sprite = texDirSpriteDL;
+				if (myRend.sprite != texDirSpriteDL) {
+					myRend.sprite = texDirSpriteDL;
+				}
 			}
 		
 			// Draw our debug line showing the pathfinding!

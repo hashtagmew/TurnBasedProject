@@ -124,3 +124,10 @@ public enum GAMEPLAY_STATE {
 	SELECT_TARGET,
 	WAIT
 }
+
+public enum EXECUTION_STATE {
+	NONE = 0,
+	START,
+	MID,
+	END
+}

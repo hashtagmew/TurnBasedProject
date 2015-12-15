@@ -13,6 +13,18 @@ public class NetGameManager : MonoBehaviour {
 	public GameObject ReadyBut;
 //	public string CurDeployed;
 	public GameObject TileCursor;
+	public GameObject uiAbilityPanel;
+	public GameObject protoAbilityButton;
+
+	public float fDelayCountdown;
+
+	public Ability curAbility = null;
+	public GameObject curTarget = null;
+	public EXECUTION_STATE curAbilityState = EXECUTION_STATE.NONE;
+
+	private List<GameObject> goAbilityButtons = new List<GameObject>();
+
+	public bool bDeltaAbilityPanel = false;
 
 	public Button depbut1;
 	public Button depbut2;
@@ -42,6 +54,8 @@ public class NetGameManager : MonoBehaviour {
 	//public GameObject protoUnit;
 	
 	void Start() {
+		AbilityBox.ReloadAbilites ();
+
 		plyprefs.LoadPrefs();
 
 		if ((int)PhotonNetwork.player.customProperties["Faction"] == 1) {
@@ -94,6 +108,24 @@ public class NetGameManager : MonoBehaviour {
 
 		return false;
 	}
+
+//	[PunRPC]
+//	public void ChangeMode(string mode) {
+//		Debug.Log ("RPC ChangeMode " + mode);
+//		if (mode == "play") {
+//			ExitGames.Client.Photon.Hashtable m_PropertiesHash = new ExitGames.Client.Photon.Hashtable ();
+//			m_PropertiesHash.Add ("Mode", "play");
+//			PhotonNetwork.room.SetCustomProperties (m_PropertiesHash);
+//
+//			eLocalState = GAMEPLAY_STATE.IDLE;
+//		}
+//	}
+
+	public void AbilityButtonPressed(GameObject button) {
+		Debug.Log (button.GetComponentInChildren<Text> ().text);
+		eLocalState = GAMEPLAY_STATE.SELECT_TARGET;
+		curAbility = AbilityBox.s_dAbilityLookup [button.GetComponentInChildren<Text> ().text];
+	}
 	
 	// Update is called once per frame
 	void Update() {
@@ -101,42 +133,199 @@ public class NetGameManager : MonoBehaviour {
 			Debug.ClearDeveloperConsole();
 			Application.LoadLevel("net-main-menu");
 		}
-		
-//		Debug.Log (PhotonNetwork.player.ID);
 
-		//Is it our turn?
-//		if (PhotonNetwork.room == null) {
-//			Debug.Log("Not sure if our turn, no room is present!");
-//		}
-//		else {
-//			Debug.Log("PAIRS " + PhotonNetwork.room.customProperties.Count.ToString());
-//			foreach (DictionaryEntry pair in PhotonNetwork.room.customProperties) {
-//				Debug.Log(pair.Key);
-//			}
-//		}
+		if (!PhotonNetwork.isMasterClient) {
+			if ((string)PhotonNetwork.room.customProperties["Mode"] == "play" && eLocalState == GAMEPLAY_STATE.DEPLOYING) {
+				Debug.Log ("Changing local mode to idle...");
+				eLocalState = GAMEPLAY_STATE.IDLE;
+			}
+			else {
+				//Debug.Log((string)PhotonNetwork.room.customProperties["Mode"]);
+			}
+		}
 
-		if ((string)PhotonNetwork.player.customProperties ["Mode"] == "deploy") {
+		if ((string)PhotonNetwork.player.customProperties ["Mode"] == "deploy" && PhotonNetwork.isMasterClient) {
+			Debug.Log ("Changing mode to play...");
 			if ((bool)PhotonNetwork.player.customProperties ["ReadyDep"] == true) {
 				if ((bool)PhotonNetwork.otherPlayers [0].customProperties ["ReadyDep"] == true) {
-					DeploBut.SetActive (false);
-					ReadyBut.SetActive (false);
+					DeploBut.gameObject.SetActive (false);
+					ReadyBut.gameObject.SetActive (false);
 
 					ExitGames.Client.Photon.Hashtable m_PropertiesHash = new ExitGames.Client.Photon.Hashtable ();
 					m_PropertiesHash.Add ("Mode", "play");
 					PhotonNetwork.room.SetCustomProperties (m_PropertiesHash);
 					eLocalState = GAMEPLAY_STATE.IDLE;
+
+					//this.photonView.RPC("LoadUnitStatsRemote", PhotonTargets.Others, unit);
 				}
 			}
 		}
 
+		//Turn stuff
 		if (PhotonNetwork.room != null) {
-			if ((int)PhotonNetwork.room.customProperties["Turn"] == PhotonNetwork.player.ID && (string)PhotonNetwork.room.customProperties["Mode"] == "play") {
-				uiEndTurn.interactable = true;
-				txtTurn.text = "My turn";
+			if (IsLocalTurn()) {
+
+				//Select
+				GameUnit selunit = null;
+				if (Tmap.selectedUnit != null) {
+					selunit = Tmap.selectedUnit.GetComponent<GameUnit>();
+				}
+
+				//Aiming
+				if (eLocalState == GAMEPLAY_STATE.SELECT_TARGET) {
+					if (curAbility.iTargetType == EFFECT_TARGET.SELF) {
+						curTarget = Tmap.selectedUnit;
+					}
+					//SINGLE TILE
+					else if (curAbility.iTargetType == EFFECT_TARGET.SINGLE_EMPTY_TILE) {
+						if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+							ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+	
+							if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"))) {
+								Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.green);
+
+								//TODO: CHECK IF EMPTY
+								curTarget = rayHit.collider.gameObject;
+							}
+						}
+
+						if (Input.GetMouseButtonDown(1)) {
+							eLocalState = GAMEPLAY_STATE.IDLE;
+						}
+					}
+					//SINGLE ENEMY
+					else if (curAbility.iTargetType == EFFECT_TARGET.SINGLE_ENEMY || curAbility.iTargetType == EFFECT_TARGET.AREA) {
+						if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+							ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+							
+							if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("GameUnit"))) {
+								Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.green);
+
+								Debug.Log (rayHit.collider.gameObject.name);
+								Debug.Log (rayHit.collider.gameObject.GetComponentInParent<GameUnit>().sName);
+
+								if (!rayHit.collider.gameObject.GetComponentInParent<GameUnit>().photonView.isMine) {
+									curTarget = rayHit.collider.gameObject;
+								}
+							}
+						}
+						
+						if (Input.GetMouseButtonDown(1)) {
+							eLocalState = GAMEPLAY_STATE.IDLE;
+						}
+					}
+					else {
+						Debug.Log(curAbility.iArea);
+						Debug.Log(curAbility.fDelayStart);
+						Debug.Log(curAbility.fDelayRun);
+						Debug.Log(curAbility.fDelayFinish);
+						Debug.Log(curAbility.iAccuracy);
+						Debug.Log(curAbility.sParticleFinish);
+
+						Debug.LogError("No code for that target exists (" + curAbility.iTargetType.ToString() + ")");
+					}
+				}
+
+				//Show Abilities
+				if (eLocalState == GAMEPLAY_STATE.IDLE && Tmap.selectedUnit != null && selunit.currentPath == null) {
+					uiAbilityPanel.SetActive(true);
+					if (!bDeltaAbilityPanel) {
+						int count = 0;
+
+						if (goAbilityButtons.Count > 0) {
+							for (int i = goAbilityButtons.Count - 1; i > -1; i--) {
+								GameObject.Destroy(goAbilityButtons[i]);
+							}
+						}
+
+						goAbilityButtons.Clear();
+
+						foreach (KeyValuePair<string, Ability> pair in selunit.d_abilities) {
+							GameObject goTemp = (GameObject)GameObject.Instantiate(protoAbilityButton, Vector3.zero, Quaternion.identity);
+							goAbilityButtons.Add(goTemp);
+							goTemp.transform.SetParent(uiAbilityPanel.transform);
+							RectTransform rectemp = goTemp.GetComponent<RectTransform>();
+							rectemp.anchoredPosition = new Vector2(0, 32 - 34 * count);
+
+							goTemp.GetComponentInChildren<Text>().text = pair.Key;
+
+							goTemp.GetComponent<Button>().onClick.AddListener(delegate {
+								AbilityButtonPressed(goTemp);
+							});
+
+							count++;
+						}
+
+						bDeltaAbilityPanel = true;
+					}
+				}
+				else {
+					uiAbilityPanel.SetActive(false);
+					bDeltaAbilityPanel = false;
+				}
+
+				//Execution
+				if (eLocalState == GAMEPLAY_STATE.SELECT_TARGET && curTarget != null) {
+					eLocalState = GAMEPLAY_STATE.WAIT;
+					curAbilityState = EXECUTION_STATE.START;
+
+					GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleStart), curTarget.transform.position, Quaternion.identity);
+					fDelayCountdown = curAbility.fDelayStart;
+					//this.GetComponent<AudioManager>().PlayOnce(curAbility.sSoundset);
+				}
+
+				if (curAbilityState == EXECUTION_STATE.START) {
+					fDelayCountdown -= Time.deltaTime;
+
+					if (fDelayCountdown <= 0) {
+						curAbilityState = EXECUTION_STATE.MID;
+						
+						GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleRun), curTarget.transform.position, Quaternion.identity);
+						fDelayCountdown = curAbility.fDelayRun;
+					}
+				}
+
+				if (curAbilityState == EXECUTION_STATE.MID) {
+					fDelayCountdown -= Time.deltaTime;
+					
+					if (fDelayCountdown <= 0) {
+						curAbilityState = EXECUTION_STATE.END;
+						
+						GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleFinish), curTarget.transform.position, Quaternion.identity);
+
+						if (curAbility.d_EffectsResolution.ContainsKey("Damage")) {
+							curTarget.GetComponent<GameUnit>().fHealth -= curAbility.d_EffectsActivation["Damage"].fAdjustFloat;
+						}
+
+						fDelayCountdown = curAbility.fDelayFinish;
+					}
+				}
+
+				if (curAbilityState == EXECUTION_STATE.END) {
+					fDelayCountdown -= Time.deltaTime;
+					
+					if (fDelayCountdown <= 0) {
+						curAbilityState = EXECUTION_STATE.NONE;
+						
+						eLocalState = GAMEPLAY_STATE.IDLE;
+						curTarget = null;
+						curAbility = null;
+					}
+				}
+				
+				//EndTurn turn
+				if (eLocalState == GAMEPLAY_STATE.IDLE) {
+					uiEndTurn.interactable = true;
+				}
+				else {
+					uiEndTurn.interactable = false;
+				}
+
+				txtTurn.text = "My turn " + eLocalState.ToString();
 			}
 			else {
 				uiEndTurn.interactable = false;
-				txtTurn.text = "Their turn";
+				txtTurn.text = "Their turn " + eLocalState.ToString();
 			}
 
 //			if (Input.GetKeyDown(KeyCode.P) && !goLocalNetPlayer) {
@@ -147,8 +336,8 @@ public class NetGameManager : MonoBehaviour {
 		//Debug
 
 
-		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
-			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		//if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+			//ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 //			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("GameUnit"))) {
 //				Debug.Log (PhotonNetwork.player.ID);
@@ -158,7 +347,7 @@ public class NetGameManager : MonoBehaviour {
 //					Debug.Log("Photon Player Working");
 //				}
 //			}
-		}
+		//}
 	}
 
 	public void DeployUnit(string unit){	

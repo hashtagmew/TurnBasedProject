@@ -45,6 +45,10 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 
+	public void PlayOnce(string path) {
+		this.GetComponent<AudioSource> ().PlayOneShot (d_acSounds [path]);
+	}
+
 	public void LoadSavedVolumes() {
 		if (PlayerPrefs.HasKey("Volume_SFX")) {
 			iSoundVolume = PlayerPrefs.GetInt("Volume_SFX");
