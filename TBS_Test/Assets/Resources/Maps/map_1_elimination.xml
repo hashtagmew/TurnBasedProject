@@ -1824,6 +1824,7 @@
 			<rotation>0</rotation>
 			<xpos>2</xpos>
 			<ypos>12</ypos>
+			<feature type="8" />
 		</tile>
 		<tile>
 			<type>1</type>
@@ -3007,6 +3008,7 @@
 			<rotation>0</rotation>
 			<xpos>22</xpos>
 			<ypos>12</ypos>
+			<feature type="8" />
 		</tile>
 		<tile>
 			<type>1</type>

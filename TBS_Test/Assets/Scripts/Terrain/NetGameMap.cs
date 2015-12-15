@@ -72,11 +72,11 @@ public class NetGameMap : MonoBehaviour {
 		TextAsset taLevel = Resources.Load<TextAsset>(path);
 		XmlDocument xdoc = new XmlDocument();
 
-		xdoc.LoadXml(taLevel.text);
-		
 		if (taLevel == null) {
 			Debug.LogError("Failed to load level " + path + "!");
 		}
+
+		xdoc.LoadXml(taLevel.text);
 
 		//Convert XmlDocument to XDocument
 		using (MemoryStream memStream = new MemoryStream()) {

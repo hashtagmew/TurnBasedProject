@@ -56,6 +56,11 @@ public class TerrainFeature : MonoBehaviour {
 
 			ChangeModel("hill");
 		}
+		else if (iType == FEATURE_TYPE.PLAYER_START) {
+			this.name = "Feature-PlayerStart";
+
+			ChangeModel("playerstart");
+		}
 	}
 
 	void ChangeModel(string name) {

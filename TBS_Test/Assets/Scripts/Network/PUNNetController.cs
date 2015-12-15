@@ -187,6 +187,7 @@ public class PUNNetController : PunBehaviour {
 			}
 			
 			uiMapSlider.maxValue = (float)(l_sMaps.Count - 1);
+			setRoomMap();
 		}
 		else {
 			uiMapSlider.interactable = false;

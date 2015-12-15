@@ -100,6 +100,7 @@ public class MapEditorLogic : Editor {
 			goTileCheck.GetComponent<MapTile>().Terraform(TilePicker.s_iSelection, TilePicker.s_eTransition, TilePicker.s_eTileRot);
 			Debug.Log (TilePicker.s_eTransition.ToString() + " " + TilePicker.s_eTileRot.ToString());
 		}
+		//Terrain features
 		else {
 			GameObject newfeat = GameObject.Instantiate(((MapEditor)target).goProtoFeature);
 			goTileCheck.GetComponent<MapTile>().l_tfFeatures.Add(newfeat.GetComponent<TerrainFeature>());

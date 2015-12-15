@@ -77,7 +77,8 @@ public enum FEATURE_TYPE {
 	MOUNTAIN,
 	HILL,
 	BRIDGE,
-	WALL
+	WALL,
+	PLAYER_START
 }
 
 public enum UNIT_FACTION {

@@ -75,7 +75,7 @@ public class PlayerDeploymentPrefs {
 		}
 
 		for (int i = 1; i < 8; i++) {
-			if (PlayerPrefs.HasKey("magical_slot" + i.ToString() + "_name") && PlayerPrefs.GetString("magical_slot" + i.ToString() + "_name") != "null") {
+			if (PlayerPrefs.HasKey("magical_slot" + i.ToString() + "_name")) {
 				sTemp = PlayerPrefs.GetString("magical_slot" + i.ToString() + "_name");
 				if (PlayerPrefs.HasKey("magical_slot" + i.ToString() + "_cost")) {
 					iTemp = PlayerPrefs.GetInt("magical_slot" + i.ToString() + "_cost");
@@ -84,7 +84,7 @@ public class PlayerDeploymentPrefs {
 				l_sMagicalUnits.Add(new KeyValuePair<string, int>(sTemp, iTemp));
 			}
 
-			if (PlayerPrefs.HasKey("mechanical_slot" + i.ToString() + "_name") && PlayerPrefs.GetString("mechanical_slot" + i.ToString() + "_name") != "null") {
+			if (PlayerPrefs.HasKey("mechanical_slot" + i.ToString() + "_name")) {
 				sTemp = PlayerPrefs.GetString("mechanical_slot" + i.ToString() + "_name");
 				if (PlayerPrefs.HasKey("mechanical_slot" + i.ToString() + "_cost")) {
 					iTemp = PlayerPrefs.GetInt("mechanical_slot" + i.ToString() + "_cost");

@@ -88,6 +88,7 @@ public class NetGameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.F1)) {
+			Debug.ClearDeveloperConsole();
 			Application.LoadLevel("net-main-menu");
 		}
 		
@@ -248,8 +249,8 @@ public class NetGameManager : MonoBehaviour {
 				}
 
 				//7
-				if (plyprefs.l_sMagicalUnits.Count >= 7) {
-					depbut7.interactable = true;
+				if (plyprefs.l_sMagicalUnits[6].Key == "null") {
+					depbut7.interactable = false;
 				}
 				if (depbut7.interactable) {
 					depbut7.GetComponentInChildren<Text>().text = plyprefs.l_sMagicalUnits[6].Key;

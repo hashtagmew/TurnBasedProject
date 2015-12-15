@@ -343,6 +343,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				else if (xlayer1.Name == "spriteUL") {
 					string stemp = xlayer1.Value;
 					texDirSpriteUL = Resources.Load<Sprite>("UnitSprites/" + stemp);
+
+					if (texDirSpriteUL == null) {
+						Debug.Log(this.name + "'s UL sprite was null!");
+					}
 				}
 				else if (xlayer1.Name == "spriteUR") {
 					string stemp = xlayer1.Value;
@@ -396,9 +400,11 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	}
 
 	public void LoadSoundset(string path) {
-		XDocument s_xmlDoc = XDocument.Load(path);
+		TextAsset taSoundset = Resources.Load<TextAsset>("Audio/Soundsets/" + path);
+
+		XDocument xmlDoc = XDocument.Load(new StringReader(taSoundset.text));
 		
-		foreach (XElement xroot in s_xmlDoc.Elements()) {
+		foreach (XElement xroot in xmlDoc.Elements()) {
 			foreach (XElement xlayer1 in xroot.Elements()) {
 				if (xlayer1.Name == "type") {
 					SOUNDSET_TYPE temptype = (SOUNDSET_TYPE)(int.Parse(xlayer1.Value));
@@ -407,6 +413,9 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 						Debug.LogError("GameUnit attempted to load a non-unit soundset!");
 						return;
 					}
+				}
+				else if (Resources.Load<AudioClip>("Audio/" + (string)xlayer1.Value) == null) {
+					Debug.LogError("Can't find sound: Audio/" + xlayer1.Value);
 				}
 
 				if (xlayer1.Name == "select") {
