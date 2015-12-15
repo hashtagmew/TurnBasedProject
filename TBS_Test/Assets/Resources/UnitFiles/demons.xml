@@ -1,6 +1,6 @@
 <TBSUnit>
 	<name>Demons</name>
-	<description>Close combat unit</description>
+	<description>Spawns of hellish magic that uses sword and flame to slaugher their enemies.</description>
 	<faction>3</faction>
 
 	<ap>3</ap>
@@ -20,8 +20,17 @@
 	<soundset>u_demon</soundset>
 
 	<abilities>
+		<ability>beamCannon</ability>
+		<ability>claw swipe</ability>
 		<ability>daemonic sword</ability>
+		<ability>explosive launcher</ability>
+		<ability>firebomb</ability>
+		<ability>flamethrower(Walker)</ability>
+		<ability>grenades</ability>
+		<ability>heavyLaserGuns</ability>
 		<ability>hellfire</ability>
+		<ability>laser gun</ability>
+		<ability>sword</ability>
 		<ability>teleport</ability>
 	</abilities>
 </TBSUnit>

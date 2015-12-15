@@ -13,14 +13,19 @@
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
-	<spriteUL>null</spriteUL>
-	<spriteUR>null</spriteUR>
-	<spriteDL>null</spriteDL>
-	<spriteDR>null</spriteDR>
+	<spriteUL>arc_dragon(lowres)_BL_Idle_flying01</spriteUL>
+	<spriteUR>arc_dragon(lowres)_BR_Idle_flying01</spriteUR>
+	<spriteDL>arc_dragon(lowres)_FL_Idle_flying01</spriteDL>
+	<spriteDR>arc_dragon(lowres)_FR_Idle_flying01</spriteDR>
 	<soundset>u_dragon</soundset>
 
 	<abilities>
+		<ability>beamCannon</ability>
 		<ability>claw swipe</ability>
+		<ability>daemonic sword</ability>
 		<ability>firebomb</ability>
+		<ability>flamethrower(Walker)</ability>
+		<ability>hellfire</ability>
+		<ability>teleport</ability>
 	</abilities>
 </TBSUnit>

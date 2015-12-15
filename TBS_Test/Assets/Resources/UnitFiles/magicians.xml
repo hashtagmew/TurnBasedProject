@@ -1,6 +1,6 @@
 <TBSUnit>
 	<name>Magicians</name>
-	<description>Can mimick the powers of the commander
+	<description>Can mimick the powers of the commander.
 </description>
 	<faction>3</faction>
 
@@ -21,6 +21,18 @@
 	<soundset>u_magician</soundset>
 
 	<abilities>
+		<ability>beamCannon</ability>
+		<ability>claw swipe</ability>
+		<ability>daemonic sword</ability>
+		<ability>explosive launcher</ability>
+		<ability>firebomb</ability>
+		<ability>flamethrower(Walker)</ability>
+		<ability>grenades</ability>
+		<ability>heavyLaserGuns</ability>
+		<ability>hellfire</ability>
+		<ability>laser gun</ability>
+		<ability>sword</ability>
+		<ability>teleport</ability>
 		<ability>rayOfArcane</ability>
 		<ability>swordArc</ability>
 	</abilities>

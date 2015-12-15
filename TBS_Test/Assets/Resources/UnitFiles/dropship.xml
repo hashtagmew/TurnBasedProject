@@ -18,8 +18,16 @@
 	<spriteUR>Mech_Dropship_BR_float01</spriteUR>
 	<spriteDL>Mech_Dropship_FL_float01</spriteDL>
 	<spriteDR>Mech_Dropship_FR_float01</spriteDR>
+	<soundset>u_dropship</soundset>
 
 	<abilities>
+		<ability>beamCannon</ability>
+		<ability>claw swipe</ability>
+		<ability>daemonic sword</ability>
+		<ability>firebomb</ability>
+		<ability>flamethrower(Walker)</ability>
 		<ability>heavyLaserGuns</ability>
+		<ability>hellfire</ability>
+		<ability>teleport</ability>
 	</abilities>
 </TBSUnit>
