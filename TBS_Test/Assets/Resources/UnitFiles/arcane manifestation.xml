@@ -17,9 +17,19 @@
 	<spriteUR>arcman_idle_ur</spriteUR>
 	<spriteDL>arcman_idle_dl</spriteDL>
 	<spriteDR>arcman_idle_dr</spriteDR>
+	<soundset>u_arcanemanifestations</soundset>
 
 	<abilities>
+		<ability>beamCannon</ability>
 		<ability>claw swipe</ability>
+		<ability>daemonic sword</ability>
+		<ability>explosive launcher</ability>
+		<ability>firebomb</ability>
+		<ability>flamethrower(Walker)</ability>
+		<ability>heavyLaserGuns</ability>
+		<ability>hellfire</ability>
+		<ability>sword</ability>
+		<ability>teleport</ability>
 		<ability>Melee Strike</ability>
 		<ability>Guard</ability>
 		<ability>Infantry</ability>
