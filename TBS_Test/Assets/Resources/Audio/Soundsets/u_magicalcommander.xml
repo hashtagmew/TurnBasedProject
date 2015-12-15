@@ -1,0 +1,7 @@
+<Soundset>
+	<type>2</type>
+	<select>Magical Commander Select</select>
+	<move>Magical Commander Movement</move>
+	<attack>null</attack>
+	<footstep>null</footstep>
+</Soundset>

@@ -14,9 +14,9 @@ Wields power capable of crushing mortals and the land they tread on.</descriptio
 	<magic>4</magic>
 	<defence>3</defence>
 	<resistance>2</resistance>
-	<spriteUL>MagicCommanderColouredBackView</spriteUL>
+	<spriteUL>MagicCommander_BL_01</spriteUL>
 	<spriteUR>MagicCommanderColouredBackView</spriteUR>
-	<spriteDL>MagicCommanderColouredFrontView</spriteDL>
+	<spriteDL>MagicCommander_FL_01</spriteDL>
 	<spriteDR>MagicCommanderColouredFrontView</spriteDR>
 	<soundset>u_magicalcommander</soundset>
 

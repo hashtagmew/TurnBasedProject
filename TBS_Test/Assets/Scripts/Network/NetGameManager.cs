@@ -26,7 +26,7 @@ public class NetGameManager : MonoBehaviour {
 
 	//public GameObject goLocalNetPlayer;
 
-	public NetPathMap pathmap;
+	//public NetPathMap pathmap;
 	public NetGameMap map;
 	public TileMap Tmap;
 

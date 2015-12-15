@@ -18,7 +18,7 @@ public class NetGameMap : MonoBehaviour {
 	
 	public int iMapHorzSize = 13;
 	public int iMapVertSize = 11;
-	List <List<MapTile>> map = new List<List<MapTile>>();
+	List <List<MapTile>> l_l_map = new List<List<MapTile>>();
 
 	public bool bGridToggle = false;
 
@@ -27,7 +27,7 @@ public class NetGameMap : MonoBehaviour {
 
 	public string sMapFile;
 
-	public NetPathMap pathmap;
+	//public NetPathMap pathmap;
 	
 	void Start() {
 		if (PhotonNetwork.room != null) {
@@ -39,6 +39,7 @@ public class NetGameMap : MonoBehaviour {
 			LoadMap("Maps/janette_map_1");
 		}
 
+		TileMap pathmap = GameObject.FindGameObjectWithTag ("MainMap").GetComponent<TileMap> ();
 		pathmap.Initialise();
 	}
 
@@ -64,13 +65,27 @@ public class NetGameMap : MonoBehaviour {
 	}
 	
 	public MapTile GetTile(int x, int y) {
-		return map[y][x];
+		//if (x > this.iMapHorzSize) {
+			//Debug.Log ("MAP X " + x.ToString());
+		//}
+
+		//if (y > this.iMapVertSize) {
+			//Debug.Log ("MAP Y " + y.ToString());
+		//}
+
+		//Debug.Log ("MAP COUNT " + l_l_map.Count.ToString ());
+
+		//return l_l_map[y][x];
+
+		return GameObject.Find("Tile_" + x.ToString() + "_" + y.ToString()).GetComponent<MapTile>();
 	}
 
 	public void LoadMap(string path) {
 		XDocument s_xmlDoc = new XDocument();
 		TextAsset taLevel = Resources.Load<TextAsset>(path);
 		XmlDocument xdoc = new XmlDocument();
+
+		Debug.Log ("Loading map... " + taLevel.name + " (" + path + ")");
 
 		if (taLevel == null) {
 			Debug.LogError("Failed to load level " + path + "!");
