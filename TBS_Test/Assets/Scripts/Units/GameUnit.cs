@@ -91,6 +91,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	private string texNetDirSpriteUL;
 	private string texNetDirSpriteDL;
 
+	private int iNetSpriteDir;
+
 	// Use this for initialization
 	void Start () {
 		d_efElementalResistances = new Dictionary<ABILITY_ELEMENT, float>();
@@ -507,6 +509,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			stream.SendNext(texDirSpriteDL.name);
 			stream.SendNext(texDirSpriteUR.name);
 			stream.SendNext(texDirSpriteDR.name);
+			stream.SendNext((int)eGridDirection);
 		}
 		else {
 			//Net player
@@ -518,6 +521,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			this.texNetDirSpriteDL = (string)stream.ReceiveNext();
 			this.texNetDirSpriteUR = (string)stream.ReceiveNext();
 			this.texNetDirSpriteDR = (string)stream.ReceiveNext();
+			this.eGridDirection = (UNIT_DIR)stream.ReceiveNext();
 		}
 	}
 
