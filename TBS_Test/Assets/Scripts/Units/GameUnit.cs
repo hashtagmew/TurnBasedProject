@@ -86,10 +86,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	private float fCorrectHealth;
 	private float fCorrectMaxHealth;
 
-	private Sprite texNetDirSpriteUR;
-	private Sprite texNetDirSpriteDR;
-	private Sprite texNetDirSpriteUL;
-	private Sprite texNetDirSpriteDL;
+	private string texNetDirSpriteUR;
+	private string texNetDirSpriteDR;
+	private string texNetDirSpriteUL;
+	private string texNetDirSpriteDL;
 
 	// Use this for initialization
 	void Start () {
@@ -180,8 +180,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 					}
 				}
 				else {
-					if (myRend.sprite != texNetDirSpriteUR) {
-						myRend.sprite = texNetDirSpriteUR;
+					if (myRend.sprite.name != texNetDirSpriteUR) {
+						myRend.sprite = Resources.Load<Sprite>("UnitSprites/" + texNetDirSpriteUR);
 					}
 				}
 			}
@@ -192,8 +192,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 					}
 				}
 				else {
-					if (myRend.sprite != texNetDirSpriteDR) {
-						myRend.sprite = texNetDirSpriteDR;
+					if (myRend.sprite.name != texNetDirSpriteDR) {
+						myRend.sprite = Resources.Load<Sprite>("UnitSprites/" + texNetDirSpriteDR);
 					}
 				}
 			}
@@ -204,8 +204,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 					}
 				}
 				else {
-					if (myRend.sprite != texNetDirSpriteUL) {
-						myRend.sprite = texNetDirSpriteUL;
+					if (myRend.sprite.name != texNetDirSpriteUL) {
+						myRend.sprite = Resources.Load<Sprite>("UnitSprites/" + texNetDirSpriteUL);
 					}
 				}
 			}
@@ -216,8 +216,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 					}
 				}
 				else {
-					if (myRend.sprite != texNetDirSpriteDL) {
-						myRend.sprite = texNetDirSpriteDL;
+					if (myRend.sprite.name != texNetDirSpriteDL) {
+						myRend.sprite = Resources.Load<Sprite>("UnitSprites/" + texNetDirSpriteDL);
 					}
 				}
 			}
@@ -456,7 +456,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				else if (xlayer1.Name == "spriteUL") {
 					string stemp = xlayer1.Value;
 					texDirSpriteUL = Resources.Load<Sprite>("UnitSprites/" + stemp);
-					texNetDirSpriteUL = texDirSpriteUL;
+					texNetDirSpriteUL = texDirSpriteUL.name;
 
 					if (texDirSpriteUL == null) {
 						Debug.Log(this.name + "'s UL sprite was null!");
@@ -465,17 +465,17 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				else if (xlayer1.Name == "spriteUR") {
 					string stemp = xlayer1.Value;
 					texDirSpriteUR = Resources.Load<Sprite>("UnitSprites/" + stemp);
-					texNetDirSpriteUR = texDirSpriteUR;
+					texNetDirSpriteUR = texDirSpriteUR.name;
 				}
 				else if (xlayer1.Name == "spriteDL") {
 					string stemp = xlayer1.Value;
 					texDirSpriteDL = Resources.Load<Sprite>("UnitSprites/" + stemp);
-					texNetDirSpriteDL = texDirSpriteDL;
+					texNetDirSpriteDL = texDirSpriteDL.name;
 				}
 				else if (xlayer1.Name == "spriteDR") {
 					string stemp = xlayer1.Value;
 					texDirSpriteDR = Resources.Load<Sprite>("UnitSprites/" + stemp);
-					texNetDirSpriteDR = texDirSpriteDR;
+					texNetDirSpriteDR = texDirSpriteDR.name;
 				}
 				//soundset
 				else if (xlayer1.Name == "soundset") {
@@ -503,10 +503,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			stream.SendNext(fHealth);
 			stream.SendNext(fMaxHealth);
 			stream.SendNext(sName);
-			stream.SendNext(texDirSpriteUL);
-			stream.SendNext(texDirSpriteDL);
-			stream.SendNext(texDirSpriteUR);
-			stream.SendNext(texDirSpriteDR);
+			stream.SendNext(texDirSpriteUL.name);
+			stream.SendNext(texDirSpriteDL.name);
+			stream.SendNext(texDirSpriteUR.name);
+			stream.SendNext(texDirSpriteDR.name);
 		}
 		else {
 			//Net player
@@ -514,10 +514,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			this.qCorrectRot = (Quaternion)stream.ReceiveNext();
 			this.fCorrectHealth = (float)stream.ReceiveNext();
 			this.fCorrectMaxHealth = (float)stream.ReceiveNext();
-			this.texNetDirSpriteUL = (Sprite)stream.ReceiveNext();
-			this.texNetDirSpriteDL = (Sprite)stream.ReceiveNext();
-			this.texNetDirSpriteUR = (Sprite)stream.ReceiveNext();
-			this.texNetDirSpriteDR = (Sprite)stream.ReceiveNext();
+			this.texNetDirSpriteUL = (string)stream.ReceiveNext();
+			this.texNetDirSpriteDL = (string)stream.ReceiveNext();
+			this.texNetDirSpriteUR = (string)stream.ReceiveNext();
+			this.texNetDirSpriteDR = (string)stream.ReceiveNext();
 		}
 	}
 
