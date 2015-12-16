@@ -282,7 +282,9 @@ public class NetGameManager : MonoBehaviour {
 					if (goParticleTemp != null) {
 						GameObject.Destroy(goParticleTemp);
 					}
-					goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleStart), curTarget.transform.position, Quaternion.identity);
+					if (curAbility.sParticleStart != "null" && curAbility.sParticleStart != "") {
+						goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleStart), curTarget.transform.position, Quaternion.identity);
+					}
 					fDelayCountdown = curAbility.fDelayStart;
 					//this.GetComponent<AudioManager>().PlayOnce(curAbility.sSoundset);
 				}
@@ -296,7 +298,9 @@ public class NetGameManager : MonoBehaviour {
 						if (goParticleTemp != null) {
 							GameObject.Destroy(goParticleTemp);
 						}
-						goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleRun), curTarget.transform.position, Quaternion.identity);
+						if (curAbility.sParticleRun != "null" && curAbility.sParticleRun != "") {
+							goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleRun), curTarget.transform.position, Quaternion.identity);
+						}
 						fDelayCountdown = curAbility.fDelayRun;
 					}
 				}
@@ -310,7 +314,9 @@ public class NetGameManager : MonoBehaviour {
 						if (goParticleTemp != null) {
 							GameObject.Destroy(goParticleTemp);
 						}
-						goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleFinish), curTarget.transform.position, Quaternion.identity);
+						if (curAbility.sParticleFinish != "null" && curAbility.sParticleFinish != "") {
+							goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleFinish), curTarget.transform.position, Quaternion.identity);
+						}
 
 						if (curAbility.d_EffectsResolution.ContainsKey("Damage")) {
 							curTarget.GetComponent<GameUnit>().fHealth -= curAbility.d_EffectsResolution["Damage"].fAdjustFloat;
@@ -330,6 +336,9 @@ public class NetGameManager : MonoBehaviour {
 						eLocalState = GAMEPLAY_STATE.IDLE;
 						curTarget = null;
 						curAbility = null;
+						if (goParticleTemp != null) {
+							GameObject.Destroy(goParticleTemp);
+						}
 					}
 				}
 				
