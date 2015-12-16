@@ -152,7 +152,7 @@ public class NetGameManager : MonoBehaviour {
 			}
 		}
 
-		if ((string)PhotonNetwork.player.customProperties ["Mode"] == "deploy" && PhotonNetwork.isMasterClient) {
+		if ((string)PhotonNetwork.room.customProperties ["Mode"] == "deploy" && PhotonNetwork.isMasterClient) {
 			Debug.Log ("Changing mode to play...");
 			if ((bool)PhotonNetwork.player.customProperties ["ReadyDep"] == true) {
 				if ((bool)PhotonNetwork.otherPlayers [0].customProperties ["ReadyDep"] == true) {
@@ -202,7 +202,7 @@ public class NetGameManager : MonoBehaviour {
 						}
 					}
 					//SINGLE ENEMY
-					else if (curAbility.iTargetType == EFFECT_TARGET.SINGLE_ENEMY || curAbility.iTargetType == EFFECT_TARGET.AREA) {
+					else if (curAbility.iTargetType == EFFECT_TARGET.SINGLE_ENEMY || curAbility.iTargetType == EFFECT_TARGET.AREA || curAbility.iTargetType == EFFECT_TARGET.SINGLE_UNIT) {
 						if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 							ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 							
