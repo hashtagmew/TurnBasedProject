@@ -83,8 +83,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	//Net stuff
 	private Vector3 vCorrectPos;
 	private Quaternion qCorrectRot;
-	private float fCorrectHealth;
-	private float fCorrectMaxHealth;
+	//private float fCorrectHealth;
+	//private float fCorrectMaxHealth;
 
 	private string texNetDirSpriteUR;
 	private string texNetDirSpriteDR;
@@ -109,7 +109,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		d_efElementalResistances.Add(ABILITY_ELEMENT.ICE, 1.0f);
 
 		fAP = fMaxAP;
-		fHealth = fMaxHealth;
+		//fHealth = fMaxHealth;
 		fMovement = fMaxMovement;
 
 		mngAudio = GameObject.FindGameObjectWithTag("Managers").GetComponent<AudioManager>();
@@ -143,8 +143,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			//tileY = (int)transform.position.z;
 
 			//Post-stream
-			this.fHealth = fCorrectHealth;
-			this.fMaxHealth = fCorrectMaxHealth;
+			//this.fHealth = fCorrectHealth;
+			//this.fMaxHealth = fCorrectMaxHealth;
 
 			transform.position = Vector3.Lerp (transform.position, this.vCorrectPos, Time.deltaTime);
 			transform.rotation = Quaternion.Lerp (transform.rotation, this.qCorrectRot, Time.deltaTime);

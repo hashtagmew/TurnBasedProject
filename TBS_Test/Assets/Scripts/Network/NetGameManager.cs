@@ -231,6 +231,7 @@ public class NetGameManager : MonoBehaviour {
 						Debug.Log(curAbility.sParticleFinish);
 
 						Debug.LogError("No code for that target exists (" + curAbility.iTargetType.ToString() + ")");
+						eLocalState = GAMEPLAY_STATE.IDLE;
 					}
 				}
 
@@ -320,7 +321,8 @@ public class NetGameManager : MonoBehaviour {
 
 						if (curAbility.d_EffectsResolution.ContainsKey("Damage")) {
 							curTarget.GetComponent<GameUnit>().fHealth -= curAbility.d_EffectsResolution["Damage"].fAdjustFloat;
-							curTarget.GetPhotonView().RPC("TakeDamage", curTarget.GetPhotonView().owner, curTarget.GetPhotonView().viewID, (int)curAbility.d_EffectsResolution["Damage"].fAdjustFloat);
+							Debug.Log("RPC CALL: " + curTarget.GetPhotonView().viewID.ToString() + " for " + curAbility.d_EffectsResolution["Damage"].fAdjustFloat.ToString());
+							curTarget.GetPhotonView().RPC("TakeDamage", PhotonTargets.Others, curTarget.GetPhotonView().viewID, (int)curAbility.d_EffectsResolution["Damage"].fAdjustFloat);
 						}
 
 						if (curAbility.d_EffectsResolution.ContainsKey("Teleport")) {

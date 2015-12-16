@@ -39,6 +39,7 @@ public class SelectUnit : MonoBehaviour {
 	void Start () {
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		Debug.Log("Unit Selector loaded... " + ray.ToString());
+		netman = GameObject.FindGameObjectWithTag("Managers").GetComponent<NetGameManager>();
 	}
 
 	void Update () {
@@ -62,7 +63,7 @@ public class SelectUnit : MonoBehaviour {
 
 			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("GameUnit"))) {
 				Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.green);
-				if (rayHit.collider.transform.parent.gameObject != map.selectedUnit.gameObject) {
+				if (map.selectedUnit != null && rayHit.collider.transform.parent.gameObject != map.selectedUnit.gameObject) {
 					netman.bDeltaAbilityPanel = false;
 				}
 
