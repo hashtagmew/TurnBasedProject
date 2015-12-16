@@ -174,23 +174,51 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		
 			//Changing sprite based on direction
 			if (eGridDirection == UNIT_DIR.UP_RIGHT) {
-				if (myRend.sprite != texDirSpriteUR) {
-					myRend.sprite = texDirSpriteUR;
+				if (photonView.isMine) {
+					if (myRend.sprite != texDirSpriteUR) {
+						myRend.sprite = texDirSpriteUR;
+					}
+				}
+				else {
+					if (myRend.sprite != texNetDirSpriteUR) {
+						myRend.sprite = texNetDirSpriteUR;
+					}
 				}
 			}
 			if (eGridDirection == UNIT_DIR.DOWN_RIGHT) {
-				if (myRend.sprite != texDirSpriteDR) {
-					myRend.sprite = texDirSpriteDR;
+				if (photonView.isMine) {
+					if (myRend.sprite != texDirSpriteDR) {
+						myRend.sprite = texDirSpriteDR;
+					}
+				}
+				else {
+					if (myRend.sprite != texNetDirSpriteDR) {
+						myRend.sprite = texNetDirSpriteDR;
+					}
 				}
 			}
 			if (eGridDirection == UNIT_DIR.UP_LEFT) {
-				if (myRend.sprite != texDirSpriteUL) {
-					myRend.sprite = texDirSpriteUL;
+				if (photonView.isMine) {
+					if (myRend.sprite != texDirSpriteUL) {
+						myRend.sprite = texDirSpriteUL;
+					}
+				}
+				else {
+					if (myRend.sprite != texNetDirSpriteUL) {
+						myRend.sprite = texNetDirSpriteUL;
+					}
 				}
 			}
 			if (eGridDirection == UNIT_DIR.DOWN_LEFT) {
-				if (myRend.sprite != texDirSpriteDL) {
-					myRend.sprite = texDirSpriteDL;
+				if (photonView.isMine) {
+					if (myRend.sprite != texDirSpriteDL) {
+						myRend.sprite = texDirSpriteDL;
+					}
+				}
+				else {
+					if (myRend.sprite != texNetDirSpriteDL) {
+						myRend.sprite = texNetDirSpriteDL;
+					}
 				}
 			}
 		
