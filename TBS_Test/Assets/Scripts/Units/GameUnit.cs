@@ -383,6 +383,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 	[PunRPC]
 	public void TakeDamage(int checkid, int amount) {
+		Debug.Log("ID IS " + checkid.ToString() + " THIS UNIT " + this.photonView.viewID);
+
 		if (this.photonView.viewID == checkid) {
 			this.fHealth -= (float)amount;
 			Debug.Log(this.gameObject.name + " took " + amount.ToString() + " damage!");
@@ -521,7 +523,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			this.texNetDirSpriteDL = (string)stream.ReceiveNext();
 			this.texNetDirSpriteUR = (string)stream.ReceiveNext();
 			this.texNetDirSpriteDR = (string)stream.ReceiveNext();
-			this.eGridDirection = (UNIT_DIR)((int)stream.ReceiveNext());
+			int tempint = (int)stream.ReceiveNext();
+			this.eGridDirection = (UNIT_DIR)tempint;
 		}
 	}
 
