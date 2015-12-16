@@ -9,6 +9,7 @@ public class SelectUnit : MonoBehaviour {
 	public TileMap map;
 	public NetGameManager netman;
 
+
 	public Unit unit;
 	public bool bSelected = false;
 
@@ -61,6 +62,10 @@ public class SelectUnit : MonoBehaviour {
 
 			if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("GameUnit"))) {
 				Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.green);
+				if (rayHit.collider.transform.parent.gameObject != map.selectedUnit.gameObject) {
+					netman.bDeltaAbilityPanel = false;
+				}
+
 				map.selectedUnit = rayHit.collider.transform.parent.gameObject;
 				Debug.Log("Unit Selected: " + map.selectedUnit.name);
 				map.selectedUnit.GetComponent<GameUnit>().PlaySound(SUB_SOUNDSET.U_SELECTED);
