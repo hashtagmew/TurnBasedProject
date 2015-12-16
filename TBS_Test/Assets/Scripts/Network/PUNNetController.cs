@@ -352,6 +352,13 @@ public class PUNNetController : PunBehaviour {
 
 	}
 
+	public void DisconnectMaster() {
+		PhotonNetwork.LeaveRoom();
+		PhotonNetwork.LeaveLobby();
+		PhotonNetwork.Disconnect();
+		m_CurrentState = ControllerState.NOCONNECTION;
+	}
+
 	public void disconFromLobby()
 	{
 		PhotonNetwork.Disconnect();

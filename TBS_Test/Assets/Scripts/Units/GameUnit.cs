@@ -511,7 +511,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			stream.SendNext(texDirSpriteDL.name);
 			stream.SendNext(texDirSpriteUR.name);
 			stream.SendNext(texDirSpriteDR.name);
-			stream.SendNext((int)eGridDirection);
+			int tempint = (int)eGridDirection;
+			stream.SendNext(tempint);
 		}
 		else {
 			//Net player

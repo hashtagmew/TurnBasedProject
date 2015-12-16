@@ -323,6 +323,10 @@ public class NetGameManager : MonoBehaviour {
 							curTarget.GetPhotonView().RPC("TakeDamage", curTarget.GetPhotonView().owner, curTarget.GetPhotonView().viewID, (int)curAbility.d_EffectsResolution["Damage"].fAdjustFloat);
 						}
 
+						if (curAbility.d_EffectsResolution.ContainsKey("Teleport")) {
+							//
+						}
+
 						fDelayCountdown = curAbility.fDelayFinish;
 					}
 				}
