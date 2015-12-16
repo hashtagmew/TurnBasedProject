@@ -521,7 +521,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			this.texNetDirSpriteDL = (string)stream.ReceiveNext();
 			this.texNetDirSpriteUR = (string)stream.ReceiveNext();
 			this.texNetDirSpriteDR = (string)stream.ReceiveNext();
-			this.eGridDirection = (UNIT_DIR)((int)stream.ReceiveNext());
+			int tempint = (int)stream.ReceiveNext();
+			this.eGridDirection = (UNIT_DIR)tempint;
 		}
 	}
 
