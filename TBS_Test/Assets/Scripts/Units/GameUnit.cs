@@ -504,13 +504,16 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			//Local player
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
+
 			stream.SendNext(fHealth);
 			stream.SendNext(fMaxHealth);
 			stream.SendNext(sName);
+
 			stream.SendNext(texDirSpriteUL.name);
 			stream.SendNext(texDirSpriteDL.name);
 			stream.SendNext(texDirSpriteUR.name);
 			stream.SendNext(texDirSpriteDR.name);
+
 			int tempint = (int)eGridDirection;
 			stream.SendNext(tempint);
 		}
@@ -518,12 +521,16 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			//Net player
 			this.vCorrectPos = (Vector3)stream.ReceiveNext();
 			this.qCorrectRot = (Quaternion)stream.ReceiveNext();
-			this.fCorrectHealth = (float)stream.ReceiveNext();
-			this.fCorrectMaxHealth = (float)stream.ReceiveNext();
+
+			this.fHealth = (float)stream.ReceiveNext();
+			this.fMaxHealth = (float)stream.ReceiveNext();
+			this.sName = (string)stream.ReceiveNext();
+
 			this.texNetDirSpriteUL = (string)stream.ReceiveNext();
 			this.texNetDirSpriteDL = (string)stream.ReceiveNext();
 			this.texNetDirSpriteUR = (string)stream.ReceiveNext();
 			this.texNetDirSpriteDR = (string)stream.ReceiveNext();
+
 			int tempint = (int)stream.ReceiveNext();
 			this.eGridDirection = (UNIT_DIR)tempint;
 		}

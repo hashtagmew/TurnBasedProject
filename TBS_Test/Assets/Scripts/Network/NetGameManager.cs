@@ -152,8 +152,8 @@ public class NetGameManager : MonoBehaviour {
 			}
 		}
 
-		if ((string)PhotonNetwork.player.customProperties ["Mode"] == "deploy" && PhotonNetwork.isMasterClient) {
-			Debug.Log ("Changing mode to play...");
+		if ((string)PhotonNetwork.room.customProperties ["Mode"] == "deploy" && PhotonNetwork.isMasterClient) {
+
 			if ((bool)PhotonNetwork.player.customProperties ["ReadyDep"] == true) {
 				if ((bool)PhotonNetwork.otherPlayers [0].customProperties ["ReadyDep"] == true) {
 					DeploBut.gameObject.SetActive (false);
@@ -163,7 +163,7 @@ public class NetGameManager : MonoBehaviour {
 					m_PropertiesHash.Add ("Mode", "play");
 					PhotonNetwork.room.SetCustomProperties (m_PropertiesHash);
 					eLocalState = GAMEPLAY_STATE.IDLE;
-
+					Debug.Log ("Changing mode to play...");
 					//this.photonView.RPC("LoadUnitStatsRemote", PhotonTargets.Others, unit);
 				}
 			}
@@ -202,7 +202,7 @@ public class NetGameManager : MonoBehaviour {
 						}
 					}
 					//SINGLE ENEMY
-					else if (curAbility.iTargetType == EFFECT_TARGET.SINGLE_ENEMY || curAbility.iTargetType == EFFECT_TARGET.AREA) {
+					else if (curAbility.iTargetType == EFFECT_TARGET.SINGLE_ENEMY || curAbility.iTargetType == EFFECT_TARGET.AREA || curAbility.iTargetType == EFFECT_TARGET.SINGLE_UNIT) {
 						if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 							ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 							
