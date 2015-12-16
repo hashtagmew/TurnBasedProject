@@ -383,6 +383,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 
 	[PunRPC]
 	public void TakeDamage(int checkid, int amount) {
+		Debug.Log("ID IS " + checkid.ToString() + " THIS UNIT " + this.photonView.viewID);
+
 		if (this.photonView.viewID == checkid) {
 			this.fHealth -= (float)amount;
 			Debug.Log(this.gameObject.name + " took " + amount.ToString() + " damage!");
