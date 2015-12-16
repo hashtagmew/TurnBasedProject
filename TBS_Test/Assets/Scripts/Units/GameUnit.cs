@@ -40,6 +40,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	public float fResistance;
 	public float fDefence;
 
+	public AudioManager mngAudio;
+
 	public Dictionary<string, Ability> d_abilities = new Dictionary<string, Ability>();
 	public Dictionary<ABILITY_ELEMENT, float> d_efElementalResistances {
 		get;
@@ -84,6 +86,11 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	private float fCorrectHealth;
 	private float fCorrectMaxHealth;
 
+	private Sprite texNetDirSpriteUR;
+	private Sprite texNetDirSpriteDR;
+	private Sprite texNetDirSpriteUL;
+	private Sprite texNetDirSpriteDL;
+
 	// Use this for initialization
 	void Start () {
 		d_efElementalResistances = new Dictionary<ABILITY_ELEMENT, float>();
@@ -102,6 +109,8 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		fAP = fMaxAP;
 		fHealth = fMaxHealth;
 		fMovement = fMaxMovement;
+
+		mngAudio = GameObject.FindGameObjectWithTag("Managers").GetComponent<AudioManager>();
 
 		//LoadUnitStats(sName);
 
@@ -227,6 +236,51 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 		}
 	}
 
+	public string GetSoundPath(SUB_SOUNDSET type) {
+		string path = "";
+
+		if (type == SUB_SOUNDSET.U_SELECTED) {
+			path = this.ssSoundset.d_sacSounds["select"].name;
+		}
+		else if (type == SUB_SOUNDSET.U_FOOTSTEP) {
+			path = this.ssSoundset.d_sacSounds["footstep"].name;
+		}
+		else if (type == SUB_SOUNDSET.U_ATTACKORDER) {
+			path = this.ssSoundset.d_sacSounds["attack"].name;
+		}
+		else if (type == SUB_SOUNDSET.U_MOVEORDER) {
+			path = this.ssSoundset.d_sacSounds["move"].name;
+		}
+		else {
+			return "null";
+		}
+
+		return path;
+	}
+
+	public void PlaySound(SUB_SOUNDSET type) {
+		string file = "";
+		if (type == SUB_SOUNDSET.U_SELECTED) {
+			file = GetSoundPath(type);
+		}
+		else if (type == SUB_SOUNDSET.U_FOOTSTEP) {
+			file = GetSoundPath(type);
+		}
+		else if (type == SUB_SOUNDSET.U_ATTACKORDER) {
+			file = GetSoundPath(type);
+		}
+		else if (type == SUB_SOUNDSET.U_MOVEORDER) {
+			file = GetSoundPath(type);
+		}
+		else {
+			return;
+		}
+
+		if (this.mngAudio != null) {
+			mngAudio.PlayOnce(file);
+		}
+	}
+
 	// Advances our pathfinding progress by one tile.
 	void AdvancePathing() {
 		if (currentPath == null)
@@ -298,11 +352,20 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 	}
 
 	[PunRPC]
+	public void TakeDamage(int checkid, int amount) {
+		if (this.photonView.viewID == checkid) {
+			this.fHealth -= (float)amount;
+			Debug.Log(this.gameObject.name + " took " + amount.ToString() + " damage!");
+		}
+	}
+
+	[PunRPC]
 	public void LoadUnitStatsRemote(string path) {
 		netman = GameObject.FindGameObjectWithTag ("Managers").GetComponent<NetGameManager> ();
 
 		Debug.Log ("REMOTE CALL" + path);
 		LoadUnitStats (path);
+		//LoadUnitSprites();
 		netman.l_guUnits.Add (this);
 	}
 
@@ -365,6 +428,7 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				else if (xlayer1.Name == "spriteUL") {
 					string stemp = xlayer1.Value;
 					texDirSpriteUL = Resources.Load<Sprite>("UnitSprites/" + stemp);
+					texNetDirSpriteUL = texDirSpriteUL;
 
 					if (texDirSpriteUL == null) {
 						Debug.Log(this.name + "'s UL sprite was null!");
@@ -373,14 +437,17 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 				else if (xlayer1.Name == "spriteUR") {
 					string stemp = xlayer1.Value;
 					texDirSpriteUR = Resources.Load<Sprite>("UnitSprites/" + stemp);
+					texNetDirSpriteUR = texDirSpriteUR;
 				}
 				else if (xlayer1.Name == "spriteDL") {
 					string stemp = xlayer1.Value;
 					texDirSpriteDL = Resources.Load<Sprite>("UnitSprites/" + stemp);
+					texNetDirSpriteDL = texDirSpriteDL;
 				}
 				else if (xlayer1.Name == "spriteDR") {
 					string stemp = xlayer1.Value;
 					texDirSpriteDR = Resources.Load<Sprite>("UnitSprites/" + stemp);
+					texNetDirSpriteDR = texDirSpriteDR;
 				}
 				//soundset
 				else if (xlayer1.Name == "soundset") {
@@ -408,6 +475,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			stream.SendNext(fHealth);
 			stream.SendNext(fMaxHealth);
 			stream.SendNext(sName);
+			stream.SendNext(texDirSpriteUL);
+			stream.SendNext(texDirSpriteDL);
+			stream.SendNext(texDirSpriteUR);
+			stream.SendNext(texDirSpriteDR);
 		}
 		else {
 			//Net player
@@ -415,8 +486,10 @@ public class GameUnit : Photon.MonoBehaviour, ISelectable {
 			this.qCorrectRot = (Quaternion)stream.ReceiveNext();
 			this.fCorrectHealth = (float)stream.ReceiveNext();
 			this.fCorrectMaxHealth = (float)stream.ReceiveNext();
-
-
+			this.texNetDirSpriteUL = (Sprite)stream.ReceiveNext();
+			this.texNetDirSpriteDL = (Sprite)stream.ReceiveNext();
+			this.texNetDirSpriteUR = (Sprite)stream.ReceiveNext();
+			this.texNetDirSpriteDR = (Sprite)stream.ReceiveNext();
 		}
 	}
 

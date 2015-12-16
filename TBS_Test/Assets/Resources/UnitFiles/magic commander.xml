@@ -21,7 +21,13 @@ Wields power capable of crushing mortals and the land they tread on.</descriptio
 	<soundset>u_magicalcommander</soundset>
 
 	<abilities>
+		<ability>arcane force</ability>
+		<ability>firestorm</ability>
+		<ability>maelstorm</ability>
+		<ability>sword arc</ability>
+		<ability>sword arc2</ability>
 		<ability>teleport</ability>
+		<ability>wallConstructor</ability>
 		<ability>rayOfArcane</ability>
 		<ability>swordArc2</ability>
 	</abilities>

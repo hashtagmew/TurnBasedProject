@@ -20,17 +20,9 @@
 	<soundset>u_demon</soundset>
 
 	<abilities>
-		<ability>beamCannon</ability>
 		<ability>claw swipe</ability>
 		<ability>daemonic sword</ability>
-		<ability>explosive launcher</ability>
-		<ability>firebomb</ability>
-		<ability>flamethrower(Walker)</ability>
-		<ability>grenades</ability>
-		<ability>heavyLaserGuns</ability>
 		<ability>hellfire</ability>
-		<ability>laser gun</ability>
-		<ability>sword</ability>
 		<ability>teleport</ability>
 	</abilities>
 </TBSUnit>

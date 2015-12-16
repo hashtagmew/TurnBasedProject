@@ -51,6 +51,8 @@ public class NetGameManager : MonoBehaviour {
 
 	public PlayerDeploymentPrefs plyprefs = new PlayerDeploymentPrefs();
 
+	public GameObject goParticleTemp;
+
 	//public GameObject protoUnit;
 	
 	void Start() {
@@ -138,6 +140,12 @@ public class NetGameManager : MonoBehaviour {
 			if ((string)PhotonNetwork.room.customProperties["Mode"] == "play" && eLocalState == GAMEPLAY_STATE.DEPLOYING) {
 				Debug.Log ("Changing local mode to idle...");
 				eLocalState = GAMEPLAY_STATE.IDLE;
+				if (this.eLocalFaction == UNIT_FACTION.MAGICAL) {
+					this.GetComponent<AudioManager>().ChangeMusic("Magical");
+				}
+				else {
+					this.GetComponent<AudioManager>().ChangeMusic("Mechanical");
+				}
 			}
 			else {
 				//Debug.Log((string)PhotonNetwork.room.customProperties["Mode"]);
@@ -189,7 +197,7 @@ public class NetGameManager : MonoBehaviour {
 							}
 						}
 
-						if (Input.GetMouseButtonDown(1)) {
+						if (Input.GetMouseButtonDown(1) || Input.touchCount > 2) {
 							eLocalState = GAMEPLAY_STATE.IDLE;
 						}
 					}
@@ -210,7 +218,7 @@ public class NetGameManager : MonoBehaviour {
 							}
 						}
 						
-						if (Input.GetMouseButtonDown(1)) {
+						if (Input.GetMouseButtonDown(1) || Input.touchCount > 2) {
 							eLocalState = GAMEPLAY_STATE.IDLE;
 						}
 					}
@@ -264,12 +272,17 @@ public class NetGameManager : MonoBehaviour {
 					bDeltaAbilityPanel = false;
 				}
 
+
+
 				//Execution
 				if (eLocalState == GAMEPLAY_STATE.SELECT_TARGET && curTarget != null) {
 					eLocalState = GAMEPLAY_STATE.WAIT;
 					curAbilityState = EXECUTION_STATE.START;
 
-					GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleStart), curTarget.transform.position, Quaternion.identity);
+					if (goParticleTemp != null) {
+						GameObject.Destroy(goParticleTemp);
+					}
+					goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleStart), curTarget.transform.position, Quaternion.identity);
 					fDelayCountdown = curAbility.fDelayStart;
 					//this.GetComponent<AudioManager>().PlayOnce(curAbility.sSoundset);
 				}
@@ -279,8 +292,11 @@ public class NetGameManager : MonoBehaviour {
 
 					if (fDelayCountdown <= 0) {
 						curAbilityState = EXECUTION_STATE.MID;
-						
-						GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleRun), curTarget.transform.position, Quaternion.identity);
+
+						if (goParticleTemp != null) {
+							GameObject.Destroy(goParticleTemp);
+						}
+						goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleRun), curTarget.transform.position, Quaternion.identity);
 						fDelayCountdown = curAbility.fDelayRun;
 					}
 				}
@@ -290,11 +306,15 @@ public class NetGameManager : MonoBehaviour {
 					
 					if (fDelayCountdown <= 0) {
 						curAbilityState = EXECUTION_STATE.END;
-						
-						GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleFinish), curTarget.transform.position, Quaternion.identity);
+
+						if (goParticleTemp != null) {
+							GameObject.Destroy(goParticleTemp);
+						}
+						goParticleTemp = (GameObject)GameObject.Instantiate(Resources.Load<GameObject>("Particle Effects/" + curAbility.sParticleFinish), curTarget.transform.position, Quaternion.identity);
 
 						if (curAbility.d_EffectsResolution.ContainsKey("Damage")) {
-							curTarget.GetComponent<GameUnit>().fHealth -= curAbility.d_EffectsActivation["Damage"].fAdjustFloat;
+							curTarget.GetComponent<GameUnit>().fHealth -= curAbility.d_EffectsResolution["Damage"].fAdjustFloat;
+							curTarget.GetPhotonView().RPC("TakeDamage", curTarget.GetPhotonView().owner, curTarget.GetPhotonView().viewID, (int)curAbility.d_EffectsResolution["Damage"].fAdjustFloat);
 						}
 
 						fDelayCountdown = curAbility.fDelayFinish;

@@ -29,7 +29,12 @@ public class AudioManager : MonoBehaviour {
 			Debug.LogWarning("No sound effects loaded, intentional?");
 		}
 
-		asMusic = this.GetComponent<AudioSource>();
+		if (Application.loadedLevelName == "net-main-menu") {
+			asMusic = this.GetComponent<AudioSource>();
+		}
+		else {
+			asMusic = this.GetComponentInChildren<AudioSource>();
+		}
 
 		LoadSavedVolumes();
 	}
@@ -89,5 +94,11 @@ public class AudioManager : MonoBehaviour {
 			PlayerPrefs.SetInt("Volume_Music", iMusicVolume);
 			PlayerPrefs.Save();
 		}
+	}
+
+	public void ChangeMusic(string file) {
+		this.asMusic.clip = Resources.Load<AudioClip>("Audio/Music/" + file);
+		this.asMusic.loop = true;
+		this.asMusic.Play();
 	}
 }

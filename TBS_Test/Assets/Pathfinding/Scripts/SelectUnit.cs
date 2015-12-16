@@ -63,6 +63,7 @@ public class SelectUnit : MonoBehaviour {
 				Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.green);
 				map.selectedUnit = rayHit.collider.transform.parent.gameObject;
 				Debug.Log("Unit Selected: " + map.selectedUnit.name);
+				map.selectedUnit.GetComponent<GameUnit>().PlaySound(SUB_SOUNDSET.U_SELECTED);
 
 			}//else{
 //				Debug.DrawLine(ray.GetPoint(0), rayHit.point, Color.red);
